@@ -1,0 +1,10 @@
+﻿protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer("Data Source=HOKAGE\\\SQLEXPRESS;Initial Catalog=FarAway;" +
+                    "Integrated Security=True;Trust Server Certificate=True;Command Timeout=300;" +
+                    "MultipleActiveResultSets=True;");
+            }
+        }
