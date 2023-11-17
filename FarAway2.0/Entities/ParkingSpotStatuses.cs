@@ -11,7 +11,7 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string StatusName { get; set; }
+        public string StatusName { get; set; } = null!;
 
         public virtual ICollection<ParkingSpots> ParkingSpots { get; set; }
     }

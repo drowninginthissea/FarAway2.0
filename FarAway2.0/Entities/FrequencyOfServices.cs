@@ -11,7 +11,7 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string FrequencyName { get; set; }
+        public string FrequencyName { get; set; } = null!;
 
         public virtual ICollection<AdditionalServicesForRent> AdditionalServicesForRent { get; set; }
     }

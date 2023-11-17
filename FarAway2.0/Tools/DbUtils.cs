@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FarAway2._0.Entities;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace FarAway2._0.Entities
+namespace FarAway2._0.Tools
 {
     internal static class DbUtils
     {
@@ -30,6 +28,5 @@ namespace FarAway2._0.Entities
                 return false;
             return true;
         }
-
     }
 }

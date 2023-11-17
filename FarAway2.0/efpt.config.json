@@ -32,6 +32,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[HistoryOfFreezing]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ListOfActions]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[ListOfAdditionalServices]",
          "ObjectType": 0
       },
@@ -45,6 +53,10 @@
       },
       {
          "Name": "[dbo].[ParkingSpotStatuses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RentalStatuses]",
          "ObjectType": 0
       },
       {
@@ -78,17 +90,18 @@
    "UseDatabaseNames": true,
    "UseDateOnlyTimeOnly": false,
    "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
    "UseFluentApiOnly": true,
    "UseHandleBars": true,
    "UseHierarchyId": false,
    "UseInflector": false,
    "UseLegacyPluralizer": false,
-   "UseManyToManyEntity": false,
+   "UseManyToManyEntity": true,
    "UseNoDefaultConstructor": false,
    "UseNoNavigations": false,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
-   "UseNullableReferences": false,
+   "UseNullableReferences": true,
    "UseSchemaFolders": false,
    "UseSchemaNamespaces": false,
    "UseSpatial": false,

@@ -11,7 +11,7 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string TypeName { get; set; }
+        public string TypeName { get; set; } = null!;
 
         public virtual ICollection<Branches> Branches { get; set; }
     }

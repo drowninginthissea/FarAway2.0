@@ -7,20 +7,23 @@ namespace FarAway2._0.Entities
 {
     public partial class Db : DbContext
     {
-        public virtual DbSet<AdditionalServicesForRent> AdditionalServicesForRent { get; set; }
-        public virtual DbSet<BranchCharacteristics> BranchCharacteristics { get; set; }
-        public virtual DbSet<Branches> Branches { get; set; }
-        public virtual DbSet<FrequencyOfServices> FrequencyOfServices { get; set; }
-        public virtual DbSet<ListOfAdditionalServices> ListOfAdditionalServices { get; set; }
-        public virtual DbSet<ParkingSpaceRental> ParkingSpaceRental { get; set; }
-        public virtual DbSet<ParkingSpotStatuses> ParkingSpotStatuses { get; set; }
-        public virtual DbSet<ParkingSpots> ParkingSpots { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<ServiceProviders> ServiceProviders { get; set; }
-        public virtual DbSet<TypeOfRentByDuration> TypeOfRentByDuration { get; set; }
-        public virtual DbSet<TypesOfCarExchangeSystem> TypesOfCarExchangeSystem { get; set; }
-        public virtual DbSet<TypesOfParking> TypesOfParking { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<AdditionalServicesForRent> AdditionalServicesForRent { get; set; } = null!;
+        public virtual DbSet<BranchCharacteristics> BranchCharacteristics { get; set; } = null!;
+        public virtual DbSet<Branches> Branches { get; set; } = null!;
+        public virtual DbSet<FrequencyOfServices> FrequencyOfServices { get; set; } = null!;
+        public virtual DbSet<HistoryOfFreezing> HistoryOfFreezing { get; set; } = null!;
+        public virtual DbSet<ListOfActions> ListOfActions { get; set; } = null!;
+        public virtual DbSet<ListOfAdditionalServices> ListOfAdditionalServices { get; set; } = null!;
+        public virtual DbSet<ParkingSpaceRental> ParkingSpaceRental { get; set; } = null!;
+        public virtual DbSet<ParkingSpotStatuses> ParkingSpotStatuses { get; set; } = null!;
+        public virtual DbSet<ParkingSpots> ParkingSpots { get; set; } = null!;
+        public virtual DbSet<RentalStatuses> RentalStatuses { get; set; } = null!;
+        public virtual DbSet<Roles> Roles { get; set; } = null!;
+        public virtual DbSet<ServiceProviders> ServiceProviders { get; set; } = null!;
+        public virtual DbSet<TypeOfRentByDuration> TypeOfRentByDuration { get; set; } = null!;
+        public virtual DbSet<TypesOfCarExchangeSystem> TypesOfCarExchangeSystem { get; set; } = null!;
+        public virtual DbSet<TypesOfParking> TypesOfParking { get; set; } = null!;
+        public virtual DbSet<Users> Users { get; set; } = null!;
 
         public Db()
         {
@@ -30,14 +33,14 @@ namespace FarAway2._0.Entities
         {
         }
 
-protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseLazyLoadingProxies();
-                optionsBuilder.UseSqlServer("Data Source=HOKAGE\\SQLEXPRESS;Initial Catalog=FarAway;" +
-                    "Integrated Security=True;Trust Server Certificate=True;Command Timeout=300;" +
-                    "MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-4QRPJV8\\SQLEXPRESS;" +
+                "Initial Catalog=FarAway;Integrated Security=True;Multiple Active Result Sets=True;" +
+                "TrustServerCertificate=True;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -75,7 +78,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 entity.Property(e => e.id).ValueGeneratedNever();
 
-                entity.Property(e => e.TheCostOfAParkingSpacePerDay).HasColumnType("money");
+                entity.Property(e => e.TheCostOfAParkingSpacePerDay).HasColumnType("decimal(10, 2)");
 
                 entity.HasOne(d => d.idNavigation)
                     .WithOne(p => p.BranchCharacteristics)
@@ -86,8 +89,6 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
             modelBuilder.Entity<Branches>(entity =>
             {
-                entity.Property(e => e.Address).IsRequired();
-
                 entity.HasOne(d => d.idTypeOfCarExchangeSystemNavigation)
                     .WithMany(p => p.Branches)
                     .HasForeignKey(d => d.idTypeOfCarExchangeSystem)
@@ -102,17 +103,35 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
             modelBuilder.Entity<FrequencyOfServices>(entity =>
             {
-                entity.Property(e => e.FrequencyName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.FrequencyName).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<HistoryOfFreezing>(entity =>
+            {
+                entity.HasKey(e => new { e.idRental, e.FreezingNumber });
+
+                entity.Property(e => e.DateOfAction).HasColumnType("date");
+
+                entity.HasOne(d => d.idActionNavigation)
+                    .WithMany(p => p.HistoryOfFreezing)
+                    .HasForeignKey(d => d.idAction)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HistoryOfFreezing_ListOfActions");
+
+                entity.HasOne(d => d.idRentalNavigation)
+                    .WithMany(p => p.HistoryOfFreezing)
+                    .HasForeignKey(d => d.idRental)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HistoryOfFreezing_ParkingSpaceRental");
+            });
+
+            modelBuilder.Entity<ListOfActions>(entity =>
+            {
+                entity.Property(e => e.ActionName).HasMaxLength(10);
             });
 
             modelBuilder.Entity<ListOfAdditionalServices>(entity =>
             {
-                entity.Property(e => e.SeviceDescription).IsRequired();
-
-                entity.Property(e => e.SeviceName).IsRequired();
-
                 entity.Property(e => e.SevicePrice).HasColumnType("money");
             });
 
@@ -122,11 +141,19 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
                 entity.Property(e => e.RentalStartDate).HasColumnType("date");
 
+                entity.Property(e => e.TotalPrice).HasColumnType("decimal(10, 2)");
+
                 entity.HasOne(d => d.idParkingSpotNavigation)
                     .WithMany(p => p.ParkingSpaceRental)
                     .HasForeignKey(d => d.idParkingSpot)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ParkingSpaceRental_ParkingSpots");
+
+                entity.HasOne(d => d.idRentalStatusNavigation)
+                    .WithMany(p => p.ParkingSpaceRental)
+                    .HasForeignKey(d => d.idRentalStatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ParkingSpaceRental_RentalStatuses");
 
                 entity.HasOne(d => d.idTypeOfRentByDurationNavigation)
                     .WithMany(p => p.ParkingSpaceRental)
@@ -143,9 +170,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
             modelBuilder.Entity<ParkingSpotStatuses>(entity =>
             {
-                entity.Property(e => e.StatusName)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.StatusName).HasMaxLength(30);
             });
 
             modelBuilder.Entity<ParkingSpots>(entity =>
@@ -163,78 +188,48 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
                     .HasConstraintName("FK_ParkingSpots_ParkingSpotStatuses");
             });
 
+            modelBuilder.Entity<RentalStatuses>(entity =>
+            {
+                entity.Property(e => e.StatusName).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<Roles>(entity =>
             {
-                entity.Property(e => e.RoleName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.RoleName).HasMaxLength(30);
             });
 
             modelBuilder.Entity<ServiceProviders>(entity =>
             {
-                entity.Property(e => e.Address).IsRequired();
+                entity.Property(e => e.ITIN).HasMaxLength(10);
 
-                entity.Property(e => e.Email).IsRequired();
+                entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.ITIN)
-                    .IsRequired()
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.PhoneNumber)
-                    .IsRequired()
-                    .HasMaxLength(11);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(11);
             });
 
             modelBuilder.Entity<TypeOfRentByDuration>(entity =>
             {
-                entity.Property(e => e.TypeName)
-                    .IsRequired()
-                    .HasMaxLength(40);
-            });
+                entity.Property(e => e.PriceCoefficient).HasColumnType("decimal(3, 2)");
 
-            modelBuilder.Entity<TypesOfCarExchangeSystem>(entity =>
-            {
-                entity.Property(e => e.TypeName).IsRequired();
-            });
-
-            modelBuilder.Entity<TypesOfParking>(entity =>
-            {
-                entity.Property(e => e.TypeName).IsRequired();
+                entity.Property(e => e.TypeName).HasMaxLength(40);
             });
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.Property(e => e.Email).IsRequired();
+                entity.Property(e => e.Login).HasMaxLength(30);
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Name).HasMaxLength(30);
 
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Patronymic).HasMaxLength(50);
 
-                entity.Property(e => e.PassportNumber)
-                    .IsRequired()
-                    .HasMaxLength(6);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(11);
 
-                entity.Property(e => e.PassportSeries)
-                    .IsRequired()
-                    .HasMaxLength(4);
-
-                entity.Property(e => e.Password).IsRequired();
-
-                entity.Property(e => e.PhoneNumber)
-                    .IsRequired()
-                    .HasMaxLength(11);
+                entity.Property(e => e.Surname).HasMaxLength(40);
 
                 entity.HasOne(d => d.idRoleNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.idRole)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_Roles");
             });
 

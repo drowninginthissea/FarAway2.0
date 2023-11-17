@@ -11,7 +11,7 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string RoleName { get; set; }
+        public string RoleName { get; set; } = null!;
 
         public virtual ICollection<Users> Users { get; set; }
     }

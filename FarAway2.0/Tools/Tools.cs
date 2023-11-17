@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace FarAway2._0
+namespace FarAway2._0.Tools
 {
     public static class Tools
     {
+        #region Animations
         public static void SwapPannels(UIElement FirstPanel, Duration Duration, UIElement SecondPanel) // первая панель - скрывается, вторая появляется
         {
             DoubleAnimation animation = new DoubleAnimation()
@@ -60,6 +63,6 @@ namespace FarAway2._0
             Panel.SetZIndex(FirstPanel, 5);
             Panel.SetZIndex(SecondPanel, 1);
         }
-
+        #endregion
     }
 }

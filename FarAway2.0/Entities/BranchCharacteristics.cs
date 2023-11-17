@@ -14,6 +14,6 @@ namespace FarAway2._0.Entities
         public double MaximumHeightOfTheVehicleInMillimeters { get; set; }
         public double MaximumVehicleWeightInKilograms { get; set; }
 
-        public virtual Branches idNavigation { get; set; }
+        public virtual Branches idNavigation { get; set; } = null!;
     }
 }

@@ -14,8 +14,8 @@ namespace FarAway2._0.Entities
         public int idBranch { get; set; }
         public int idParkingSpotStatus { get; set; }
 
-        public virtual Branches idBranchNavigation { get; set; }
-        public virtual ParkingSpotStatuses idParkingSpotStatusNavigation { get; set; }
+        public virtual Branches idBranchNavigation { get; set; } = null!;
+        public virtual ParkingSpotStatuses idParkingSpotStatusNavigation { get; set; } = null!;
         public virtual ICollection<ParkingSpaceRental> ParkingSpaceRental { get; set; }
     }
 }

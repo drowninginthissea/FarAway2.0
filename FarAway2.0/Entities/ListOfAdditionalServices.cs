@@ -11,9 +11,9 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string SeviceName { get; set; }
+        public string SeviceName { get; set; } = null!;
         public decimal SevicePrice { get; set; }
-        public string SeviceDescription { get; set; }
+        public string SeviceDescription { get; set; } = null!;
 
         public virtual ICollection<AdditionalServicesForRent> AdditionalServicesForRent { get; set; }
     }
