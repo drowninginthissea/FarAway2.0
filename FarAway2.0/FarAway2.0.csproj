@@ -12,6 +12,11 @@
     <None Remove="Resources\Close.png" />
     <None Remove="Resources\EyeToPassword.png" />
     <None Remove="Resources\Info.png" />
+    <None Remove="Resources\Logos\logo-light.png" />
+    <None Remove="Resources\Logos\logo-w.png" />
+    <None Remove="Resources\Logos\logo.png" />
+    <None Remove="Resources\Logos\LogoLight.png" />
+    <None Remove="Resources\Logos\LogoWhite.png" />
     <None Remove="Resources\RollDown.png" />
   </ItemGroup>
 
@@ -20,6 +25,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +34,9 @@
     <Resource Include="Resources\Info.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Logos\Logo.png" />
+    <Resource Include="Resources\Logos\LogoLight.png" />
+    <Resource Include="Resources\Logos\LogoWhite.png" />
     <Resource Include="Resources\RollDown.png" />
   </ItemGroup>
 

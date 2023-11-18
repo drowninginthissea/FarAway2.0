@@ -60,6 +60,6 @@ namespace FarAway2._0.Tools
             }
         }
         public bool VerifyWithThis(string PassForComparison) =>
-            VerifyPassword(PassForComparison, EncrypredPassword);
+            VerifyPassword(SourcePassword, PassForComparison);
     }
 }

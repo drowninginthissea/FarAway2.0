@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FarAway2._0"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              StartupUri="/Windows/AuthAndReg.xaml"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
@@ -12,7 +13,23 @@
                                              PrimaryColor="{x:Null}"
                                              SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <ui:ThemeResources />
+                <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Window"
+                   x:Key="UnborderedWindow">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="0"
+                                      CornerRadius="0"
+                                      GlassFrameThickness="0"
+                                      ResizeBorderThickness="0" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

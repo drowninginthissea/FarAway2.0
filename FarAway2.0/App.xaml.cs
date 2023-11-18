@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FarAway2._0.Tools;
 using System.Windows;
 
 namespace FarAway2._0
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        //protected override async void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
+
+        //    DbUtils.IsAvailable = await DbUtils.db.Database.CanConnectAsync();
+        //}
     }
 }

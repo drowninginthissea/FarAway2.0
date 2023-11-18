@@ -5,24 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FarAway2._0"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="False"
+        ui:ThemeManager.RequestedTheme="Light"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Background="Transparent"
         AllowsTransparency="True"
+        Background="Transparent"
         MouseDown="MovingWindow"
         ResizeMode="NoResize"
         Height="700"
         Width="650">
     <Border CornerRadius="45">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0 0"
-                                 EndPoint="1 1">
-                <GradientStop Offset="0"
-                              Color="CadetBlue" />
-                <GradientStop Offset="1"
-                              Color="Moccasin" />
-            </LinearGradientBrush>
+            <SolidColorBrush Color="White" />
         </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -36,6 +32,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            
+            
             <Grid Grid.Row="1"
                   Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -45,11 +43,16 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="1">
+                    <Grid>
+                        <Image Source="/Resources/Logos/Logo.png" />
+                    </Grid>
+                    
+                    <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="5*" />
@@ -66,7 +69,8 @@
                                     Padding="2"
                                     x:Name="RollDownButton"
                                     Click="TopPannelButton_Click"
-                                    Width="{Binding ElementName=CloseButton, Path=ActualWidth}">
+                                    Width="{Binding ElementName=CloseButton, Path=ActualWidth}"
+                                    Height="{Binding ElementName=CloseButton, Path=ActualHeight}">
                                 <Image Source="/Resources/RollDown.png" />
                             </Button>
                             <Button VerticalAlignment="Center"
@@ -114,10 +118,8 @@
                                 <Grid Grid.Row="0">
                                     <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               FontFamily="Segoe UI"
+                                               
                                                FontSize="25"
-                                               FontWeight="DemiBold"
-                                               FontStyle="Italic"
                                                x:Name="AuthHeader">
                                         <Run Text="Авторизация" />
                                     </TextBlock>
@@ -147,14 +149,12 @@
                                     <Grid Grid.Column="1">
                                         <TextBox VerticalAlignment="Center"
                                                  HorizontalAlignment="Stretch"
-                                                 FontFamily="Segoe UI"
                                                  FontSize="20"
-                                                 FontWeight="DemiBold"
-                                                 FontStyle="Italic"
                                                  BorderBrush="Black"
                                                  Foreground="Black"
                                                  HorizontalContentAlignment="Center"
                                                  materialDesign:HintAssist.Hint="Логин"
+                                                 Style="{StaticResource MaterialDesignTextBox}"
                                                  x:Name="LoginTextBox" />
                                     </Grid>
 
@@ -177,25 +177,21 @@
                                           VerticalAlignment="Top"
                                           HorizontalAlignment="Stretch">
 
-                                        <PasswordBox FontFamily="Segoe UI"
-                                                     FontSize="20"
-                                                     FontWeight="DemiBold"
-                                                     FontStyle="Italic"
+                                        <PasswordBox FontSize="20"
                                                      BorderBrush="Black"
                                                      Foreground="Black"
                                                      MaxLength="40"
                                                      HorizontalContentAlignment="Center"
                                                      materialDesign:HintAssist.Hint="Пароль"
+                                                     Style="{StaticResource MaterialDesignPasswordBox}"
                                                      x:Name="PasswordBoxForPassword" />
 
-                                        <TextBox FontFamily="Segoe UI"
-                                                 FontSize="20"
-                                                 FontWeight="DemiBold"
-                                                 FontStyle="Italic"
+                                        <TextBox FontSize="20"
                                                  BorderBrush="Black"
                                                  Foreground="Black"
                                                  MaxLength="40"
                                                  HorizontalContentAlignment="Center"
+                                                 Style="{StaticResource MaterialDesignTextBox}"
                                                  materialDesign:HintAssist.Hint="Пароль"
                                                  Visibility="Collapsed"
                                                  x:Name="TextBoxForPassword" />
@@ -217,11 +213,8 @@
 
                                     <Grid Grid.Column="1"
                                           Grid.Row="1">
-                                        <TextBlock FontFamily="Segoe UI"
-                                                   FontSize="20"
-                                                   FontWeight="DemiBold"
-                                                   FontStyle="Italic"
-                                                   Foreground="DarkRed"
+                                        <TextBlock FontSize="20"
+                                                   Foreground="Red"
                                                    x:Name="WrongLogOrPass"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
@@ -241,10 +234,7 @@
                                       X1="0"
                                       Y1="0"
                                       X2="460"
-                                      Y2="0">
-
-
-                                </Line>
+                                      Y2="0" />
                             </Grid>
 
                             <Grid Grid.Row="2">
@@ -278,33 +268,12 @@
                                             <Button Content="Войти"
                                                     Height="{Binding ElementName=ButtonEnterSection, Path=ActualHeight}"
                                                     FontSize="23"
-                                                    FontFamily="Segoe UI"
-                                                    FontWeight="DemiBold"
-                                                    FontStyle="Italic"
                                                     Padding="0 0 0 5"
                                                     x:Name="EnterButton"
-                                                    Click="EnterButton_Click">
-                                                <Button.Background>
-                                                    <LinearGradientBrush StartPoint="0 0"
-                                                                         EndPoint="1 1">
-                                                        <GradientStop Offset="0"
-                                                                      Color="#b6b0b0" />
-                                                        <GradientStop Offset="0.5"
-                                                                      Color="#7f7b7a" />
-                                                        <GradientStop Offset="1"
-                                                                      Color="#383637" />
-                                                    </LinearGradientBrush>
-                                                </Button.Background>
-                                                <Button.Foreground>
-                                                    <LinearGradientBrush StartPoint="0 0"
-                                                                         EndPoint="1 1">
-                                                        <GradientStop Offset="0"
-                                                                      Color="Moccasin" />
-                                                        <GradientStop Offset="1"
-                                                                      Color="CadetBlue" />
-                                                    </LinearGradientBrush>
-                                                </Button.Foreground>
-                                            </Button>
+                                                    Click="EnterButton_Click"
+                                                    HorizontalAlignment="Stretch"
+                                                    BorderBrush="LightSlateGray"/>
+
                                         </Grid>
 
                                     </Grid>
@@ -328,33 +297,12 @@
                                             <Button Content="Регистрация"
                                                     Height="{Binding ElementName=ButtonRegistrationSection, Path=ActualHeight}"
                                                     FontSize="23"
-                                                    FontFamily="Segoe UI"
-                                                    FontWeight="DemiBold"
-                                                    FontStyle="Italic"
                                                     Padding="0 0 0 5"
                                                     x:Name="RegistrationButton"
-                                                    Click="RegistrationButton_Click">
-                                                <Button.Background>
-                                                    <LinearGradientBrush StartPoint="0 0"
-                                                                         EndPoint="1 1">
-                                                        <GradientStop Offset="0"
-                                                                      Color="Moccasin" />
-                                                        <GradientStop Offset="1"
-                                                                      Color="CadetBlue" />
-                                                    </LinearGradientBrush>
-                                                </Button.Background>
-                                                <Button.Foreground>
-                                                    <LinearGradientBrush StartPoint="0 0"
-                                                                         EndPoint="1 1">
-                                                        <GradientStop Offset="0"
-                                                                      Color="#383637" />
-                                                        <GradientStop Offset="0.5"
-                                                                      Color="#7f7b7a" />
-                                                        <GradientStop Offset="1"
-                                                                      Color="#b6b0b0" />
-                                                    </LinearGradientBrush>
-                                                </Button.Foreground>
-                                            </Button>
+                                                    Click="RegistrationButton_Click"
+                                                    HorizontalAlignment="Stretch"
+                                                    BorderBrush="LightSlateGray"/>
+
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -382,10 +330,7 @@
                             <Grid Grid.Column="1"
                                   Grid.Row="0">
                                 <TextBlock Text="Введите текст с картинки"
-                                           FontFamily="Segoe UI"
                                            FontSize="25"
-                                           FontWeight="DemiBold"
-                                           FontStyle="Italic"
                                            x:Name="CaptchaHeader"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Center"
@@ -420,12 +365,10 @@
 
                                 <Grid Grid.Row="1">
                                     <TextBlock Text="Неверный ввод"
+                                               Name="WrongIntupCaptchaText"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Bottom"
-                                               FontFamily="Segoe UI"
                                                FontSize="20"
-                                               FontWeight="DemiBold"
-                                               FontStyle="Italic"
                                                Foreground="DarkRed"
                                                Visibility="Collapsed"/>
                                 </Grid>
@@ -449,13 +392,10 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBox FontFamily="Segoe UI"
-                                                 FontSize="20"
-                                                 FontWeight="DemiBold"
-                                                 FontStyle="Italic"
+                                        <TextBox FontSize="20"
                                                  materialDesign:HintAssist.Hint="Введите текст"
                                                  HorizontalAlignment="Stretch"
-                                                 HorizontalContentAlignment="Center"
+                                                 HorizontalContentAlignment="Left"
                                                  BorderBrush="Black"
                                                  VerticalAlignment="Center"
                                                  Margin="10 0 10 0"
@@ -463,41 +403,15 @@
 
                                         <Button Grid.Column="1"
                                                 Content="Обновить"
-                                                FontFamily="Segoe UI"
                                                 FontSize="20"
-                                                FontWeight="DemiBold"
-                                                FontStyle="Italic"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
                                                 Padding="5 0 5 3"
                                                 x:Name="RecreateCaptchaButton"
                                                 Click="RecreateCaptchaButton_Click"
-                                                BorderBrush="LightSlateGray">
-                                            <Button.Background>
-                                                <LinearGradientBrush StartPoint="1 0"
-                                                                     EndPoint="0 1">
-                                                    <GradientStop Color="#80D080"
-                                                                  Offset="0" />
-                                                    <GradientStop Color="#63A1A1"
-                                                                  Offset="0.5" />
-                                                    <GradientStop Color="#7487B1"
-                                                                  Offset="1" />
+                                                BorderBrush="LightSlateGray" />
 
-                                                </LinearGradientBrush>
-                                            </Button.Background>
-                                            <Button.Foreground>
-                                                <LinearGradientBrush StartPoint="1 1"
-                                                                     EndPoint="0 0">
-                                                    <GradientStop Color="#FBF6B4"
-                                                                  Offset="0" />
-                                                    <GradientStop Color="#FBE2B4"
-                                                                  Offset="0.5" />
-                                                    <GradientStop Color="#FBBCB4"
-                                                                  Offset="1" />
 
-                                                </LinearGradientBrush>
-                                            </Button.Foreground>
-                                        </Button>
                                     </Grid>
 
                                     <Grid Grid.Row="1">
@@ -508,40 +422,13 @@
                                         <Grid Grid.Row="1"
                                               x:Name="ApplyButtonContainer">
                                             <Button Content="Применить"
-                                                    FontFamily="Segoe UI"
                                                     FontSize="23"
-                                                    FontWeight="DemiBold"
-                                                    FontStyle="Italic"
                                                     Height="{Binding ElementName=ApplyButtonContainer, Path=ActualHeight}"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
                                                     x:Name="ApplyCaptchaButton"
-                                                    Click="ApplyCaptchaButton_Click">
-                                                <Button.Background>
-                                                    <LinearGradientBrush StartPoint="0 1"
-                                                                         EndPoint="1 0">
-                                                        <GradientStop Color="#80D080"
-                                                                      Offset="0" />
-                                                        <GradientStop Color="#63A1A1"
-                                                                      Offset="0.5" />
-                                                        <GradientStop Color="#7487B1"
-                                                                      Offset="1" />
-
-                                                    </LinearGradientBrush>
-                                                </Button.Background>
-                                                <Button.Foreground>
-                                                    <LinearGradientBrush StartPoint="0 0"
-                                                                         EndPoint="1 1">
-                                                        <GradientStop Color="#FBF6B4"
-                                                                      Offset="0" />
-                                                        <GradientStop Color="#FBE2B4"
-                                                                      Offset="0.5" />
-                                                        <GradientStop Color="#FBBCB4"
-                                                                      Offset="1" />
-
-                                                    </LinearGradientBrush>
-                                                </Button.Foreground>
-                                            </Button>
+                                                    Click="ApplyCaptchaButton_Click"
+                                                    BorderBrush="LightSlateGray" />
                                         </Grid>
                                     </Grid>
 
@@ -553,8 +440,11 @@
                     </Grid>
 
                     <Grid x:Name="Registration"
-                          Opacity="0">
-                        <Image Source="/Resources/Close.png" />
+                          Opacity="0"
+                          Panel.ZIndex="1">
+                        <Grid Margin="10">
+                            
+                        </Grid>
                     </Grid>
 
                     <Grid x:Name="СonfirmationOfRegistration"

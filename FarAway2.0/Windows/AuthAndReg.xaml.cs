@@ -1,14 +1,12 @@
-﻿using System;
-using System.Diagnostics;
+﻿using FarAway2._0.Tools;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using FarAway2._0.Tools;
+using System.Windows.Media.Imaging;
 
 namespace FarAway2._0.Windows
 {
@@ -19,20 +17,16 @@ namespace FarAway2._0.Windows
     {
         private int CountOfLigIn;
 
-        private static AuthAndReg ThisWindows;
         public AuthAndReg()
         {
             InitializeComponent();
             SettingsWindow();
         }
-        private void SettingsWindow()
+        private async void SettingsWindow()
         {
-            ThisWindows = this;
             CountOfLigIn = 1;
-
             CreateCaptcha();
         }
-
 
         #region Window
 
@@ -40,7 +34,7 @@ namespace FarAway2._0.Windows
         private void MovingWindow(object sender, RoutedEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
-                ThisWindows.DragMove();
+                this.DragMove();
         }
         private void TopPannelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -49,7 +43,6 @@ namespace FarAway2._0.Windows
             if (((Button)sender).Name == "RollDownButton")
                 this.WindowState = WindowState.Minimized;
         }
-
 
         #endregion
 
@@ -64,7 +57,7 @@ namespace FarAway2._0.Windows
         }
         private void CopyPasswordToTextBox() => TextBoxForPassword.Text = PasswordBoxForPassword.Password;
         private void CopyPasswordToPasswordBox() => PasswordBoxForPassword.Password = TextBoxForPassword.Text;
-        private void ShowPasswordButton_Click(object sender, RoutedEventArgs e)
+        private void CopyPasswordToTwoBoxes()
         {
             if (PasswordBoxForPassword.Visibility == Visibility.Visible)
             {
@@ -77,29 +70,47 @@ namespace FarAway2._0.Windows
                 ChangeVisibility(TextBoxForPassword, Visibility.Collapsed, PasswordBoxForPassword, Visibility.Visible);
             }
         }
-        private void CopyPasswordToTwoBoxes() =>
-            _ = PasswordBoxForPassword.Visibility == Visibility.Visible ?
-                TextBoxForPassword.Text = PasswordBoxForPassword.Password :
-                PasswordBoxForPassword.Password = TextBoxForPassword.Text;
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        private void ShowPasswordButton_Click(object sender, RoutedEventArgs e) => CopyPasswordToTwoBoxes();
+        private async void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            CopyPasswordToTwoBoxes();
-            if (DbUtils.Authorization(LoginTextBox.Text, PasswordBoxForPassword.Password))
+            if (TextBoxForPassword.Visibility == Visibility.Visible)
+                CopyPasswordToPasswordBox();
+            string Login = LoginTextBox.Text;
+            string Password = PasswordBoxForPassword.Password;
+
+            EnterButton.IsEnabled = false;
+            RegistrationButton.IsEnabled = false;
+            await Task.Run(async () =>
             {
-                //открытие окна основного
-                return;
-            }
-            if (CountOfLigIn == 3)
-            {
-                Tools.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(1), Captcha, CreateCaptcha);
-            }
-            CountOfLigIn++;
-            WrongLogOrPass.Visibility = Visibility.Visible;
+                if (DbUtils.Authorization(Login, Password))
+                {
+                    //открытие окна основного
+                    MessageBox.Show("Openning of main window...");
+                }
+                else
+                {
+                    if (CountOfLigIn == 3)
+                    {
+                        await Application.Current.Dispatcher.InvokeAsync(() =>
+                            Helper.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(1), Captcha, CreateCaptcha));
+                    }
+                    CountOfLigIn++;
+                    await Application.Current.Dispatcher.InvokeAsync(() => WrongLogOrPass.Visibility = Visibility.Visible);
+                }
+
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    EnterButton.IsEnabled = true;
+                    RegistrationButton.IsEnabled = true;
+                });
+            });
+            
+            
         }
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            Tools.SwapPannels(Main, TimeSpan.FromSeconds(1), Registration);
+            Helper.SwapPannels(Main, TimeSpan.FromSeconds(1), Registration);
         }
 
 
@@ -140,14 +151,16 @@ namespace FarAway2._0.Windows
         {
             if (RightAnswer == CaptchaEnterTextBox.Text)
             {
-                Tools.SwapPannels(Captcha, TimeSpan.FromSeconds(1), Main);
+                Helper.SwapPannels(Captcha, TimeSpan.FromSeconds(1), Main);
                 CaptchaEnterTextBox.Text = "";
+                WrongIntupCaptchaText.Visibility = Visibility.Collapsed;
                 CountOfLigIn = 1;
             }
             else
             {
                 CaptchaEnterTextBox.Text = "";
                 CreateCaptcha();
+                WrongIntupCaptchaText.Visibility = Visibility.Visible;
             }
         }
 

@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 
 namespace FarAway2._0.Tools
 {
-    public static class Tools
+    internal static class Helper
     {
         #region Animations
         public static void SwapPannels(UIElement FirstPanel, Duration Duration, UIElement SecondPanel) // первая панель - скрывается, вторая появляется
