@@ -17,19 +17,6 @@
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Window"
-                   x:Key="UnborderedWindow">
-                <Setter Property="WindowChrome.WindowChrome">
-                    <Setter.Value>
-                        <WindowChrome CaptionHeight="0"
-                                      CornerRadius="0"
-                                      GlassFrameThickness="0"
-                                      ResizeBorderThickness="0" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

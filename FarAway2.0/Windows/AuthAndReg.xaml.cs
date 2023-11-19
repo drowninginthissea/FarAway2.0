@@ -15,7 +15,7 @@ namespace FarAway2._0.Windows
     /// </summary>
     public partial class AuthAndReg : Window
     {
-        private int CountOfLigIn;
+        private int CountOfLogIn;
 
         public AuthAndReg()
         {
@@ -24,12 +24,11 @@ namespace FarAway2._0.Windows
         }
         private async void SettingsWindow()
         {
-            CountOfLigIn = 1;
+            CountOfLogIn = 1;
             CreateCaptcha();
         }
 
         #region Window
-
 
         private void MovingWindow(object sender, RoutedEventArgs e)
         {
@@ -48,7 +47,6 @@ namespace FarAway2._0.Windows
 
 
         #region Authorization
-
 
         private void ChangeVisibility(Control element1, Visibility visibility1, Control element2, Visibility visibility2)
         {
@@ -89,12 +87,12 @@ namespace FarAway2._0.Windows
                 }
                 else
                 {
-                    if (CountOfLigIn == 3)
+                    if (CountOfLogIn == 3)
                     {
                         await Application.Current.Dispatcher.InvokeAsync(() =>
                             Helper.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(1), Captcha, CreateCaptcha));
                     }
-                    CountOfLigIn++;
+                    CountOfLogIn++;
                     await Application.Current.Dispatcher.InvokeAsync(() => WrongLogOrPass.Visibility = Visibility.Visible);
                 }
 
@@ -107,18 +105,15 @@ namespace FarAway2._0.Windows
             
             
         }
-
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
             Helper.SwapPannels(Main, TimeSpan.FromSeconds(1), Registration);
         }
 
-
         #endregion
 
 
         #region Captcha
-
 
         string? RightAnswer;
         public void CreateCaptcha()
@@ -154,7 +149,7 @@ namespace FarAway2._0.Windows
                 Helper.SwapPannels(Captcha, TimeSpan.FromSeconds(1), Main);
                 CaptchaEnterTextBox.Text = "";
                 WrongIntupCaptchaText.Visibility = Visibility.Collapsed;
-                CountOfLigIn = 1;
+                CountOfLogIn = 1;
             }
             else
             {
@@ -163,7 +158,6 @@ namespace FarAway2._0.Windows
                 WrongIntupCaptchaText.Visibility = Visibility.Visible;
             }
         }
-
 
         #endregion
 
