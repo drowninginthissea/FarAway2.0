@@ -16,6 +16,7 @@ namespace FarAway2._0.Content.Windows.Other
     public partial class AuthenticationWindow : Window
     {
         private int CountOfLogIn;
+        private PanelSwapper swapper;
         public AuthenticationWindow()
         {
             InitializeComponent();
@@ -24,7 +25,11 @@ namespace FarAway2._0.Content.Windows.Other
         private async void SettingsWindow()
         {
             CountOfLogIn = 1;
-            CreateCaptcha();
+
+            swapper = new PanelSwapper(0.5);
+            swapper[Main.Name] = Main;
+            swapper[Captcha.Name] = Captcha;
+            swapper[Registration.Name] = Registration;
         }
 
         #region Window
@@ -89,7 +94,7 @@ namespace FarAway2._0.Content.Windows.Other
                     if (CountOfLogIn == 3)
                     {
                         await Application.Current.Dispatcher.InvokeAsync(() =>
-                            Helper.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(0.5), Captcha, CreateCaptcha));
+                            swapper.SwapPannels(Main.Name, Captcha.Name, CreateCaptcha));
                     }
                     CountOfLogIn++;
                     await Application.Current.Dispatcher.InvokeAsync(() => WrongLogOrPass.Visibility = Visibility.Visible);
@@ -106,7 +111,7 @@ namespace FarAway2._0.Content.Windows.Other
         }
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            Helper.SwapPannels(Main, TimeSpan.FromSeconds(0.5), Registration);
+            swapper.SwapPannels(Main.Name, Registration.Name);
         }
 
         #endregion
@@ -145,7 +150,7 @@ namespace FarAway2._0.Content.Windows.Other
         {
             if (RightAnswer == CaptchaEnterTextBox.Text)
             {
-                Helper.SwapPannels(Captcha, TimeSpan.FromSeconds(0.5), Main);
+                swapper.SwapPannels(Captcha.Name, Main.Name);
                 CaptchaEnterTextBox.Text = "";
                 WrongIntupCaptchaText.Visibility = Visibility.Collapsed;
                 CountOfLogIn = 1;
@@ -160,15 +165,30 @@ namespace FarAway2._0.Content.Windows.Other
 
         #endregion
 
+
         #region Registration
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegSurnameTB.Clear();
+            RegNameTB.Clear();
+            RegPatronymicTB.Clear();
+            RegEmailTB.Clear();
+            RegLoginTB.Clear();
+            RegPhoneNumberTB.Clear();
+            RegPasswordTB.Clear();
+            RegPasswordRepeatTB.Clear();
+            //сброс выбора фото
+            swapper.SwapPannels(Registration.Name, Main.Name);
+        }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show(1.ToString());
         }
         private bool ValidateAll()
         {
-            
+            return false;
         }
         #endregion
+
     }
 }

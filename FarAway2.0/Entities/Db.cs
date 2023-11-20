@@ -38,9 +38,10 @@ namespace FarAway2._0.Entities
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseLazyLoadingProxies();
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-4QRPJV8\\SQLEXPRESS;" +
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-2NAFSVT\\SQLEXPRESS;" +
                 "Initial Catalog=FarAway;Integrated Security=True;Multiple Active Result Sets=True;" +
                 "TrustServerCertificate=True;");
+                // DESKTOP-2NAFSVT\SQLEXPRESS;
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
