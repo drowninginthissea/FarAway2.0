@@ -1,4 +1,4 @@
-﻿<Window x:Class="FarAway2._0.Windows.AuthAndReg"
+﻿<Window x:Class="FarAway2._0.Content.Windows.Other.AuthenticationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -90,8 +90,8 @@
                 <Grid Grid.Row="1">
 
                     <Grid x:Name="Main"
-                          Opacity="0"
-                          Panel.ZIndex="1">
+                          Opacity="1"
+                          Panel.ZIndex="5">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50" />
@@ -147,7 +147,7 @@
                                     <Grid Grid.Column="1">
                                         <TextBox VerticalAlignment="Center"
                                                  HorizontalAlignment="Stretch"
-                                                 FontSize="20"
+                                                 FontSize="18"
                                                  BorderBrush="Black"
                                                  Foreground="Black"
                                                  HorizontalContentAlignment="Center"
@@ -175,7 +175,7 @@
                                           VerticalAlignment="Top"
                                           HorizontalAlignment="Stretch">
 
-                                        <PasswordBox FontSize="20"
+                                        <PasswordBox FontSize="18"
                                                      BorderBrush="Black"
                                                      Foreground="Black"
                                                      MaxLength="40"
@@ -184,7 +184,7 @@
                                                      Style="{StaticResource MaterialDesignPasswordBox}"
                                                      x:Name="PasswordBoxForPassword" />
 
-                                        <TextBox FontSize="20"
+                                        <TextBox FontSize="18"
                                                  BorderBrush="Black"
                                                  Foreground="Black"
                                                  MaxLength="40"
@@ -265,7 +265,7 @@
                                               x:Name="ButtonEnterSection">
                                             <Button Content="Войти"
                                                     Height="{Binding ElementName=ButtonEnterSection, Path=ActualHeight}"
-                                                    FontSize="23"
+                                                    FontSize="18"
                                                     Padding="0 0 0 5"
                                                     x:Name="EnterButton"
                                                     Click="EnterButton_Click"
@@ -294,7 +294,7 @@
                                               x:Name="ButtonRegistrationSection">
                                             <Button Content="Регистрация"
                                                     Height="{Binding ElementName=ButtonRegistrationSection, Path=ActualHeight}"
-                                                    FontSize="23"
+                                                    FontSize="18"
                                                     Padding="0 0 0 5"
                                                     x:Name="RegistrationButton"
                                                     Click="RegistrationButton_Click"
@@ -390,7 +390,7 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBox FontSize="20"
+                                        <TextBox FontSize="18"
                                                  materialDesign:HintAssist.Hint="Введите текст"
                                                  HorizontalAlignment="Stretch"
                                                  HorizontalContentAlignment="Left"
@@ -401,10 +401,9 @@
 
                                         <Button Grid.Column="1"
                                                 Content="Обновить"
-                                                FontSize="20"
+                                                FontSize="18"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Padding="5 0 5 3"
                                                 x:Name="RecreateCaptchaButton"
                                                 Click="RecreateCaptchaButton_Click"
                                                 BorderBrush="LightSlateGray" />
@@ -420,7 +419,7 @@
                                         <Grid Grid.Row="1"
                                               x:Name="ApplyButtonContainer">
                                             <Button Content="Применить"
-                                                    FontSize="23"
+                                                    FontSize="18"
                                                     Height="{Binding ElementName=ApplyButtonContainer, Path=ActualHeight}"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
@@ -438,8 +437,8 @@
                     </Grid>
 
                     <Grid x:Name="Registration"
-                          Opacity="1"
-                          Panel.ZIndex="5">
+                          Opacity="0"
+                          Panel.ZIndex="1">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.46*" />
@@ -579,19 +578,23 @@
                                     <Border Grid.Row="2"
                                             BorderThickness="1"
                                             BorderBrush="Black">
-                                        <local:PhotoSelector TextSize="18"/>
+                                        <local:PhotoSelector TextSize="18" />
                                     </Border>
+
+                                    <Button Grid.Row="3"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="Зарегистрироваться"
+                                            FontSize="18"
+                                            BorderBrush="LightSlateGray"
+                                            Name="RegisterButton"
+                                            Click="RegisterButton_Click"/>
 
                                 </Grid>
 
                             </Grid>
 
                         </Grid>
-                    </Grid>
-
-                    <Grid x:Name="СonfirmationOfRegistration"
-                          Opacity="0">
-                        <Image Source="/Resources/Close.png" />
                     </Grid>
 
                 </Grid>

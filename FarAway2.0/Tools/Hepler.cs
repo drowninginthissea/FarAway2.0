@@ -11,7 +11,7 @@ namespace FarAway2._0.Tools
     internal static class Helper
     {
         #region Animations
-        public static void SwapPannels(UIElement FirstPanel, Duration Duration, UIElement SecondPanel) // первая панель - скрывается, вторая появляется
+        public static void SwapPannels(UIElement CurrentPanel, Duration Duration, UIElement PanelToSwap) // первая панель - скрывается, вторая появляется
         {
             DoubleAnimation animation = new DoubleAnimation()
             {
@@ -27,10 +27,10 @@ namespace FarAway2._0.Tools
                     To = 1,
                     Duration = Duration
                 };
-                SecondPanel.BeginAnimation(UIElement.OpacityProperty, animation1);
+                PanelToSwap.BeginAnimation(UIElement.OpacityProperty, animation1);
             };
-            FirstPanel.BeginAnimation(UIElement.OpacityProperty, animation);
-            ChangeZIndexes(SecondPanel, FirstPanel);
+            CurrentPanel.BeginAnimation(UIElement.OpacityProperty, animation);
+            ChangeZIndexes(PanelToSwap, CurrentPanel);
         }
 
         public static void SwapPannelToCaptcha(UIElement FirstPanel, Duration Duration, UIElement SecondPanel, Action CaptchaCreateMethod) // первая панель - скрывается, вторая появляется, вторая всегда Captcha

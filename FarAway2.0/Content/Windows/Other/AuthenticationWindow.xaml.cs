@@ -8,16 +8,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace FarAway2._0.Windows
+namespace FarAway2._0.Content.Windows.Other
 {
     /// <summary>
-    /// Interaction logic for AuthAndReg.xaml
+    /// Interaction logic for AuthenticationWindow.xaml
     /// </summary>
-    public partial class AuthAndReg : Window
+    public partial class AuthenticationWindow : Window
     {
         private int CountOfLogIn;
-
-        public AuthAndReg()
+        public AuthenticationWindow()
         {
             InitializeComponent();
             SettingsWindow();
@@ -90,7 +89,7 @@ namespace FarAway2._0.Windows
                     if (CountOfLogIn == 3)
                     {
                         await Application.Current.Dispatcher.InvokeAsync(() =>
-                            Helper.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(1), Captcha, CreateCaptcha));
+                            Helper.SwapPannelToCaptcha(Main, TimeSpan.FromSeconds(0.5), Captcha, CreateCaptcha));
                     }
                     CountOfLogIn++;
                     await Application.Current.Dispatcher.InvokeAsync(() => WrongLogOrPass.Visibility = Visibility.Visible);
@@ -102,17 +101,17 @@ namespace FarAway2._0.Windows
                     RegistrationButton.IsEnabled = true;
                 });
             });
-            
-            
+
+
         }
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            Helper.SwapPannels(Main, TimeSpan.FromSeconds(1), Registration);
+            Helper.SwapPannels(Main, TimeSpan.FromSeconds(0.5), Registration);
         }
 
         #endregion
 
-
+            
         #region Captcha
 
         string? RightAnswer;
@@ -146,7 +145,7 @@ namespace FarAway2._0.Windows
         {
             if (RightAnswer == CaptchaEnterTextBox.Text)
             {
-                Helper.SwapPannels(Captcha, TimeSpan.FromSeconds(1), Main);
+                Helper.SwapPannels(Captcha, TimeSpan.FromSeconds(0.5), Main);
                 CaptchaEnterTextBox.Text = "";
                 WrongIntupCaptchaText.Visibility = Visibility.Collapsed;
                 CountOfLogIn = 1;
@@ -161,5 +160,15 @@ namespace FarAway2._0.Windows
 
         #endregion
 
+        #region Registration
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private bool ValidateAll()
+        {
+            
+        }
+        #endregion
     }
 }
