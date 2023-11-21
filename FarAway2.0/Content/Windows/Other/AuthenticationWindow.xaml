@@ -312,7 +312,8 @@
 
                     <Grid x:Name="Captcha"
                           Opacity="0"
-                          Panel.ZIndex="1">
+                          Panel.ZIndex="1"
+                          IsEnabled="False">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />

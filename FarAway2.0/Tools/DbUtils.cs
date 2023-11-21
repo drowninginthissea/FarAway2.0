@@ -22,6 +22,11 @@ namespace FarAway2._0.Tools
         }
         public static bool Authorization(string login, string password)
         {
+            if (!db.Database.CanConnect())
+            {
+                MessageBox.Show("something");
+                return false;
+            }
             HashService LogginPassword = new HashService(password);
             Users user = db.Users
                 .FirstOrDefault(x => x.idRole != Entities.Enums.Roles.Client && x.Login == login);

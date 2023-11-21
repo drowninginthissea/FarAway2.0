@@ -40,6 +40,11 @@ namespace FarAway2._0.Tools
             Panel.SetZIndex(this[PanelToUp], 5);
             Panel.SetZIndex(this[PanelToDown], 1);
         }
+        private void EnableChange(string PanelToEnable, string PanelToDisable)
+        {
+            this[PanelToEnable].IsEnabled = true;
+            this[PanelToDisable].IsEnabled = false;
+        }
         public void SwapPannels(string HidePanel, string OpenPanel, Action OnComplited = null)
         {
             DoubleAnimation animation = new DoubleAnimation()
@@ -62,6 +67,7 @@ namespace FarAway2._0.Tools
             };
             this[HidePanel].BeginAnimation(UIElement.OpacityProperty, animation);
             ChangeZIndex(OpenPanel, HidePanel);
+            EnableChange(OpenPanel, HidePanel);
         }
     }
 }
