@@ -14,19 +14,27 @@ namespace FarAway2._0.Tools
             try
             {
                 db = new Db();
+                CheckConnection();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка подключения к базе данных.\n{ex.Message}");
+                MessageBox.Show($"Ошибка подключения к базе данных.\n{ex.Message}", "Ошибка");
+            }
+        }
+        private static async Task CheckConnection()
+        {
+            bool canConnect = db.Database.CanConnect();
+            if (!canConnect)
+            {
+                _ = MessageBox.Show($"Ошибка подключения к базе данных.\n" +
+                    $"Обратитесь к администратору компании для устранения проблемы.\n" +
+                    $"Дальнейшая работа программного обеспечения не может быть выполнена.\n" +
+                    $"После принятия данного соглашения последует остановка программы!", "Ошибка", MessageBoxButton.OK);
+                Application.Current.Shutdown();
             }
         }
         public static bool Authorization(string login, string password)
         {
-            if (!db.Database.CanConnect())
-            {
-                MessageBox.Show("something");
-                return false;
-            }
             HashService LogginPassword = new HashService(password);
             Users user = db.Users
                 .FirstOrDefault(x => x.idRole != Entities.Enums.Roles.Client && x.Login == login);

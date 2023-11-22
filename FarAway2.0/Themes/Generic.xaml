@@ -15,7 +15,8 @@
                             Background="#20BEBEBE"
                             x:Name="ChooseImageButton"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"/>
+                            VerticalAlignment="Stretch"
+                            Style="{x:Null}"/>
 
                 </ControlTemplate>
 

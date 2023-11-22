@@ -1,6 +1,9 @@
 ﻿using FarAway2._0.Tools;
+using MaterialDesignThemes.Wpf;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,20 +34,32 @@ namespace FarAway2._0.Content.Windows.Other
             swapper[Captcha.Name] = Captcha;
             swapper[Registration.Name] = Registration;
         }
+        private void ChangeControlsStates(bool State, params UIElement[] Controls)
+        {
+            foreach (UIElement control in Controls)
+            {
+                control.IsEnabled = State;
+            }
+        }
+        private void ChangeControls(Action<FrameworkElement> action, params FrameworkElement[] Controls)
+        {
+            foreach (FrameworkElement control in Controls)
+                action?.Invoke(control);
+        }
 
         #region Window
 
         private void MovingWindow(object sender, RoutedEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
+                DragMove();
         }
         private void TopPannelButton_Click(object sender, RoutedEventArgs e)
         {
             if (((Button)sender).Name == "CloseButton")
                 Application.Current.Shutdown();
             if (((Button)sender).Name == "RollDownButton")
-                this.WindowState = WindowState.Minimized;
+                WindowState = WindowState.Minimized;
         }
 
         #endregion
@@ -80,8 +95,7 @@ namespace FarAway2._0.Content.Windows.Other
             string Login = LoginTextBox.Text;
             string Password = PasswordBoxForPassword.Password;
 
-            EnterButton.IsEnabled = false;
-            RegistrationButton.IsEnabled = false;
+            ChangeControlsStates(false, EnterButton, RegistrationButton, LoginTextBox, PasswordBoxForPassword, TextBoxForPassword);
             await Task.Run(async () =>
             {
                 if (DbUtils.Authorization(Login, Password))
@@ -102,12 +116,9 @@ namespace FarAway2._0.Content.Windows.Other
 
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    EnterButton.IsEnabled = true;
-                    RegistrationButton.IsEnabled = true;
+                    ChangeControlsStates(true, EnterButton, RegistrationButton, LoginTextBox, PasswordBoxForPassword, TextBoxForPassword);
                 });
             });
-
-
         }
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
@@ -115,8 +126,8 @@ namespace FarAway2._0.Content.Windows.Other
         }
 
         #endregion
+        
 
-            
         #region Captcha
 
         string? RightAnswer;
@@ -169,23 +180,80 @@ namespace FarAway2._0.Content.Windows.Other
         #region Registration
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            RegSurnameTB.Clear();
-            RegNameTB.Clear();
-            RegPatronymicTB.Clear();
-            RegEmailTB.Clear();
-            RegLoginTB.Clear();
-            RegPhoneNumberTB.Clear();
-            RegPasswordTB.Clear();
-            RegPasswordRepeatTB.Clear();
+            ChangeControls(x => ((TextBox)x).Clear(), 
+                RegSurnameTB, 
+                RegNameTB, 
+                RegPatronymicTB, 
+                RegEmailTB, 
+                RegLoginTB, 
+                RegPhoneNumberTB);
+            ChangeControls(x => ((PasswordBox)x).Clear(),
+                RegPasswordTB,
+                RegPasswordRepeatTB);
             //сброс выбора фото
             swapper.SwapPannels(Registration.Name, Main.Name);
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateAll())
+                return;
             MessageBox.Show(1.ToString());
         }
         private bool ValidateAll()
         {
+            if (!ValidateLeftSide())
+                return false;
+            return true;
+        }
+        private bool ValidateLeftSide()
+        {
+            if (string.IsNullOrWhiteSpace(RegSurnameTB.Text) || RegSurnameTB.Text.Length > 40)
+            {
+                MessageBox.Show("Фамилия пользователя не введена, либо лимит символов превышен (40)!", "Ошибка");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(RegNameTB.Text) || RegNameTB.Text.Length > 30)
+            {
+                MessageBox.Show("Имя пользователя не введено, либо лимит символов превышен (30)!", "Ошибка");
+                return false;
+            }
+            if (RegPatronymicTB.Text.Length > 50)
+            {
+                MessageBox.Show("Лимит символов на ввод отчества (50) превышен!", "Ошибка");
+                return false;
+            }
+            if (!ValidateEmail(RegEmailTB.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(RegLoginTB.Text) || RegLoginTB.Text.Length > 30)
+            {
+                MessageBox.Show("Логин пользователя не введён, либо лимит символов превышен (30)!", "Ошибка");
+                return false;
+            }
+            if (!RegPhoneNumberTB.IsMaskCompleted)
+            {
+                MessageBox.Show("Номер телефона введён не полностью!", "Ошибка");
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateEmail(string email)
+        {
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Электронная почта не введена, либо введены пустые символы!", "Ошибка");
+                return false;
+            }
+            if (!Regex.IsMatch(email, pattern))
+            {
+                MessageBox.Show("Электронная почта введена неверно! Проверьте правильность ввода!", "Ошибка");
+                return false;
+            }
+            return true;
+        }
+        private bool ReturnFalseWithError(string Text, string Header)
+        {
+            MessageBox.Show(Text, Header);
             return false;
         }
         #endregion

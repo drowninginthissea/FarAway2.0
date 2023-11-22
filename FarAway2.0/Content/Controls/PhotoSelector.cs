@@ -129,7 +129,6 @@ namespace FarAway2._0.Content.Controls
             {
                 textBlock.Visibility = Visibility.Visible;
                 rectangle.Fill = (Brush)new BrushConverter().ConvertFrom("#643682C7");
-                ChooseImageButton.Background = (Brush)new BrushConverter().ConvertFrom("#643682C7");
             }
         }
         private void ChooseImageButton_MouseLeave(object sender, MouseEventArgs e)
