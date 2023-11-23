@@ -1,4 +1,6 @@
-﻿using FarAway2._0.Tools;
+﻿using FarAway2._0.Entities;
+using FarAway2._0.Entities.Enums;
+using FarAway2._0.Tools;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,7 @@ namespace FarAway2._0.Content.Windows.Other
             InitializeComponent();
             SettingsWindow();
         }
+        #region GenericMethods
         private async void SettingsWindow()
         {
             CountOfLogIn = 1;
@@ -37,15 +40,14 @@ namespace FarAway2._0.Content.Windows.Other
         private void ChangeControlsStates(bool State, params UIElement[] Controls)
         {
             foreach (UIElement control in Controls)
-            {
                 control.IsEnabled = State;
-            }
         }
         private void ChangeControls(Action<FrameworkElement> action, params FrameworkElement[] Controls)
         {
             foreach (FrameworkElement control in Controls)
                 action?.Invoke(control);
         }
+        #endregion
 
         #region Window
 
@@ -63,7 +65,6 @@ namespace FarAway2._0.Content.Windows.Other
         }
 
         #endregion
-
 
         #region Authorization
 
@@ -92,10 +93,17 @@ namespace FarAway2._0.Content.Windows.Other
         {
             if (TextBoxForPassword.Visibility == Visibility.Visible)
                 CopyPasswordToPasswordBox();
+
             string Login = LoginTextBox.Text;
             string Password = PasswordBoxForPassword.Password;
 
-            ChangeControlsStates(false, EnterButton, RegistrationButton, LoginTextBox, PasswordBoxForPassword, TextBoxForPassword);
+            ChangeControlsStates(false,
+                EnterButton,
+                RegistrationButton,
+                LoginTextBox,
+                PasswordBoxForPassword,
+                TextBoxForPassword,
+                ShowPasswordButton);
             await Task.Run(async () =>
             {
                 if (DbUtils.Authorization(Login, Password))
@@ -116,7 +124,13 @@ namespace FarAway2._0.Content.Windows.Other
 
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    ChangeControlsStates(true, EnterButton, RegistrationButton, LoginTextBox, PasswordBoxForPassword, TextBoxForPassword);
+                    ChangeControlsStates(true,
+                        EnterButton,
+                        RegistrationButton,
+                        LoginTextBox,
+                        PasswordBoxForPassword,
+                        TextBoxForPassword,
+                        ShowPasswordButton);
                 });
             });
         }
@@ -127,7 +141,6 @@ namespace FarAway2._0.Content.Windows.Other
 
         #endregion
         
-
         #region Captcha
 
         string? RightAnswer;
@@ -176,7 +189,6 @@ namespace FarAway2._0.Content.Windows.Other
 
         #endregion
 
-
         #region Registration
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -193,19 +205,31 @@ namespace FarAway2._0.Content.Windows.Other
             //сброс выбора фото
             swapper.SwapPannels(Registration.Name, Main.Name);
         }
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateAll())
                 return;
-            MessageBox.Show(1.ToString());
+            PhoneNumberParser phone = new PhoneNumberParser(RegPhoneNumberTB.Text);
+            HashService hash = new HashService(RegPasswordTB.Password);
+            Users users = new Users()
+            {
+                Surname = RegSurnameTB.Text,
+                Name = RegNameTB.Text,
+                Patronymic = RegPatronymicTB.Text,
+                Email = RegEmailTB.Text,
+                Login = RegLoginTB.Text,
+                Password = hash.EncrypredPassword,
+                PhoneNumber = phone.ParsedPhoneNumber,
+                Photo = RegPhotoPS.GetImage(),
+                idRole = Entities.Enums.Roles.Undistributed
+            };
+            //реакция добавления нового пользователя
+            //переделать вызов функции регистрации под таск с отключением контролов
+            //MessageBox на согласие регистрации
+                
+            bool result = await DbUtils.RegistrationAsync(users);
         }
         private bool ValidateAll()
-        {
-            if (!ValidateLeftSide())
-                return false;
-            return true;
-        }
-        private bool ValidateLeftSide()
         {
             if (string.IsNullOrWhiteSpace(RegSurnameTB.Text) || RegSurnameTB.Text.Length > 40)
             {
@@ -234,6 +258,21 @@ namespace FarAway2._0.Content.Windows.Other
                 MessageBox.Show("Номер телефона введён не полностью!", "Ошибка");
                 return false;
             }
+            if (string.IsNullOrWhiteSpace(RegPasswordTB.Password) || RegPasswordTB.Password.Length > 40)
+            {
+                MessageBox.Show("Пароль пользователя не введён, либо превышен лимит символов (40)!", "Ошибка");
+                return false;
+            }
+            if (RegPasswordTB.Password != RegPasswordRepeatTB.Password)
+            {
+                MessageBox.Show("Введённые пароли () не совпадают друг с другом!", "Ошибка");
+                return false;
+            }
+            if (!RegPhotoPS.IsImageSet())
+            {
+                MessageBox.Show("Необходимо выбрать изображение для аватара пользователя!", "Ошибка");
+                return false;
+            }
             return true;
         }
         private bool ValidateEmail(string email)
@@ -257,6 +296,5 @@ namespace FarAway2._0.Content.Windows.Other
             return false;
         }
         #endregion
-
     }
 }

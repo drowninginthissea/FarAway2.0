@@ -43,8 +43,8 @@
 
   <ItemGroup>
     <Folder Include="Content\Pages\" />
-    <Folder Include="Content\Windows\Main\" />
     <Folder Include="Content\Windows\DataChange\" />
+    <Folder Include="Content\Windows\Main\" />
   </ItemGroup>
 
 </Project>

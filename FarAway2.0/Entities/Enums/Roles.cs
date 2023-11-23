@@ -13,5 +13,6 @@ namespace FarAway2._0.Entities.Enums
         public const int Manager = 3;
         public const int Director = 4;
         public const int Client = 5;
+        public const int Undistributed = 6;
     }
 }

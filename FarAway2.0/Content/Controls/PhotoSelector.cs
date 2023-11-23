@@ -103,16 +103,17 @@ namespace FarAway2._0.Content.Controls
         public byte[] GetImage()
         {
             if (img == null) return null;
-            var image = img.Source as BitmapSource;
-            byte[] data;
-            BitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(image));
-            using (MemoryStream ms = new MemoryStream())
+            if (img.Source is BitmapSource bitmapSource)
             {
-                encoder.Save(ms);
-                data = ms.ToArray();
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    BitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                    encoder.Save(stream);
+                    return stream.ToArray();
+                }
             }
-            return data;
+            return null;
         }
         private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -140,5 +141,6 @@ namespace FarAway2._0.Content.Controls
                 rectangle.Fill = (Brush)new BrushConverter().ConvertFrom("#003682C7");
             }
         }
+        public bool IsImageSet() => img.Source == null ? false : true;
     }
 }

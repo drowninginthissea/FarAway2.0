@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace FarAway2._0.Tools
 {
@@ -12,5 +8,21 @@ namespace FarAway2._0.Tools
     /// </summary>
     internal class PhoneNumberParser
     {
+        private string _originalPhoneNumber;
+        public string OriginalPhoneNumber
+        {
+            private set
+            {
+                _originalPhoneNumber = value;
+                ParsedPhoneNumber = ParseNumber();
+            }
+            get
+            {
+                return _originalPhoneNumber;
+            }
+        }
+        public string ParsedPhoneNumber { get; private set; }
+        public PhoneNumberParser(string PhoneNumber) => OriginalPhoneNumber = PhoneNumber;
+        private string ParseNumber() => Regex.Replace(_originalPhoneNumber, @"[^\d]", "");
     }
 }

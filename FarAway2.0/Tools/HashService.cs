@@ -15,7 +15,7 @@ namespace FarAway2._0.Tools
                 EncrypredPassword = Encrypt(SourcePassword);
             }
         }
-        public string EncrypredPassword { get; set; }
+        public string EncrypredPassword { get; private set; }
         public HashService(string InputtedPassword)
         {
             SourcePassword = InputtedPassword;

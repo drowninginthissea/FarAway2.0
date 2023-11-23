@@ -589,7 +589,8 @@
                                     <Border Grid.Row="2"
                                             BorderThickness="1"
                                             BorderBrush="Black">
-                                        <local:PhotoSelector TextSize="18" />
+                                        <local:PhotoSelector TextSize="18"
+                                                             x:Name="RegPhotoPS"/>
                                     </Border>
 
                                     <Button Grid.Row="3"
