@@ -1,14 +1,13 @@
 ﻿using FarAway2._0.Entities;
+using FarAway2._0.Exceptions;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace FarAway2._0.Tools
 {
-    //нужно переделать в синглтон
-    internal static class DbUtils
+    public class DbUtils
     {
         public static Db db;
         static DbUtils()
@@ -42,11 +41,30 @@ namespace FarAway2._0.Tools
                 .FirstOrDefault(x => x.idRole != Entities.Enums.Roles.Client && x.Login == login);
             return user != null ? LogginPassword.VerifyWithThis(user.Password) : false;
         }
-        public static async Task<bool> RegistrationAsync(Users user)
+        /// <summary>
+        /// can throw an exception "UserAlreadyExistsException"
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool Registration(Users user)
         {
-            EntityEntry result = await db.Users.AddAsync(user);
-            db.SaveChanges();
-            return result.State == Microsoft.EntityFrameworkCore.EntityState.Added ? true : false;
+            if (db.Users.Any(u => u.Login == user.Login))
+                throw new UserAlreadyExistsException("Пользователь с таким логином уже существует!");
+            try
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
+        private static string GetStringOfEmpty(string Source) => Source != null ? Source : "";
+        private static string GetFirstCharWithPoint(string Source) => Source == "" ? "" : $"{Source.First()}.";
+        public static string GetUserInitials(Users user) => $"{user.Surname} " +
+                $"{GetFirstCharWithPoint(user.Name)}" +
+                $"{GetFirstCharWithPoint(GetStringOfEmpty(user.Patronymic))}";
     }
 }

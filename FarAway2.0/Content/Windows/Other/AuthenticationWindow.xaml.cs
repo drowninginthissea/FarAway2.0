@@ -1,9 +1,7 @@
 ﻿using FarAway2._0.Entities;
-using FarAway2._0.Entities.Enums;
+using FarAway2._0.Exceptions;
 using FarAway2._0.Tools;
-using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,9 +13,6 @@ using System.Windows.Media.Imaging;
 
 namespace FarAway2._0.Content.Windows.Other
 {
-    /// <summary>
-    /// Interaction logic for AuthenticationWindow.xaml
-    /// </summary>
     public partial class AuthenticationWindow : Window
     {
         private int CountOfLogIn;
@@ -47,6 +42,11 @@ namespace FarAway2._0.Content.Windows.Other
             foreach (FrameworkElement control in Controls)
                 action?.Invoke(control);
         }
+        private void ChangeVisibility(Control element1, Visibility visibility1, Control element2, Visibility visibility2)
+        {
+            element1.Visibility = visibility1;
+            element2.Visibility = visibility2;
+        }
         #endregion
 
         #region Window
@@ -68,11 +68,6 @@ namespace FarAway2._0.Content.Windows.Other
 
         #region Authorization
 
-        private void ChangeVisibility(Control element1, Visibility visibility1, Control element2, Visibility visibility2)
-        {
-            element1.Visibility = visibility1;
-            element2.Visibility = visibility2;
-        }
         private void CopyPasswordToTextBox() => TextBoxForPassword.Text = PasswordBoxForPassword.Password;
         private void CopyPasswordToPasswordBox() => PasswordBoxForPassword.Password = TextBoxForPassword.Text;
         private void CopyPasswordToTwoBoxes()
@@ -140,7 +135,7 @@ namespace FarAway2._0.Content.Windows.Other
         }
 
         #endregion
-        
+
         #region Captcha
 
         string? RightAnswer;
@@ -192,17 +187,18 @@ namespace FarAway2._0.Content.Windows.Other
         #region Registration
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeControls(x => ((TextBox)x).Clear(), 
-                RegSurnameTB, 
-                RegNameTB, 
-                RegPatronymicTB, 
-                RegEmailTB, 
-                RegLoginTB, 
+            ChangeControls(x => ((TextBox)x).Clear(),
+                RegSurnameTB,
+                RegNameTB,
+                RegPatronymicTB,
+                RegEmailTB,
+                RegLoginTB,
                 RegPhoneNumberTB);
             ChangeControls(x => ((PasswordBox)x).Clear(),
                 RegPasswordTB,
                 RegPasswordRepeatTB);
-            //сброс выбора фото
+            RegPhotoPS.ResetImage();
+
             swapper.SwapPannels(Registration.Name, Main.Name);
         }
         private async void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -211,7 +207,7 @@ namespace FarAway2._0.Content.Windows.Other
                 return;
             PhoneNumberParser phone = new PhoneNumberParser(RegPhoneNumberTB.Text);
             HashService hash = new HashService(RegPasswordTB.Password);
-            Users users = new Users()
+            Users NewUser = new Users()
             {
                 Surname = RegSurnameTB.Text,
                 Name = RegNameTB.Text,
@@ -223,11 +219,56 @@ namespace FarAway2._0.Content.Windows.Other
                 Photo = RegPhotoPS.GetImage(),
                 idRole = Entities.Enums.Roles.Undistributed
             };
-            //реакция добавления нового пользователя
-            //переделать вызов функции регистрации под таск с отключением контролов
-            //MessageBox на согласие регистрации
-                
-            bool result = await DbUtils.RegistrationAsync(users);
+
+            ChangeControlsStates(false,
+                BackButton,
+                RegNameTB,
+                RegSurnameTB,
+                RegPatronymicTB,
+                RegEmailTB,
+                RegLoginTB,
+                RegPhoneNumberTB,
+                RegPasswordTB,
+                RegPasswordRepeatTB,
+                RegPhotoPS,
+                RegisterButton);
+
+            await Task.Run(async () =>
+            {
+                MessageBoxResult ConsentOfRegistrationResult = MessageBox.Show($"Вы уверены, что хотите зарегистрировать " +
+                    $"нового пользователя \"{DbUtils.GetUserInitials(NewUser)}\" с " +
+                    $"логином {NewUser.Login}?", "Согласие на создание", MessageBoxButton.YesNoCancel);
+                if (ConsentOfRegistrationResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        bool RegistrationResult = DbUtils.Registration(NewUser);
+                        _ = RegistrationResult == true ?
+                            MessageBox.Show("Успешная регистрация нового пользователя!", "Вы зарегистрировались") :
+                            MessageBox.Show("Ошибка регистрации нового пользователя!", "Ошибка");
+                    }
+                    catch (UserAlreadyExistsException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка регистрации");
+                    }
+                }
+
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    ChangeControlsStates(true,
+                        BackButton,
+                        RegNameTB,
+                        RegSurnameTB,
+                        RegPatronymicTB,
+                        RegEmailTB,
+                        RegLoginTB,
+                        RegPhoneNumberTB,
+                        RegPasswordTB,
+                        RegPasswordRepeatTB,
+                        RegPhotoPS,
+                        RegisterButton);
+                });
+            });
         }
         private bool ValidateAll()
         {
@@ -265,7 +306,7 @@ namespace FarAway2._0.Content.Windows.Other
             }
             if (RegPasswordTB.Password != RegPasswordRepeatTB.Password)
             {
-                MessageBox.Show("Введённые пароли () не совпадают друг с другом!", "Ошибка");
+                MessageBox.Show("Введённые пароли не совпадают друг с другом!", "Ошибка");
                 return false;
             }
             if (!RegPhotoPS.IsImageSet())
@@ -289,11 +330,6 @@ namespace FarAway2._0.Content.Windows.Other
                 return false;
             }
             return true;
-        }
-        private bool ReturnFalseWithError(string Text, string Header)
-        {
-            MessageBox.Show(Text, Header);
-            return false;
         }
         #endregion
     }

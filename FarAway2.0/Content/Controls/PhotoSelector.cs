@@ -70,6 +70,16 @@ namespace FarAway2._0.Content.Controls
         {
             ChooseImageButton.Content = grid;
         }
+        private void ResetContentImageButton()
+        {
+            ChooseImageButton.Content = new TextBlock()
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = TextSize,
+                Text = "Выбор изображения"
+            };
+        }
         private Image ByteArrToImage(byte[] byteArr)
         {
             Image img = new Image();
@@ -142,5 +152,9 @@ namespace FarAway2._0.Content.Controls
             }
         }
         public bool IsImageSet() => img.Source == null ? false : true;
+        public void ResetImage()
+        {
+            ResetContentImageButton();
+        }
     }
 }
