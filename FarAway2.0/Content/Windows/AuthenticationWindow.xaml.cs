@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace FarAway2._0.Content.Windows.Other
+namespace FarAway2._0.Content.Windows
 {
     public partial class AuthenticationWindow : Window
     {

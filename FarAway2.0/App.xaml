@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:FarAway2._0"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             StartupUri="/Content/Windows/Other/AuthenticationWindow.xaml"
+             StartupUri="/Content/Windows/ShellWindow.xaml"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>

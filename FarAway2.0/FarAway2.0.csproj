@@ -42,9 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Content\Pages\" />
-    <Folder Include="Content\Windows\DataChange\" />
-    <Folder Include="Content\Windows\Main\" />
+    <Folder Include="Content\Controls\UserControls\" />
   </ItemGroup>
 
 </Project>
