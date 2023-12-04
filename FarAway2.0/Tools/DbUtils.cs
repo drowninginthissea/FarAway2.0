@@ -34,15 +34,20 @@ namespace FarAway2._0.Tools
                 await Application.Current.Dispatcher.InvokeAsync(Application.Current.Shutdown);
             }
         }
-        public static bool Authorization(string login, string password)
+        public static (bool, Users?) Authorization(string login, string password)
         {
             HashService LogginPassword = new HashService(password);
-            Users user = db.Users
+            Users? user = db.Users
                 .FirstOrDefault(x => x.idRole != Entities.Enums.Roles.Client && x.Login == login);
-            return user != null ? LogginPassword.VerifyWithThis(user.Password) : false;
+            if (user == null)
+                return (false, null);
+            bool IsRightPassword = LogginPassword.VerifyWithThis(user.Password);
+            if (!IsRightPassword)
+                return (false, user);
+            return (true, user);
         }
         /// <summary>
-        /// can throw an exception "UserAlreadyExistsException"
+        /// Can throw an exception "UserAlreadyExistsException"
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>

@@ -229,7 +229,7 @@
 
                             <Grid Grid.Row="1">
                                 <Line Stroke="Black"
-                                      StrokeThickness="5"
+                                      StrokeThickness="2"
                                       X1="0"
                                       Y1="0"
                                       X2="460"

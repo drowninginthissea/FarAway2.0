@@ -41,8 +41,4 @@
     <Resource Include="Resources\RollDown.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Content\Controls\UserControls\" />
-  </ItemGroup>
-
 </Project>

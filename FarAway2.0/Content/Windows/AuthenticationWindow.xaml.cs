@@ -1,11 +1,5 @@
-﻿using FarAway2._0.Entities;
-using FarAway2._0.Exceptions;
-using FarAway2._0.Tools;
-using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -101,10 +95,14 @@ namespace FarAway2._0.Content.Windows
                 ShowPasswordButton);
             await Task.Run(async () =>
             {
-                if (DbUtils.Authorization(Login, Password))
+                (bool IsAuth, Users user) = DbUtils.Authorization(Login, Password);
+                if (IsAuth)
                 {
-                    //открытие окна основного
-                    MessageBox.Show("Openning of main window...");
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        new ShellWindow(user).Show();
+                        Close();
+                    });
                 }
                 else
                 {
