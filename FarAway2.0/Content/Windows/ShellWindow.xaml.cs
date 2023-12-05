@@ -2,6 +2,7 @@
 using FarAway2._0.Content.Controls.UserControls;
 using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
+using System.Threading;
 
 namespace FarAway2._0.Content.Windows
 {
@@ -16,7 +17,9 @@ namespace FarAway2._0.Content.Windows
         public ShellWindow()
         {
             InitializeComponent();
-            WindowConfiguration(DbUtils.db.Users.Find(new Random().Next(1, DbUtils.db.Users.Count() + 1)));
+            //WindowConfiguration(DbUtils.db.Users.Find(new Random().Next(1, DbUtils.db.Users.Count() + 1)));
+            MainContentControl.Content = new Empty();
+            LoadingContentControl.Content = new Loading();
         }
 #endif
         public ShellWindow(Users user)
@@ -36,9 +39,10 @@ namespace FarAway2._0.Content.Windows
         {
             _user = users;
             MainContentControl.Content = new Empty();
+            LoadingContentControl.Content = new Loading();
         }
         #endregion
-        private void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             MyNavigationViewItem Item = args.SelectedItem as MyNavigationViewItem;
             if (Item.Action == Tools.Collections.MainWindowActions.Account)
@@ -55,13 +59,23 @@ namespace FarAway2._0.Content.Windows
             }
 
             // Table display on main content of NavigationView
+            // я ебал эту хуйню
 
             if (TableTypeAttribute.GetAttribute(Item.DatabaseTable) == TableTypes.ReferenceTables)
             {
-                MainContentControl.Content = new ReferenceTablesView(Item.DatabaseTable);
+                LoadingContentControl.Visibility = Visibility.Visible;
+                MainContentControl.Visibility = Visibility.Hidden;
+
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        Thread.Sleep(3000);
+                        MainContentControl.Content = new ReferenceTablesView(Item.DatabaseTable);
+                        LoadingContentControl.Visibility = Visibility.Hidden;
+                        MainContentControl.Visibility = Visibility.Visible;
+                    });
             }
 
-            
+
         }
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)

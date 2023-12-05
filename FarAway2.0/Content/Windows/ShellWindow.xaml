@@ -240,7 +240,11 @@
                 </local:MyNavigationViewItem>
             </ui:NavigationView.FooterMenuItems>
 
-            <ContentControl x:Name="MainContentControl" />
+            <Grid>
+                <ContentControl x:Name="MainContentControl" />
+                <ContentControl x:Name="LoadingContentControl"
+                                Visibility="Hidden"/>
+            </Grid>
 
         </ui:NavigationView>
     </Grid>

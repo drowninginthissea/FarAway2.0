@@ -2,6 +2,7 @@
 using FarAway2._0.Content.Controls.UserControls.DataEdit;
 using System.Windows.Controls;
 using ModernWpf.Controls;
+using System.Threading;
 
 namespace FarAway2._0.Content.Controls.UserControls
 {
@@ -11,12 +12,13 @@ namespace FarAway2._0.Content.Controls.UserControls
         public ReferenceTablesView(TableNames table)
         {
             InitializeComponent();
+
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            FrequencyOfServicesGrid.Visibility = Visibility.Visible;
-            FrequencyOfServicesGrid.ItemsSource = DbUtils.db.FrequencyOfServices.ToList();
+            //FrequencyOfServicesGrid.Visibility = Visibility.Visible;
+            //FrequencyOfServicesGrid.ItemsSource = DbUtils.db.FrequencyOfServices.ToList();
         }
 
         private void FrequencyOfServicesEditButton_Click(object sender, RoutedEventArgs e)

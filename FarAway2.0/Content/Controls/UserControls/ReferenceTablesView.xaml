@@ -279,7 +279,7 @@
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Name="DataEdit"
-                          Visibility="Visible"
+                          Visibility="Hidden"
                           Background="{StaticResource MyGray}" />
 
 
