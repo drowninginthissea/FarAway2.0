@@ -13,7 +13,7 @@
              Width="200"
              HorizontalAlignment="Center"
              VerticalAlignment="Center">
-    <Border CornerRadius="15">
+    <Grid>
         <Grid >
             <ui:SimpleStackPanel Orientation="Vertical"
                                  Spacing="50"
@@ -28,5 +28,5 @@
                         HorizontalAlignment="Center" />
             </ui:SimpleStackPanel>
         </Grid>
-    </Border>
+    </Grid>
 </UserControl>
