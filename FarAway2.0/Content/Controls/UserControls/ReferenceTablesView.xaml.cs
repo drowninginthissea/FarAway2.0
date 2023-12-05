@@ -1,11 +1,13 @@
 ﻿using FarAway2._0.Entities.Enums;
 using FarAway2._0.Content.Controls.UserControls.DataEdit;
 using System.Windows.Controls;
+using ModernWpf.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls
 {
     public partial class ReferenceTablesView : UserControl
     {
+        private TableNames _activeReference;
         public ReferenceTablesView(TableNames table)
         {
             InitializeComponent();
@@ -17,11 +19,56 @@ namespace FarAway2._0.Content.Controls.UserControls
             FrequencyOfServicesGrid.ItemsSource = DbUtils.db.FrequencyOfServices.ToList();
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private void FrequencyOfServicesEditButton_Click(object sender, RoutedEventArgs e)
         {
-            DataEdit.Content = new FrequencyOfServicesEdit();
-            MainGrid.IsEnabled = false;
-            DataEdit.Visibility = Visibility.Visible;
+            //DataEdit.Content = new FrequencyOfServicesEdit();
+            //DataEdit.Visibility = Visibility.Visible;
+            //FrequencyOfServices some = (sender as Button).DataContext as FrequencyOfServices;
+            new ContentDialog() { Content = new FrequencyOfServicesEdit() }.ShowAsync();
+        }
+
+        private void ListOfActionsEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListOfAdditionalServicesEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ParkingSpotStatusesEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RentalStatusesEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RolesEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ServiceProvidersEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TypeOfRentByDurationEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TypesOfCarExchangeSystemEditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TypesOfParkingEditButton_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

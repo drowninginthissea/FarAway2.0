@@ -13,8 +13,7 @@
              Width="200"
              HorizontalAlignment="Center"
              VerticalAlignment="Center">
-    <Border CornerRadius="15"
-            Background="{StaticResource Gray}">
+    <Border CornerRadius="15">
         <Grid >
             <ui:SimpleStackPanel Orientation="Vertical"
                                  Spacing="50"

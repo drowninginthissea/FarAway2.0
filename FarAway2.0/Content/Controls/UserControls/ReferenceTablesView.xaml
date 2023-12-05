@@ -66,8 +66,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="FrequencyOfServicesEditButton"
+                                            Click="FrequencyOfServicesEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -85,8 +85,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="ListOfActionsEditButton"
+                                            Click="ListOfActionsEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -118,8 +118,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="ListOfAdditionalServicesEditButton"
+                                            Click="ListOfAdditionalServicesEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -137,8 +137,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="ParkingSpotStatusesEditButton"
+                                            Click="ParkingSpotStatusesEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -156,8 +156,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="RentalStatusesEditButton"
+                                            Click="RentalStatusesEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -175,8 +175,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="RolesEditButton"
+                                            Click="RolesEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -200,8 +200,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="ServiceProvidersEditButton"
+                                            Click="ServiceProvidersEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -219,8 +219,8 @@
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
+                                    <Button x:Name="TypeOfRentByDurationEditButton"
+                                            Click="TypeOfRentByDurationEditButton_Click"
                                             Height="40"
                                             Padding="3"
                                             Content="{StaticResource PencilIcon}" />
@@ -229,14 +229,59 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
+                <DataGrid Name="TypesOfCarExchangeSystemGrid"
+                          Style="{StaticResource DataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название типа"
+                                            Binding="{Binding TypeName}" />
+                        <DataGridTemplateColumn Header="Действия">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="TypesOfCarExchangeSystemEditButton"
+                                            Click="TypesOfCarExchangeSystemEditButton_Click"
+                                            Height="40"
+                                            Padding="3"
+                                            Content="{StaticResource PencilIcon}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Name="TypesOfParkingGrid"
+                          Style="{StaticResource DataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название типа"
+                                            Binding="{Binding TypeName}" />
+                        <DataGridTemplateColumn Header="Действия">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="TypesOfParkingEditButton"
+                                            Click="TypesOfParkingEditButton_Click"
+                                            Height="40"
+                                            Padding="3"
+                                            Content="{StaticResource PencilIcon}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </Grid>
         </Grid>
 
-        <ContentControl Name="DataEdit" Visibility="Collapsed"
+        <!--<ContentControl Name="DataEdit" Visibility="Collapsed"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        Grid.RowSpan="2"/>
+                        Grid.RowSpan="2"/>-->
+        <ui:ContentDialog Grid.RowSpan="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Name="DataEdit"
+                          Visibility="Visible"
+                          Background="{StaticResource MyGray}" />
+
 
     </Grid>
 </UserControl>
