@@ -36,6 +36,16 @@
             <Setter Property="IsReadOnly"
                     Value="True" />
         </Style>
+
+        <Style x:Key="EditButton"
+               TargetType="Button"
+               BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Height"
+                    Value="32" />
+            <Setter Property="Padding"
+                    Value="3" />
+        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid x:Name="MainGrid"
@@ -45,17 +55,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid>
-                <ui:SimpleStackPanel Orientation="Horizontal"
-                                     HorizontalAlignment="Center"
-                                     Spacing="50">
-                    <Button Content="Добавить"
-                            x:Name="CreateButton"
-                            Click="CreateButton_Click" />
-                </ui:SimpleStackPanel>
-
-
-            </Grid>
+            <Button Content="Добавить"
+                    x:Name="CreateButton"
+                    Click="CreateButton_Click"
+                    HorizontalAlignment="Center"/>
 
             <Grid Grid.Row="1">
                 <DataGrid Name="FrequencyOfServicesGrid"
@@ -68,8 +71,7 @@
                                 <DataTemplate>
                                     <Button x:Name="FrequencyOfServicesEditButton"
                                             Click="FrequencyOfServicesEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -87,8 +89,7 @@
                                 <DataTemplate>
                                     <Button x:Name="ListOfActionsEditButton"
                                             Click="ListOfActionsEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -120,8 +121,7 @@
                                 <DataTemplate>
                                     <Button x:Name="ListOfAdditionalServicesEditButton"
                                             Click="ListOfAdditionalServicesEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -139,8 +139,7 @@
                                 <DataTemplate>
                                     <Button x:Name="ParkingSpotStatusesEditButton"
                                             Click="ParkingSpotStatusesEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -158,8 +157,7 @@
                                 <DataTemplate>
                                     <Button x:Name="RentalStatusesEditButton"
                                             Click="RentalStatusesEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -177,8 +175,7 @@
                                 <DataTemplate>
                                     <Button x:Name="RolesEditButton"
                                             Click="RolesEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -202,8 +199,7 @@
                                 <DataTemplate>
                                     <Button x:Name="ServiceProvidersEditButton"
                                             Click="ServiceProvidersEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -227,8 +223,7 @@
                                 <DataTemplate>
                                     <Button x:Name="TypeOfRentByDurationEditButton"
                                             Click="TypeOfRentByDurationEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -246,8 +241,7 @@
                                 <DataTemplate>
                                     <Button x:Name="TypesOfCarExchangeSystemEditButton"
                                             Click="TypesOfCarExchangeSystemEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -265,8 +259,7 @@
                                 <DataTemplate>
                                     <Button x:Name="TypesOfParkingEditButton"
                                             Click="TypesOfParkingEditButton_Click"
-                                            Height="40"
-                                            Padding="3"
+                                            Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

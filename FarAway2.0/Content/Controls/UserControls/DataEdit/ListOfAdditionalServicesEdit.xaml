@@ -12,10 +12,10 @@
                      Name="ServiceName" />
             <TextBox ui:ControlHelper.Header="Цена услуги"
                      ui:ControlHelper.PlaceholderText="199.99"
-                     Name="ServicePrice" />
+                     Name="ServicePrice"/>
             <TextBox ui:ControlHelper.Header="Описание услуги"
                      ui:ControlHelper.PlaceholderText="Представляет собой мойку автомобиля клиента"
-                     Name="SeviceDescription" />
+                     Name="ServiceDescription" />
             <Button Name="SaveChanges"
                     Click="SaveChanges_Click"
                     Content="Сохранить"

@@ -134,7 +134,7 @@ namespace FarAway2._0.Entities
 
             modelBuilder.Entity<ListOfAdditionalServices>(entity =>
             {
-                entity.Property(e => e.SevicePrice).HasColumnType("money");
+                entity.Property(e => e.ServicePrice).HasColumnType("money");
             });
 
             modelBuilder.Entity<ParkingSpaceRental>(entity =>

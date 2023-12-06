@@ -102,8 +102,7 @@
                 </local:MyNavigationViewItem>
                 <local:MyNavigationViewItem Content="Справочная информация"
                                             ToolTip="Справочная информация"
-                                            x:Name="ReferenceTables"
-                                            IsExpanded="True">
+                                            x:Name="ReferenceTables">
                     <ui:NavigationViewItem.MenuItems>
                         <local:MyNavigationViewItem Content="Типы систем обмена автомобилей"
                                                     ToolTip="Типы систем обмена автомобилей"

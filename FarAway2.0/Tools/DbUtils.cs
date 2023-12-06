@@ -64,11 +64,11 @@ namespace FarAway2._0.Tools
                 return false;
             }
         }
-        private static string GetStringOfEmpty(string Source) => Source != null ? Source : "";
+        private static string GetStringOrEmpty(string Source) => Source != null ? Source : "";
         private static string GetFirstCharWithPoint(string Source) => Source == "" ? "" : $"{Source.First()}.";
         public static string GetUserInitials(Users user) => $"{user.Surname} " +
                 $"{GetFirstCharWithPoint(user.Name)}" +
-                $"{GetFirstCharWithPoint(GetStringOfEmpty(user.Patronymic))}";
+                $"{GetFirstCharWithPoint(GetStringOrEmpty(user.Patronymic))}";
 
     }
 }

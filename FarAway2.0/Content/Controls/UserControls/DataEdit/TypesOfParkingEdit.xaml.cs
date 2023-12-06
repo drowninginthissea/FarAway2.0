@@ -9,9 +9,15 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
     {
         public ContentDialog ParentDialog { get; set; }
 
-        public TypesOfParkingEdit()
+        public TypesOfParkingEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
         {
             InitializeComponent();
+            ParentDialog = CallingDialog;
+        }
+        public TypesOfParkingEdit(ContentDialog CallingDialog, TypesOfParking Instance, Func<Task> UpdateMethod)
+        {
+            InitializeComponent();
+            ParentDialog = CallingDialog;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)

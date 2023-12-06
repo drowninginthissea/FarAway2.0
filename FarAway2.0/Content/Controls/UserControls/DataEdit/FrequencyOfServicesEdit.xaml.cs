@@ -1,6 +1,4 @@
-﻿using FarAway2._0.Interfaces;
-using FarAway2._0.Tools.Extensions;
-using ModernWpf.Controls;
+﻿using ModernWpf.Controls;
 using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls.DataEdit
@@ -8,20 +6,47 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
     public partial class FrequencyOfServicesEdit : UserControl, IContentDialogParent
     {
         public ContentDialog ParentDialog { get; set; }
-        public FrequencyOfServicesEdit(ContentDialog CallingDialog)
+        private bool _isAddition = true;
+        FrequencyOfServices ChangingInstance;
+        Func<Task> UpdateMethod;
+        public FrequencyOfServicesEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
+            this.UpdateMethod = UpdateMethod;
         }
-        public FrequencyOfServicesEdit(ContentDialog CallingDialog, FrequencyOfServices Instance)
+        public FrequencyOfServicesEdit(ContentDialog CallingDialog, FrequencyOfServices Instance, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
+            this.UpdateMethod = UpdateMethod;
+            _isAddition = false;
+            ChangingInstance = Instance;
+            FrequencyName.Text = Instance.FrequencyName;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-
+            if (string.IsNullOrWhiteSpace(FrequencyName.Text))
+            {
+                MessageBox.Show("Значение названия периодичности не может быть пустым!", "Ошибка сохранения");
+                return;
+            }
+            if (_isAddition)
+            {
+                FrequencyOfServices Instance = new FrequencyOfServices()
+                {
+                    FrequencyName = FrequencyName.Text
+                };
+                DbUtils.db.FrequencyOfServices.Add(Instance);
+            }
+            else
+            {
+                ChangingInstance.FrequencyName = FrequencyName.Text;
+            }
+            DbUtils.db.SaveChanges();
+            UpdateMethod();
+            this.CloseContentDialog();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

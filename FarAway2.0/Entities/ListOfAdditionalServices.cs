@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace FarAway2._0.Entities
 {
@@ -12,9 +11,9 @@ namespace FarAway2._0.Entities
         }
 
         public int id { get; set; }
-        public string SeviceName { get; set; } = null!;
-        public decimal SevicePrice { get; set; }
-        public string SeviceDescription { get; set; } = null!;
+        public string ServiceName { get; set; } = null!;
+        public decimal ServicePrice { get; set; }
+        public string ServiceDescription { get; set; } = null!;
 
         public virtual ICollection<AdditionalServicesForRent> AdditionalServicesForRent { get; set; }
     }

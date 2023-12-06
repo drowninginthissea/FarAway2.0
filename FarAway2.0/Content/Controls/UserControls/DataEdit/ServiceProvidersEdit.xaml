@@ -10,7 +10,7 @@
         <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
             <TextBox ui:ControlHelper.Header="Название поставщика"
                      ui:ControlHelper.PlaceholderText="FarAway"
-                     Name="ServiceName" />
+                     Name="Name" />
             <TextBox ui:ControlHelper.Header="ИНН"
                      ui:ControlHelper.PlaceholderText="1234567890"
                      Name="ITIN" />

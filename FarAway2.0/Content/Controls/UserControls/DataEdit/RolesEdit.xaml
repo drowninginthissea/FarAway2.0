@@ -9,7 +9,7 @@
         <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
             <TextBox ui:ControlHelper.Header="Название роли"
                      ui:ControlHelper.PlaceholderText="Менеджер по клиентам"
-                     Name="StatusName" />
+                     Name="RoleName" />
             <Button Name="SaveChanges"
                     Click="SaveChanges_Click"
                     Content="Сохранить"

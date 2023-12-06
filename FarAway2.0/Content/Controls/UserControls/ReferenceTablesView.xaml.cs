@@ -1,10 +1,8 @@
 ﻿using FarAway2._0.Content.Controls.UserControls.DataEdit;
 using FarAway2._0.Entities.Enums;
-using FarAway2._0.Interfaces;
-using FarAway2._0.Tools.Extensions;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
-using System.Collections.Generic;
+using System;
 using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls
@@ -37,7 +35,6 @@ namespace FarAway2._0.Content.Controls.UserControls
             Grid.Visibility = Visibility.Visible;
             Grid.ItemsSource = CollectionToShow.SearchData(TextToSearch);
         }
-
         private async Task UpdateGridAsync()
         {
             switch (_activeReference)
@@ -92,64 +89,152 @@ namespace FarAway2._0.Content.Controls.UserControls
         {
             await UpdateGridAsync();
         }
-
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        public async Task UpdateDataAsync()
         {
-
+            await UpdateGridAsync();
         }
 
-        private void FrequencyOfServicesEditButton_Click(object sender, RoutedEventArgs e)
+        public delegate ControlType DataCreateConstructor<ControlType>(ContentDialog CallingDialog, Func<Task> UpdateMethod);
+        public delegate ControlType DataUpdateConstructor<EntityType, ControlType>
+            (ContentDialog CallingDialog, EntityType Instance, Func<Task> UpdateMethod);
+
+
+        public void OpenUpdateDialogGeneric<EntityType, ControlType>
+            (object sender, DataUpdateConstructor<EntityType, ControlType> Constructor, Func<Task> UpdateMethod)
+            where EntityType : class
+            where ControlType : UserControl =>
+            OpenDialogGeneric<EntityType, ControlType, DataUpdateConstructor<EntityType, ControlType>>
+                (sender, Constructor, UpdateMethod);
+
+        public void OpenCreateDialogGeneric<ControlType>
+            (DataCreateConstructor<ControlType> Constructor, Func<Task> UpdateMethod, object sender = null)
+            where ControlType : UserControl =>
+            OpenDialogGeneric<object, ControlType, DataCreateConstructor<ControlType>>(sender, Constructor, UpdateMethod);
+
+        private void OpenDialogGeneric<EntityType, ControlType, CtorMethod>
+            (object sender, CtorMethod MethodReference, Func<Task> UpdateMethod)
+            where EntityType : class
+            where ControlType : UserControl
+            where CtorMethod : Delegate
         {
-            FrequencyOfServices Instance = (sender as Button).DataContext as FrequencyOfServices;
+            EntityType Instance = null;
+            if (MethodReference is DataUpdateConstructor<EntityType, ControlType>)
+                Instance = (sender as Button).DataContext as EntityType;
             ContentDialog DialogOfEdit = new ContentDialog();
-            FrequencyOfServicesEdit EditControl = new FrequencyOfServicesEdit(DialogOfEdit);
-            DialogOfEdit.Content = EditControl;
+            ControlType UserControl = null;
+            if (MethodReference is DataUpdateConstructor<EntityType, ControlType> Update)
+                UserControl = Update(DialogOfEdit, Instance, UpdateMethod);
+            else if (MethodReference is DataCreateConstructor<ControlType> Create)
+                UserControl = Create(DialogOfEdit, UpdateMethod);
+            DialogOfEdit.Content = UserControl;
             DialogOfEdit.ShowAsync();
         }
 
-        private void ListOfActionsEditButton_Click(object sender, RoutedEventArgs e)
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            switch (_activeReference)
+            {
+                case TableNames.FrequencyOfServices:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new FrequencyOfServicesEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.ListOfActions:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new ListOfActionsEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.ListOfAdditionalServices:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new ListOfAdditionalServicesEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.ParkingSpotStatuses:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new ParkingSpotStatusesEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.RentalStatuses:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new RentalStatusesEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.Roles:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new RolesEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.ServiceProviders:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new ServiceProvidersEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.TypeOfRentByDuration:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new TypeOfRentByDurationEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.TypesOfCarExchangeSystem:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new TypesOfCarExchangeSystemEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+                case TableNames.TypesOfParking:
+                    OpenCreateDialogGeneric
+                        ((callingDialog, method) => new TypesOfParkingEdit(callingDialog, method), UpdateDataAsync);
+                    break;
+            }
         }
 
-        private void ListOfAdditionalServicesEditButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void FrequencyOfServicesEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<FrequencyOfServices, FrequencyOfServicesEdit>
+                (sender, 
+                (callingDialog, instance, method) => new FrequencyOfServicesEdit(callingDialog, instance, method), 
+                UpdateDataAsync);
 
-        }
+        private void ListOfActionsEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<ListOfActions, ListOfActionsEdit>
+                (sender,
+                (callingDialog, instance, method) => new ListOfActionsEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        private void ParkingSpotStatusesEditButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void ListOfAdditionalServicesEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<ListOfAdditionalServices, ListOfAdditionalServicesEdit>
+                (sender,
+                (callingDialog, instance, method) => new ListOfAdditionalServicesEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        }
+        private void ParkingSpotStatusesEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<ParkingSpotStatuses, ParkingSpotStatusesEdit>
+                (sender,
+                (callingDialog, instance, method) => new ParkingSpotStatusesEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        private void RentalStatusesEditButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void RentalStatusesEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<RentalStatuses, RentalStatusesEdit>
+                (sender,
+                (callingDialog, instance, method) => new RentalStatusesEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        }
+        private void RolesEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<Entities.Roles, RolesEdit>
+                (sender,
+                (callingDialog, instance, method) => new RolesEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        private void RolesEditButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void ServiceProvidersEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<ServiceProviders, ServiceProvidersEdit>
+                (sender,
+                (callingDialog, instance, method) => new ServiceProvidersEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        }
+        private void TypeOfRentByDurationEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<TypeOfRentByDuration, TypeOfRentByDurationEdit>
+                (sender,
+                (callingDialog, instance, method) => new TypeOfRentByDurationEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        private void ServiceProvidersEditButton_Click(object sender, RoutedEventArgs e)
-        {
-            new ContentDialog() { Content = new ServiceProvidersEdit() }.ShowAsync();
-        }
+        private void TypesOfCarExchangeSystemEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<TypesOfCarExchangeSystem, TypesOfCarExchangeSystemEdit>
+                (sender,
+                (callingDialog, instance, method) => new TypesOfCarExchangeSystemEdit(callingDialog, instance, method),
+                UpdateDataAsync);
 
-        private void TypeOfRentByDurationEditButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TypesOfCarExchangeSystemEditButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TypesOfParkingEditButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void TypesOfParkingEditButton_Click(object sender, RoutedEventArgs e) =>
+            OpenUpdateDialogGeneric<TypesOfParking, TypesOfParkingEdit>
+                (sender,
+                (callingDialog, instance, method) => new TypesOfParkingEdit(callingDialog, instance, method),
+                UpdateDataAsync);
     }
 }
