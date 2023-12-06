@@ -1,33 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using FarAway2._0.Interfaces;
+using FarAway2._0.Tools.Extensions;
+using ModernWpf.Controls;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FarAway2._0.Content.Controls.UserControls.DataEdit
 {
-    /// <summary>
-    /// Interaction logic for FrequencyOfServicesEdit.xaml
-    /// </summary>
-    public partial class FrequencyOfServicesEdit : UserControl
+    public partial class FrequencyOfServicesEdit : UserControl, IContentDialogParent
     {
-        public FrequencyOfServicesEdit()
+        public ContentDialog ParentDialog { get; set; }
+        public FrequencyOfServicesEdit(ContentDialog CallingDialog)
         {
             InitializeComponent();
+            ParentDialog = CallingDialog;
+        }
+        public FrequencyOfServicesEdit(ContentDialog CallingDialog, FrequencyOfServices Instance)
+        {
+            InitializeComponent();
+            ParentDialog = CallingDialog;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.CloseContentDialog();
         }
     }
 }

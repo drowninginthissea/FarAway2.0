@@ -2,7 +2,7 @@
 using FarAway2._0.Tools.Collections;
 using ModernWpf.Controls;
 
-namespace FarAway2._0.Content.Controls
+namespace FarAway2._0.Content.Controls.CustomControls
 {
     internal class MyNavigationViewItem : NavigationViewItem
     {

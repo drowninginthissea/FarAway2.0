@@ -214,8 +214,14 @@
                 <DataGrid Name="TypeOfRentByDurationGrid"
                           Style="{StaticResource DataGrid}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Название роли"
-                                            Binding="{Binding RoleName}" />
+                        <DataGridTextColumn Header="Название типа"
+                                            Binding="{Binding TypeName}" />
+                        <DataGridTextColumn Header="Минимальный срок (дней)"
+                                            Binding="{Binding MinDurationOfRentalDays}" />
+                        <DataGridTextColumn Header="Максимальный срок (дней)"
+                                            Binding="{Binding MaxDurationOfRentalDays, TargetNullValue='Бессрочно'}" />
+                        <DataGridTextColumn Header="Коэффициент возрастания цены"
+                                            Binding="{Binding PriceCoefficient, StringFormat=0.00}"/>
                         <DataGridTemplateColumn Header="Действия">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

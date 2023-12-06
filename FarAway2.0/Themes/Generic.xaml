@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:FarAway2._0.Content.Controls">
+    xmlns:local="clr-namespace:FarAway2._0.Content.Controls.CustomControls">
 
 
     <Style TargetType="{x:Type local:PhotoSelector}">

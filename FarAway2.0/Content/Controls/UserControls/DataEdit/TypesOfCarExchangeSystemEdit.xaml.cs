@@ -5,21 +5,21 @@ using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls.DataEdit
 {
-    public partial class ServiceProvidersEdit : UserControl, IContentDialogParent
+    public partial class TypesOfCarExchangeSystemEdit : UserControl, IContentDialogParent
     {
         public ContentDialog ParentDialog { get; set; }
-
-        public ServiceProvidersEdit()
+        public TypesOfCarExchangeSystemEdit()
         {
             InitializeComponent();
         }
 
-        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             this.CloseContentDialog();
         }

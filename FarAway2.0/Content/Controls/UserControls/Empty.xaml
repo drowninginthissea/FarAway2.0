@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:FarAway2._0.Content.Controls.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Opacity="0.6">
         <TextBlock Text="Пусто"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Opacity="0.6"/>
+                   VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:local="clr-namespace:FarAway2._0.Content.Controls"
+        xmlns:local="clr-namespace:FarAway2._0.Content.Controls.CustomControls"
         ui:WindowHelper.UseModernWindowStyle="False"
         ui:ThemeManager.RequestedTheme="Light"
         WindowStartupLocation="CenterScreen"

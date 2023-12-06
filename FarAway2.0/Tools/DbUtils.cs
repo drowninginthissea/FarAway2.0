@@ -49,8 +49,6 @@ namespace FarAway2._0.Tools
         /// <summary>
         /// Can throw an exception "UserAlreadyExistsException"
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
         public static bool Registration(Users user)
         {
             if (db.Users.Any(u => u.Login == user.Login))
@@ -71,5 +69,6 @@ namespace FarAway2._0.Tools
         public static string GetUserInitials(Users user) => $"{user.Surname} " +
                 $"{GetFirstCharWithPoint(user.Name)}" +
                 $"{GetFirstCharWithPoint(GetStringOfEmpty(user.Patronymic))}";
+
     }
 }

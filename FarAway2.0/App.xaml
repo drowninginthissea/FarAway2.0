@@ -1,8 +1,7 @@
 ﻿<Application x:Class="FarAway2._0.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FarAway2._0"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              StartupUri="/Content/Windows/ShellWindow.xaml"
              ShutdownMode="OnExplicitShutdown">
@@ -20,6 +19,31 @@
 
             <SolidColorBrush x:Key="MyGray"
                              Color="#E6E6E6" />
+
+            <Style TargetType="UserControl"
+                   BasedOn="{StaticResource {x:Type UserControl}}"
+                   x:Key="DataEditUserControl">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="ui:ThemeManager.RequestedTheme"
+                        Value="Light" />
+            </Style>
+
+            <Style x:Key="DataEditSimpleStackPanel"
+                   TargetType="ui:SimpleStackPanel">
+                <Setter Property="Orientation"
+                        Value="Vertical" />
+                <Setter Property="Spacing"
+                        Value="25" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <Setter Property="Margin"
+                        Value="5" />
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

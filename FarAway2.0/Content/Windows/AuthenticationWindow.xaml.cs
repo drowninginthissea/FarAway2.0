@@ -17,7 +17,7 @@ namespace FarAway2._0.Content.Windows
             SettingsWindow();
         }
         #region GenericMethods
-        private async void SettingsWindow()
+        private void SettingsWindow()
         {
             CountOfLogIn = 1;
 

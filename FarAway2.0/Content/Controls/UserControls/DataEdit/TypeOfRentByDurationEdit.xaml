@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.DataEdit.TypeOfRentByDurationEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             Style="{StaticResource DataEditUserControl}"
+             Height="430"
+             Width="270">
+    <Grid>
+        <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
+            <TextBox ui:ControlHelper.Header="Название типа"
+                     ui:ControlHelper.PlaceholderText="Кроткосрочный"
+                     Name="TypeName" />
+            <TextBox ui:ControlHelper.Header="Минимальный срок (дней)"
+                     ui:ControlHelper.PlaceholderText="1"
+                     Name="MinDurationOfRentalDays" />
+            <TextBox ui:ControlHelper.Header="Максимальный срок (дней)"
+                     ui:ControlHelper.PlaceholderText="5 (может отсутствовать значение)"
+                     Name="MaxDurationOfRentalDays" />
+            <TextBox ui:ControlHelper.Header="Коэффициент возрастания цены"
+                     ui:ControlHelper.PlaceholderText="1.5"
+                     Name="PriceCoefficient" />
+            <Button Name="SaveChanges"
+                    Click="SaveChanges_Click"
+                    Content="Сохранить"
+                    HorizontalAlignment="Center" />
+            <Button Name="Exit"
+                    Click="Exit_Click"
+                    Content="Отмена"
+                    HorizontalAlignment="Center"
+                    Background="Transparent" />
+        </ui:SimpleStackPanel>
+    </Grid>
+</UserControl>

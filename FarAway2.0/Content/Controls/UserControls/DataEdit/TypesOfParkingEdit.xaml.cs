@@ -5,11 +5,11 @@ using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls.DataEdit
 {
-    public partial class ServiceProvidersEdit : UserControl, IContentDialogParent
+    public partial class TypesOfParkingEdit : UserControl, IContentDialogParent
     {
         public ContentDialog ParentDialog { get; set; }
 
-        public ServiceProvidersEdit()
+        public TypesOfParkingEdit()
         {
             InitializeComponent();
         }

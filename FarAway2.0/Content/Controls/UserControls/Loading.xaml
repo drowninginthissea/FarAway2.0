@@ -9,13 +9,12 @@
              ui:ThemeManager.RequestedTheme="Light"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
+    <Grid Opacity="0.6">
         <ui:SimpleStackPanel Orientation="Vertical"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Spacing="20">
-            <ui:ProgressRing IsActive="True"
-                             />
+            <ui:ProgressRing IsActive="True"/>
             <TextBlock Text="Идёт загрузка, пожалуйста подождите"
                        x:Name="LoadingText"/>
         </ui:SimpleStackPanel> 

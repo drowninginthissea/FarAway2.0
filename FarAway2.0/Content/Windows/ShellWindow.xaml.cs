@@ -1,25 +1,20 @@
-﻿using FarAway2._0.Content.Controls;
+﻿using FarAway2._0.Content.Controls.CustomControls;
 using FarAway2._0.Content.Controls.UserControls;
 using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
-using System.Threading;
 
 namespace FarAway2._0.Content.Windows
 {
-    /// <summary>
-    /// Interaction logic for ShellWindow.xaml
-    /// </summary>
     public partial class ShellWindow : Window
     {
         private bool _isReallyClose = true;
+        private ISearchable _currentMainContent;
         private Users _user;
 #if DEBUG
         public ShellWindow()
         {
             InitializeComponent();
-            //WindowConfiguration(DbUtils.db.Users.Find(new Random().Next(1, DbUtils.db.Users.Count() + 1)));
-            MainContentControl.Content = new Empty();
-            LoadingContentControl.Content = new Loading();
+            WindowConfiguration(DbUtils.db.Users.Find(new Random().Next(1, DbUtils.db.Users.Count() + 1)));
         }
 #endif
         public ShellWindow(Users user)
@@ -45,12 +40,14 @@ namespace FarAway2._0.Content.Windows
         private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             MyNavigationViewItem Item = args.SelectedItem as MyNavigationViewItem;
-            if (Item.Action == Tools.Collections.MainWindowActions.Account)
+            if (Item.Action == MainWindowActions.Account)
             {
+                SearchAutoSuggestBox.Text = string.Empty;
+                SearchAutoSuggestBox.IsEnabled = false;
                 //Account content
                 return;
             }
-            if (Item.Action == Tools.Collections.MainWindowActions.Exit)
+            if (Item.Action == MainWindowActions.Exit)
             {
                 new AuthenticationWindow().Show();
                 _isReallyClose = false;
@@ -59,28 +56,38 @@ namespace FarAway2._0.Content.Windows
             }
 
             // Table display on main content of NavigationView
-            // я ебал эту хуйню
 
             if (TableTypeAttribute.GetAttribute(Item.DatabaseTable) == TableTypes.ReferenceTables)
             {
-                LoadingContentControl.Visibility = Visibility.Visible;
-                MainContentControl.Visibility = Visibility.Hidden;
+                SwapVisibilitiesContentControls();
+                ReferenceTablesView tablesView = new ReferenceTablesView(Item.DatabaseTable);
+                await tablesView.LoadDataAsync();
+                MainContentControl.Content = tablesView;
 
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        Thread.Sleep(3000);
-                        MainContentControl.Content = new ReferenceTablesView(Item.DatabaseTable);
-                        LoadingContentControl.Visibility = Visibility.Hidden;
-                        MainContentControl.Visibility = Visibility.Visible;
-                    });
+                SearchAutoSuggestBox.IsEnabled = true;
+                SearchAutoSuggestBox.Text = string.Empty;
+                _currentMainContent = tablesView;
+                SwapVisibilitiesContentControls();
+                return;
             }
-
-
+        }
+        private void SwapVisibilitiesContentControls()
+        {
+            if (MainContentControl.Visibility == Visibility.Visible)
+            {
+                MainContentControl.Visibility = Visibility.Hidden;
+                LoadingContentControl.Visibility= Visibility.Visible;
+            }
+            else
+            {
+                MainContentControl.Visibility = Visibility.Visible;
+                LoadingContentControl.Visibility = Visibility.Hidden;
+            }
         }
 
-        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void SearchAutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-
+            _currentMainContent.TextToSearch = SearchAutoSuggestBox.Text;
         }
     }
 }
