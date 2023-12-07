@@ -1,53 +1,53 @@
 ﻿using ModernWpf.Controls;
 using System.Windows.Controls;
 
-namespace FarAway2._0.Content.Controls.UserControls.DataEdit
+namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
 {
-    public partial class ParkingSpotStatusesEdit : UserControl, IContentDialogParent
+    public partial class RolesEdit : UserControl, IContentDialogParent
     {
         public ContentDialog ParentDialog { get; set; }
         private bool _isAddition = true;
-        ParkingSpotStatuses ChangingInstance;
+        Roles ChangingInstance;
         Func<Task> UpdateMethod;
-        public ParkingSpotStatusesEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
+        public RolesEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
             this.UpdateMethod = UpdateMethod;
         }
-        public ParkingSpotStatusesEdit(ContentDialog CallingDialog, ParkingSpotStatuses Instance, Func<Task> UpdateMethod)
+        public RolesEdit(ContentDialog CallingDialog, Roles Instance, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
             this.UpdateMethod = UpdateMethod;
             _isAddition = false;
             ChangingInstance = Instance;
-            StatusName.Text = Instance.StatusName;
+            RoleName.Text = Instance.RoleName;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(StatusName.Text))
+            if (string.IsNullOrWhiteSpace(RoleName.Text))
             {
-                MessageBox.Show("Значение названия статуса не может быть пустым!", "Ошибка сохранения");
+                MessageBox.Show("Значение названия роли не может быть пустым!", "Ошибка сохранения");
                 return;
             }
-            if (StatusName.Text.Length > 30)
+            if (RoleName.Text.Length > 30)
             {
                 MessageBox.Show("Длина записи не может превышать 30 символов!", "Ошибка сохранения");
                 return;
             }
             if (_isAddition)
             {
-                ParkingSpotStatuses Instance = new ParkingSpotStatuses()
+                Roles Instance = new Roles()
                 {
-                    StatusName = StatusName.Text
+                    RoleName = RoleName.Text
                 };
-                DbUtils.db.ParkingSpotStatuses.Add(Instance);
+                DbUtils.db.Roles.Add(Instance);
             }
             else
             {
-                ChangingInstance.StatusName = StatusName.Text;
+                ChangingInstance.RoleName = RoleName.Text;
             }
             DbUtils.db.SaveChanges();
             UpdateMethod();

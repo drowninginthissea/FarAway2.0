@@ -32,14 +32,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[HistoryOfFreezing]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ListOfActions]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[ListOfAdditionalServices]",
          "ObjectType": 0
       },

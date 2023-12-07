@@ -1,53 +1,48 @@
 ﻿using ModernWpf.Controls;
 using System.Windows.Controls;
 
-namespace FarAway2._0.Content.Controls.UserControls.DataEdit
+namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
 {
-    public partial class RolesEdit : UserControl, IContentDialogParent
+    public partial class TypesOfParkingEdit : UserControl, IContentDialogParent
     {
         public ContentDialog ParentDialog { get; set; }
         private bool _isAddition = true;
-        Roles ChangingInstance;
+        TypesOfParking ChangingInstance;
         Func<Task> UpdateMethod;
-        public RolesEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
+        public TypesOfParkingEdit(ContentDialog CallingDialog, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
             this.UpdateMethod = UpdateMethod;
         }
-        public RolesEdit(ContentDialog CallingDialog, Roles Instance, Func<Task> UpdateMethod)
+        public TypesOfParkingEdit(ContentDialog CallingDialog, TypesOfParking Instance, Func<Task> UpdateMethod)
         {
             InitializeComponent();
             ParentDialog = CallingDialog;
             this.UpdateMethod = UpdateMethod;
             _isAddition = false;
             ChangingInstance = Instance;
-            RoleName.Text = Instance.RoleName;
+            TypeName.Text = Instance.TypeName;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RoleName.Text))
+            if (string.IsNullOrWhiteSpace(TypeName.Text))
             {
-                MessageBox.Show("Значение названия роли не может быть пустым!", "Ошибка сохранения");
-                return;
-            }
-            if (RoleName.Text.Length > 30)
-            {
-                MessageBox.Show("Длина записи не может превышать 30 символов!", "Ошибка сохранения");
+                MessageBox.Show("Значение названия типа не может быть пустым!", "Ошибка сохранения");
                 return;
             }
             if (_isAddition)
             {
-                Roles Instance = new Roles()
+                TypesOfParking Instance = new TypesOfParking()
                 {
-                    RoleName = RoleName.Text
+                    TypeName = TypeName.Text,
                 };
-                DbUtils.db.Roles.Add(Instance);
+                DbUtils.db.TypesOfParking.Add(Instance);
             }
             else
             {
-                ChangingInstance.RoleName = RoleName.Text;
+                ChangingInstance.TypeName = TypeName.Text;
             }
             DbUtils.db.SaveChanges();
             UpdateMethod();

@@ -1,7 +1,7 @@
 ﻿using ModernWpf.Controls;
 using System.Windows.Controls;
 
-namespace FarAway2._0.Content.Controls.UserControls.DataEdit
+namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
 {
     public partial class TypesOfCarExchangeSystemEdit : UserControl, IContentDialogParent
     {

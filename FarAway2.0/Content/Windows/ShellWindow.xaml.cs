@@ -1,5 +1,6 @@
 ﻿using FarAway2._0.Content.Controls.CustomControls;
 using FarAway2._0.Content.Controls.UserControls;
+using FarAway2._0.Content.Controls.UserControls.ReferenceTables;
 using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
 
@@ -44,7 +45,10 @@ namespace FarAway2._0.Content.Windows
             {
                 SearchAutoSuggestBox.Text = string.Empty;
                 SearchAutoSuggestBox.IsEnabled = false;
-                //Account content
+
+                MainContentControl.Content = new AccountControl(_user);
+                _currentMainContent = null;
+
                 return;
             }
             if (Item.Action == MainWindowActions.Exit)
@@ -70,6 +74,10 @@ namespace FarAway2._0.Content.Windows
                 SwapVisibilitiesContentControls();
                 return;
             }
+
+            // Non reference table callback to main content
+
+
         }
         private void SwapVisibilitiesContentControls()
         {

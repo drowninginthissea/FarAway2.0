@@ -1,12 +1,9 @@
-﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.ReferenceTablesView"
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.ReferenceTables.ReferenceTablesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:FarAway2._0.Content.Controls.UserControls"
              xmlns:converters="clr-namespace:FarAway2._0.Converters"
              mc:Ignorable="d"
              ui:ThemeManager.RequestedTheme="Light"
@@ -71,24 +68,6 @@
                                 <DataTemplate>
                                     <Button x:Name="FrequencyOfServicesEditButton"
                                             Click="FrequencyOfServicesEditButton_Click"
-                                            Style="{StaticResource EditButton}"
-                                            Content="{StaticResource PencilIcon}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <DataGrid Name="ListOfActionsGrid"
-                          Style="{StaticResource DataGrid}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Название действия"
-                                            Binding="{Binding ActionName}" />
-                        <DataGridTemplateColumn Header="Действия">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="ListOfActionsEditButton"
-                                            Click="ListOfActionsEditButton_Click"
                                             Style="{StaticResource EditButton}"
                                             Content="{StaticResource PencilIcon}" />
                                 </DataTemplate>

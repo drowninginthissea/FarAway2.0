@@ -10,10 +10,6 @@
         Branches,
         [TableType(TableTypes.ReferenceTables)]
         FrequencyOfServices,
-        [TableType(TableTypes.JournalTables)]
-        HistoryOfFreezing,
-        [TableType(TableTypes.ReferenceTables)]
-        ListOfActions,
         [TableType(TableTypes.ReferenceTables)]
         ListOfAdditionalServices,
         [TableType(TableTypes.JournalTables)]

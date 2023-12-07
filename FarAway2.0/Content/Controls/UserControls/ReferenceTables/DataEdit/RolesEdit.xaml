@@ -1,21 +1,15 @@
-﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.DataEdit.ListOfAdditionalServicesEdit"
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit.RolesEdit"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              Style="{StaticResource DataEditUserControl}"
-             Height="350"
+             Height="190"
              Width="270">
     <Grid>
         <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
-            <TextBox ui:ControlHelper.Header="Название услуги"
-                     ui:ControlHelper.PlaceholderText="Мойка"
-                     Name="ServiceName" />
-            <TextBox ui:ControlHelper.Header="Цена услуги"
-                     ui:ControlHelper.PlaceholderText="199.99"
-                     Name="ServicePrice"/>
-            <TextBox ui:ControlHelper.Header="Описание услуги"
-                     ui:ControlHelper.PlaceholderText="Представляет собой мойку автомобиля клиента"
-                     Name="ServiceDescription" />
+            <TextBox ui:ControlHelper.Header="Название роли"
+                     ui:ControlHelper.PlaceholderText="Менеджер по клиентам"
+                     Name="RoleName" />
             <Button Name="SaveChanges"
                     Click="SaveChanges_Click"
                     Content="Сохранить"

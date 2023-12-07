@@ -1,11 +1,11 @@
-﻿using FarAway2._0.Content.Controls.UserControls.DataEdit;
+﻿using FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit;
 using FarAway2._0.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
 using System;
 using System.Windows.Controls;
 
-namespace FarAway2._0.Content.Controls.UserControls
+namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables
 {
     public partial class ReferenceTablesView : UserControl, ISearchable
     {
@@ -42,10 +42,6 @@ namespace FarAway2._0.Content.Controls.UserControls
                 case TableNames.FrequencyOfServices:
                     ShowDesiredDataGrid(FrequencyOfServicesGrid,
                         await DbUtils.db.FrequencyOfServices.ToListAsync());
-                    break;
-                case TableNames.ListOfActions:
-                    ShowDesiredDataGrid(ListOfActionsGrid,
-                        await DbUtils.db.ListOfActions.ToListAsync());
                     break;
                 case TableNames.ListOfAdditionalServices:
                     ShowDesiredDataGrid(ListOfAdditionalServicesGrid,
@@ -138,10 +134,6 @@ namespace FarAway2._0.Content.Controls.UserControls
                     OpenCreateDialogGeneric
                         ((callingDialog, method) => new FrequencyOfServicesEdit(callingDialog, method), UpdateDataAsync);
                     break;
-                case TableNames.ListOfActions:
-                    OpenCreateDialogGeneric
-                        ((callingDialog, method) => new ListOfActionsEdit(callingDialog, method), UpdateDataAsync);
-                    break;
                 case TableNames.ListOfAdditionalServices:
                     OpenCreateDialogGeneric
                         ((callingDialog, method) => new ListOfAdditionalServicesEdit(callingDialog, method), UpdateDataAsync);
@@ -181,12 +173,6 @@ namespace FarAway2._0.Content.Controls.UserControls
             OpenUpdateDialogGeneric<FrequencyOfServices, FrequencyOfServicesEdit>
                 (sender, 
                 (callingDialog, instance, method) => new FrequencyOfServicesEdit(callingDialog, instance, method), 
-                UpdateDataAsync);
-
-        private void ListOfActionsEditButton_Click(object sender, RoutedEventArgs e) =>
-            OpenUpdateDialogGeneric<ListOfActions, ListOfActionsEdit>
-                (sender,
-                (callingDialog, instance, method) => new ListOfActionsEdit(callingDialog, instance, method),
                 UpdateDataAsync);
 
         private void ListOfAdditionalServicesEditButton_Click(object sender, RoutedEventArgs e) =>

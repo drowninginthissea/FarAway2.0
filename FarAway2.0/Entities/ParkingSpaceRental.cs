@@ -8,7 +8,6 @@ namespace FarAway2._0.Entities
         public ParkingSpaceRental()
         {
             AdditionalServicesForRent = new HashSet<AdditionalServicesForRent>();
-            HistoryOfFreezing = new HashSet<HistoryOfFreezing>();
         }
 
         public int id { get; set; }
@@ -25,6 +24,5 @@ namespace FarAway2._0.Entities
         public virtual TypeOfRentByDuration idTypeOfRentByDurationNavigation { get; set; } = null!;
         public virtual Users idUserNavigation { get; set; } = null!;
         public virtual ICollection<AdditionalServicesForRent> AdditionalServicesForRent { get; set; }
-        public virtual ICollection<HistoryOfFreezing> HistoryOfFreezing { get; set; }
     }
 }

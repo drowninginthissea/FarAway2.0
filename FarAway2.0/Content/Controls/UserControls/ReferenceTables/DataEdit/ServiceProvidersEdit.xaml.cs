@@ -1,12 +1,8 @@
-﻿using Azure.Core;
-using FarAway2._0.Interfaces;
-using FarAway2._0.Tools.Extensions;
-using ModernWpf.Controls;
+﻿using ModernWpf.Controls;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace FarAway2._0.Content.Controls.UserControls.DataEdit
+namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
 {
     public partial class ServiceProvidersEdit : UserControl, IContentDialogParent
     {

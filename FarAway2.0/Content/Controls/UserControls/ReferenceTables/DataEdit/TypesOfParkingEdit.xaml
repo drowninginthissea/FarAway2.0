@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.DataEdit.FrequencyOfServicesEdit"
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit.TypesOfParkingEdit"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,9 +10,9 @@
              Width="270">
     <Grid>
         <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
-            <TextBox ui:ControlHelper.Header="Название периодичности"
-                     ui:ControlHelper.PlaceholderText="Короткосрочная"
-                     Name="FrequencyName" />
+            <TextBox ui:ControlHelper.Header="Название типа"
+                     ui:ControlHelper.PlaceholderText="Автоматизированная парковка"
+                     Name="TypeName" />
             <Button Name="SaveChanges"
                     Click="SaveChanges_Click"
                     Content="Сохранить"

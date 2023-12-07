@@ -32,7 +32,7 @@ namespace FarAway2._0.Content.Controls.CustomControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PhotoSelector), new FrameworkPropertyMetadata(typeof(PhotoSelector)));
         }
         Grid grid;
-        Image img;
+        public Image img;
         TextBlock textBlock;
         Rectangle rectangle;
         Button ChooseImageButton;
@@ -81,13 +81,23 @@ namespace FarAway2._0.Content.Controls.CustomControls
         private Image ByteArrToImage(byte[] byteArr)
         {
             Image img = new Image();
-            MemoryStream stream = new MemoryStream(byteArr);
-            img.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+            using (MemoryStream stream = new MemoryStream(byteArr))
+                img.Source = BitmapFrame.Create
+                    (stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
             return img;
         }
         public void SetImage(byte[] Photo)
         {
-            img = ByteArrToImage(Photo);
+            using (MemoryStream stream = new MemoryStream(Photo))
+            {
+                BitmapImage imageSource = new BitmapImage();
+                imageSource.BeginInit();
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.StreamSource = stream;
+                imageSource.EndInit();
+
+                img.Source = imageSource;
+            }
             SetContentImageButton();
         }
         private void ConfigureFields()

@@ -11,8 +11,6 @@ namespace FarAway2._0.Entities
         public virtual DbSet<BranchCharacteristics> BranchCharacteristics { get; set; } = null!;
         public virtual DbSet<Branches> Branches { get; set; } = null!;
         public virtual DbSet<FrequencyOfServices> FrequencyOfServices { get; set; } = null!;
-        public virtual DbSet<HistoryOfFreezing> HistoryOfFreezing { get; set; } = null!;
-        public virtual DbSet<ListOfActions> ListOfActions { get; set; } = null!;
         public virtual DbSet<ListOfAdditionalServices> ListOfAdditionalServices { get; set; } = null!;
         public virtual DbSet<ParkingSpaceRental> ParkingSpaceRental { get; set; } = null!;
         public virtual DbSet<ParkingSpotStatuses> ParkingSpotStatuses { get; set; } = null!;
@@ -108,33 +106,9 @@ namespace FarAway2._0.Entities
                 entity.Property(e => e.FrequencyName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<HistoryOfFreezing>(entity =>
-            {
-                entity.HasKey(e => new { e.idRental, e.FreezingNumber });
-
-                entity.Property(e => e.DateOfAction).HasColumnType("date");
-
-                entity.HasOne(d => d.idActionNavigation)
-                    .WithMany(p => p.HistoryOfFreezing)
-                    .HasForeignKey(d => d.idAction)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HistoryOfFreezing_ListOfActions");
-
-                entity.HasOne(d => d.idRentalNavigation)
-                    .WithMany(p => p.HistoryOfFreezing)
-                    .HasForeignKey(d => d.idRental)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HistoryOfFreezing_ParkingSpaceRental");
-            });
-
-            modelBuilder.Entity<ListOfActions>(entity =>
-            {
-                entity.Property(e => e.ActionName).HasMaxLength(10);
-            });
-
             modelBuilder.Entity<ListOfAdditionalServices>(entity =>
             {
-                entity.Property(e => e.ServicePrice).HasColumnType("money");
+                entity.Property(e => e.ServicePrice).HasColumnType("decimal(10, 2)");
             });
 
             modelBuilder.Entity<ParkingSpaceRental>(entity =>
