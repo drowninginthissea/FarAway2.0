@@ -101,11 +101,11 @@
                           Style="{StaticResource DataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название услуги"
-                                            Binding="{Binding SeviceName}" />
+                                            Binding="{Binding ServiceName}" />
                         <DataGridTextColumn Header="Цена услуги"
-                                            Binding="{Binding SevicePrice, StringFormat=0.00}" />
+                                            Binding="{Binding ServicePrice, StringFormat=0.00}" />
                         <DataGridTextColumn Header="Описание услуги"
-                                            Binding="{Binding SeviceDescription}"
+                                            Binding="{Binding ServiceDescription}"
                                             Width="500">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>

@@ -19,7 +19,7 @@ namespace FarAway2._0.Tools
             {
                 return _originalPhoneNumber;
             }
-            set
+            private set
             {
                 _originalPhoneNumber = value;
                 ParsedPhoneNumber = ParseNumber();
