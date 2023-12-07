@@ -1,5 +1,4 @@
 ﻿using ModernWpf.Controls;
-using System.Runtime.InteropServices;
 using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls.DataEdit
@@ -36,19 +35,26 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия типа не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (TypeName.Text.Length > 40)
+            {
+                MessageBox.Show("Длина названия типа не может превышать 40 символов!", "Ошибка сохранения");
+                return;
+            }
             if (!int.TryParse(MinDurationOfRentalDays.Text, out _))
             {
                 MessageBox.Show("Значение минимального срока аренды введено не корректно!", "Ошибка сохранения");
                 return;
             }
-            if (MaxDurationOfRentalDays.Text != string.Empty && !int.TryParse(MaxDurationOfRentalDays.Text, out _))
+            if (MaxDurationOfRentalDays.Text != string.Empty &&
+                !int.TryParse(MaxDurationOfRentalDays.Text, out _))
             {
                 MessageBox.Show("Значение максимального срока аренды введено не корректно!", "Ошибка сохранения");
                 return;
             }
-            if (!decimal.TryParse(PriceCoefficient.Text.Replace('.', ','), out _))
+            if (!decimal.TryParse(PriceCoefficient.Text, out decimal ParsedNumber)
+                || !DbUtils.ValidateDecimal(ParsedNumber, 3, 2))
             {
-                MessageBox.Show("Значение коэффициента цены аренды аренды введено не корректно!", "Ошибка сохранения");
+                MessageBox.Show("Значение коэффициента цены аренды аренды введено не корректно! (Целая часть может в себе содержать 1 цифру, а дробная 2 цифры)", "Ошибка сохранения");
                 return;
             }
             int MinDur = int.Parse(MinDurationOfRentalDays.Text);

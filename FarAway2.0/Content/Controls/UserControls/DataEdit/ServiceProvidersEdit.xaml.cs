@@ -41,6 +41,11 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия поставщика не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (Name.Text.Length > 50)
+            {
+                MessageBox.Show("Длина названия поставщика не может превышать 50 символов!", "Ошибка сохранения");
+                return;
+            }
             if (!Regex.IsMatch(ITIN.Text, @"^\d{10}$"))
             {
                 MessageBox.Show("Значение ИНН должно сожержать 10 цифр!", "Ошибка сохранения");

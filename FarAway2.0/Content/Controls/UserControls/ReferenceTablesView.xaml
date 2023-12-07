@@ -98,7 +98,8 @@
                 </DataGrid>
 
                 <DataGrid Name="ListOfAdditionalServicesGrid"
-                          Style="{StaticResource DataGrid}">
+                          Style="{StaticResource DataGrid}"
+                          ScrollViewer.PanningMode="VerticalOnly">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Название услуги"
                                             Binding="{Binding ServiceName}" />
@@ -106,13 +107,15 @@
                                             Binding="{Binding ServicePrice, StringFormat=0.00}" />
                         <DataGridTextColumn Header="Описание услуги"
                                             Binding="{Binding ServiceDescription}"
-                                            Width="500">
+                                            Width="5000">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>
                                     <Setter Property="TextBlock.TextWrapping"
                                             Value="Wrap" />
                                     <Setter Property="TextBlock.TextAlignment"
                                             Value="Left" />
+                                    <Setter Property="TextBlock.VerticalAlignment"
+                                            Value="Center" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>

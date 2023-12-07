@@ -32,6 +32,11 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия действия не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (ActionName.Text.Length > 10)
+            {
+                MessageBox.Show("Длина записи не может превышать 10 символов!", "Ошибка сохранения");
+                return;
+            }
             if (_isAddition)
             {
                 ListOfActions Instance = new ListOfActions()

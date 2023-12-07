@@ -32,6 +32,11 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия статуса не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (StatusName.Text.Length > 20)
+            {
+                MessageBox.Show("Длина записи не может превышать 20 символов!", "Ошибка сохранения");
+                return;
+            }
             if (_isAddition)
             {
                 RentalStatuses Instance = new RentalStatuses()

@@ -32,6 +32,11 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия периодичности не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (FrequencyName.Text.Length > 50)
+            {
+                MessageBox.Show("Длина записи не может превышать 50 символов!", "Ошибка сохранения");
+                return;
+            }
             if (_isAddition)
             {
                 FrequencyOfServices Instance = new FrequencyOfServices()

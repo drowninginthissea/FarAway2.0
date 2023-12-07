@@ -32,6 +32,11 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия статуса не может быть пустым!", "Ошибка сохранения");
                 return;
             }
+            if (StatusName.Text.Length > 30)
+            {
+                MessageBox.Show("Длина записи не может превышать 30 символов!", "Ошибка сохранения");
+                return;
+            }
             if (_isAddition)
             {
                 ParkingSpotStatuses Instance = new ParkingSpotStatuses()

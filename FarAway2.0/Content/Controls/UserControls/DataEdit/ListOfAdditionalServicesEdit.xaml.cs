@@ -34,7 +34,8 @@ namespace FarAway2._0.Content.Controls.UserControls.DataEdit
                 MessageBox.Show("Значение названия услуги не может быть пустым!", "Ошибка сохранения");
                 return;
             }
-            if (!decimal.TryParse(ServicePrice.Text, out _))
+            if (!decimal.TryParse(ServicePrice.Text, out decimal ParsedValue) ||
+                !DbUtils.ValidateDecimal(ParsedValue, 10, 2))
             {
                 MessageBox.Show("Значение цены услуги введено не корректно!", "Ошибка сохранения");
                 return;

@@ -2,6 +2,7 @@
 using FarAway2._0.Exceptions;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 
@@ -69,6 +70,14 @@ namespace FarAway2._0.Tools
         public static string GetUserInitials(Users user) => $"{user.Surname} " +
                 $"{GetFirstCharWithPoint(user.Name)}" +
                 $"{GetFirstCharWithPoint(GetStringOrEmpty(user.Patronymic))}";
+        public static bool ValidateDecimal(decimal Value, int Precision, int Scale)
+        {
+            var valueStr = Value.ToString(CultureInfo.InvariantCulture);
+            var decimalIndex = valueStr.IndexOf('.');
+            var totalDigits = valueStr.Length - (decimalIndex == -1 ? 0 : 1);
+            var digitsAfterDecimal = decimalIndex == -1 ? 0 : valueStr.Length - decimalIndex - 1;
 
+            return totalDigits <= Precision && digitsAfterDecimal == Scale;
+        }
     }
 }
