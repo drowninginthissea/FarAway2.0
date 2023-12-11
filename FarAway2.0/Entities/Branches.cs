@@ -12,10 +12,10 @@ namespace FarAway2._0.Entities
 
         public int id { get; set; }
         public int idTypeOfParking { get; set; }
-        public int? idTypeOfCarExchangeSystem { get; set; }
+        public int idTypeOfCarExchangeSystem { get; set; }
         public string Address { get; set; } = null!;
 
-        public virtual TypesOfCarExchangeSystem? idTypeOfCarExchangeSystemNavigation { get; set; }
+        public virtual TypesOfCarExchangeSystem idTypeOfCarExchangeSystemNavigation { get; set; } = null!;
         public virtual TypesOfParking idTypeOfParkingNavigation { get; set; } = null!;
         public virtual BranchCharacteristics BranchCharacteristics { get; set; } = null!;
         public virtual ICollection<ParkingSpots> ParkingSpots { get; set; }

@@ -14,7 +14,7 @@
             <TextBox ui:ControlHelper.Header="ИНН"
                      ui:ControlHelper.PlaceholderText="1234567890"
                      Name="ITIN" />
-            <TextBox ui:ControlHelper.Header="Адресс"
+            <TextBox ui:ControlHelper.Header="Адрес"
                      ui:ControlHelper.PlaceholderText="город Москва, Космодамианская наб., д. 4/22 к. а, пом I ком 12 оф 5, подвал"
                      Name="Address" />
             <xctk:MaskedTextBox Mask="+7(000)000-00-00"

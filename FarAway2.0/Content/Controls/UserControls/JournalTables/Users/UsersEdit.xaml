@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.JournalTables.Users.UsersEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:FarAway2._0.Content.Controls.CustomControls"
+             mc:Ignorable="d"
+             Style="{StaticResource DataEditUserControl}"
+             Height="440"
+             Width="460">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <ui:SimpleStackPanel Orientation="Vertical"
+                             Spacing="10">
+            <Grid Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth}">
+                <local:PhotoSelector x:Name="AvatarSelector" />
+            </Grid>
+            <TextBox ui:ControlHelper.Header="Логин"
+                     ui:ControlHelper.PlaceholderText="Ivanov140100"
+                     Name="LoginTB"
+                     IsEnabled="False" />
+            <PasswordBox ui:ControlHelper.Header="Пароль"
+                         ui:ControlHelper.PlaceholderText="**********"
+                         Name="PasswordTB" />
+            <PasswordBox ui:ControlHelper.Header="Повторение пароля"
+                         ui:ControlHelper.PlaceholderText="**********"
+                         Name="RepeatPasswordTB" />
+        </ui:SimpleStackPanel>
+
+        <Grid Grid.Column="1"
+              Margin="10 0 0 0">
+            <ui:SimpleStackPanel Orientation="Vertical"
+                                 Spacing="10">
+                <TextBox ui:ControlHelper.Header="Фамилия"
+                         ui:ControlHelper.PlaceholderText="Иванов"
+                         Name="SurnameTB" />
+                <TextBox ui:ControlHelper.Header="Имя"
+                         ui:ControlHelper.PlaceholderText="Иван"
+                         Name="NameTB" />
+                <TextBox ui:ControlHelper.Header="Отчество"
+                         ui:ControlHelper.PlaceholderText="Иванович"
+                         Name="PatronymicTB" />
+                <TextBox ui:ControlHelper.Header="Электронная почта"
+                         ui:ControlHelper.PlaceholderText="Ivanov@gmail.com"
+                         Name="EmailTB" />
+                <xctk:MaskedTextBox ui:ControlHelper.Header="Номер телефона"
+                                    Name="PhoneNumberTB"
+                                    Mask="+7(000)000-00-00"
+                                    Style="{StaticResource {x:Type TextBox}}" />
+                <ComboBox ui:ControlHelper.Header="Роль"
+                          ui:ControlHelper.PlaceholderText="Вариант выбора"
+                          x:Name="RolesCB"
+                          HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RoleName}"
+                                       FontSize="14"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </ui:SimpleStackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Grid.ColumnSpan="2">
+            <ui:SimpleStackPanel Orientation="Horizontal"
+                                 HorizontalAlignment="Center"
+                                 Spacing="10">
+                <Button Name="SaveChanges"
+                        Click="SaveChanges_Click"
+                        Content="Сохранить"
+                        HorizontalAlignment="Center" />
+                <Button Name="Exit"
+                        Click="Exit_Click"
+                        Content="Отмена"
+                        HorizontalAlignment="Center"
+                        Background="Transparent" />
+            </ui:SimpleStackPanel>
+        </Grid>
+            
+    </Grid>
+</UserControl>

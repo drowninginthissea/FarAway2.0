@@ -1,28 +1,15 @@
-﻿using FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit;
+﻿using FarAway2._0.BaseClasses;
+using FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit;
 using FarAway2._0.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
-using System;
 using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables
 {
-    public partial class ReferenceTablesView : UserControl, ISearchable
+    public partial class ReferenceTablesView : SearchableTableView
     {
         private TableNames _activeReference;
-        private string _textToSearch;
-        public string TextToSearch
-        {
-            get { return _textToSearch; }
-            set
-            {
-                if (_textToSearch != value)
-                {
-                    _textToSearch = value;
-                    UpdateGridAsync();
-                }
-            }
-        }
         public ReferenceTablesView(TableNames table)
         {
             InitializeComponent();
@@ -85,7 +72,7 @@ namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables
         {
             await UpdateGridAsync();
         }
-        public async Task UpdateDataAsync()
+        public override async Task UpdateDataAsync()
         {
             await UpdateGridAsync();
         }
@@ -182,13 +169,13 @@ namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables
                 UpdateDataAsync);
 
         private void ParkingSpotStatusesEditButton_Click(object sender, RoutedEventArgs e) =>
-            OpenUpdateDialogGeneric<ParkingSpotStatuses, ParkingSpotStatusesEdit>
+            OpenUpdateDialogGeneric<Entities.ParkingSpotStatuses, ParkingSpotStatusesEdit>
                 (sender,
                 (callingDialog, instance, method) => new ParkingSpotStatusesEdit(callingDialog, instance, method),
                 UpdateDataAsync);
 
         private void RentalStatusesEditButton_Click(object sender, RoutedEventArgs e) =>
-            OpenUpdateDialogGeneric<RentalStatuses, RentalStatusesEdit>
+            OpenUpdateDialogGeneric<Entities.RentalStatuses, RentalStatusesEdit>
                 (sender,
                 (callingDialog, instance, method) => new RentalStatusesEdit(callingDialog, instance, method),
                 UpdateDataAsync);

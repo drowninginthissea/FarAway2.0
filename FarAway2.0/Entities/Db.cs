@@ -92,6 +92,7 @@ namespace FarAway2._0.Entities
                 entity.HasOne(d => d.idTypeOfCarExchangeSystemNavigation)
                     .WithMany(p => p.Branches)
                     .HasForeignKey(d => d.idTypeOfCarExchangeSystem)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Branches_TypesOfCarExchangeSystem");
 
                 entity.HasOne(d => d.idTypeOfParkingNavigation)

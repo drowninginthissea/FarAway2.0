@@ -10,6 +10,12 @@ namespace FarAway2._0.Content.Controls.CustomControls
 {
     public class PhotoSelector : Control
     {
+        public event EventHandler OnConfigured;
+        private void RaiserOnConfiguredEvent()
+        {
+            OnConfigured?.Invoke(this, EventArgs.Empty);
+        }
+
         public double TextSize
         {
             get { return (double)GetValue(TextSizeProperty); }
@@ -32,26 +38,25 @@ namespace FarAway2._0.Content.Controls.CustomControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PhotoSelector), new FrameworkPropertyMetadata(typeof(PhotoSelector)));
         }
         Grid grid;
-        public Image img;
+        Image img;
         TextBlock textBlock;
         Rectangle rectangle;
         Button ChooseImageButton;
         public PhotoSelector()
         {
             DefaultStyleKey = typeof(PhotoSelector);
-            Loaded += PhotoSelector_Loaded;
-
             grid = new Grid();
             img = new Image();
             textBlock = new TextBlock();
             rectangle = new Rectangle();
             ConfigureFields();
         }
-        private void PhotoSelector_Loaded(object sender, RoutedEventArgs e)
+        public override void OnApplyTemplate()
         {
-            ChooseImageButton = GetTemplateChild("ChooseImageButton") as Button;
-            if (ChooseImageButton != null)
+            base.OnApplyTemplate();
+            if (Template != null)
             {
+                ChooseImageButton = Template.FindName("ChooseImageButton", this) as Button;
                 ChooseImageButton.Click += ChooseImageButton_Click;
                 ChooseImageButton.MouseEnter += ChooseImageButton_MouseEnter;
                 ChooseImageButton.MouseLeave += ChooseImageButton_MouseLeave;
@@ -63,6 +68,7 @@ namespace FarAway2._0.Content.Controls.CustomControls
                     Text = "Выбор изображения"
                 };
             }
+            RaiserOnConfiguredEvent();
         }
         private void SetContentImageButton()
         {
@@ -77,14 +83,6 @@ namespace FarAway2._0.Content.Controls.CustomControls
                 FontSize = TextSize,
                 Text = "Выбор изображения"
             };
-        }
-        private Image ByteArrToImage(byte[] byteArr)
-        {
-            Image img = new Image();
-            using (MemoryStream stream = new MemoryStream(byteArr))
-                img.Source = BitmapFrame.Create
-                    (stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-            return img;
         }
         public void SetImage(byte[] Photo)
         {

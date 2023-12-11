@@ -1,10 +1,4 @@
-﻿using FarAway2._0.Entities;
-using FarAway2._0.Exceptions;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
+﻿using System.Globalization;
 
 namespace FarAway2._0.Tools
 {
@@ -39,7 +33,10 @@ namespace FarAway2._0.Tools
         {
             HashService LogginPassword = new HashService(password);
             Users? user = db.Users
-                .FirstOrDefault(x => x.idRole != Entities.Enums.Roles.Client && x.Login == login);
+                .FirstOrDefault(x => (x.idRole == Entities.Enums.Roles.Admin ||
+                x.idRole == Entities.Enums.Roles.Controller ||
+                x.idRole == Entities.Enums.Roles.Manager ||
+                x.idRole == Entities.Enums.Roles.Director) && x.Login == login);
             if (user == null)
                 return (false, null);
             bool IsRightPassword = LogginPassword.VerifyWithThis(user.Password);
@@ -65,11 +62,43 @@ namespace FarAway2._0.Tools
                 return false;
             }
         }
+        public static void UpdateUser(Users user,
+            string Name,
+            string Surname,
+            string Patronymic,
+            string Email,
+            string SourcePhoneNumber,
+            string SourcePassword,
+            byte[] Photo)
+        {
+            user.Name = Name;
+            user.Surname = Surname;
+            user.Patronymic = Patronymic;
+            user.Email = Email;
+            user.PhoneNumber = new PhoneNumberParser(SourcePhoneNumber).ParsedPhoneNumber;
+            user.Password = new HashService(SourcePassword).EncrypredPassword;
+            user.Photo = Photo;
+            db.SaveChanges();
+        }
+        public static Users GetLastUserRental(ICollection<ParkingSpaceRental> Rentals)
+        {
+            if (Rentals.Count == 0)
+                return null;
+            else
+                if (Rentals.Any(r => r.RentEndDate == null))
+                    return Rentals.Single(r => r.RentEndDate == null).idUserNavigation;
+                else
+                    return Rentals.OrderByDescending(r => r.RentEndDate).First().idUserNavigation;
+        }
+        public static Users GetLastUserRental(ParkingSpots spot) =>
+            GetLastUserRental(spot.ParkingSpaceRental);
         private static string GetStringOrEmpty(string Source) => Source != null ? Source : "";
         private static string GetFirstCharWithPoint(string Source) => Source == "" ? "" : $"{Source.First()}.";
         public static string GetUserInitials(Users user) => $"{user.Surname} " +
                 $"{GetFirstCharWithPoint(user.Name)}" +
                 $"{GetFirstCharWithPoint(GetStringOrEmpty(user.Patronymic))}";
+        public static string GetInitialsOfDefaultForParkingSpots(Users user) =>
+            user == null ? "Аренд ещё не было" : GetUserInitials(user);
         public static bool ValidateDecimal(decimal Value, int Precision, int Scale)
         {
             var valueStr = Value.ToString(CultureInfo.InvariantCulture);

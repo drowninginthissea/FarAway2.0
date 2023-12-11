@@ -1,0 +1,96 @@
+﻿<src:SearchableTableView x:Class="FarAway2._0.Content.Controls.UserControls.JournalTables.Users.UsersView"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:ui="http://schemas.modernwpf.com/2019"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:src="clr-namespace:FarAway2._0.BaseClasses"
+                         xmlns:converters="clr-namespace:FarAway2._0.Converters"
+                         mc:Ignorable="d"
+                         ui:ThemeManager.RequestedTheme="Light"
+                         d:DesignHeight="450"
+                         d:DesignWidth="800">
+    <src:SearchableTableView.Resources>
+        <converters:PhoneNumberConverter x:Key="PhoneConverter" />
+    </src:SearchableTableView.Resources>
+    <Grid>
+        <Grid Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Content="Добавить"
+                    x:Name="CreateButton"
+                    Click="CreateButton_Click"
+                    HorizontalAlignment="Center" />
+
+            <Grid Grid.Row="1">
+
+                <ScrollViewer>
+                    <ItemsControl Name="UsersOutput">
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1"
+                                        BorderBrush="Black"
+                                        CornerRadius="15"
+                                        HorizontalAlignment="Center"
+                                        Padding="10"
+                                        Margin="0 10">
+                                    <Grid>
+                                        <ui:SimpleStackPanel Orientation="Vertical"
+                                                             Spacing="10">
+                                            <Image Source="{Binding Photo}"
+                                                   Height="100" />
+                                            <TextBlock>
+                                                <Run Text="Фамилия:" />
+                                                <Run Text="{Binding Surname}" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <Run Text="Имя:" />
+                                                <Run Text="{Binding Name}" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <Run Text="Отчество:" />
+                                                <Run Text="{Binding Patronymic}" />
+                                            </TextBlock>
+                                            <TextBlock TextWrapping="Wrap">
+                                                <Run Text="Email:" />
+                                                <Run Text="{Binding Email}" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <Run Text="Логин:" />
+                                                <Run Text="{Binding Login}" />
+                                            </TextBlock>
+                                            <TextBlock TextWrapping="Wrap">
+                                                <Run Text="Номер телефона:" />
+                                                <Run Text="{Binding PhoneNumber, Converter={StaticResource PhoneConverter}}" />
+                                            </TextBlock>
+                                            <TextBlock TextWrapping="Wrap">
+                                                <Run Text="Отчество:" />
+                                                <Run Text="{Binding idRoleNavigation.RoleName}" />
+                                            </TextBlock>
+                                            <Button Content="Редактировать"
+                                                    HorizontalAlignment="Center"
+                                                    x:Name="EditButton"
+                                                    Click="EditButton_Click"/>
+                                        </ui:SimpleStackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel ItemWidth="250" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                    </ItemsControl>
+                </ScrollViewer>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</src:SearchableTableView>

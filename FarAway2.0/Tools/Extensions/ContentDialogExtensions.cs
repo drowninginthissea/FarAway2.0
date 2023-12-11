@@ -1,6 +1,4 @@
-﻿using FarAway2._0.Interfaces;
-
-namespace FarAway2._0.Tools.Extensions
+﻿namespace FarAway2._0.Tools.Extensions
 {
     public static class ContentDialogExtensions
     {

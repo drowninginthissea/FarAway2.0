@@ -74,11 +74,10 @@
                         <TextBlock TextWrapping="Wrap"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center">
-                            <Run Text="Ваша роль: "
-                                 Name="RoleNameInfo"/>
+                            <Run Text="Ваша роль:"/>
+                            <Run Name="RoleNameInfo"/>
                             <LineBreak/>
-                            <Run Text=""
-                                 Name="RoleFuncsInfo"/>
+                            <Run Name="RoleFuncsInfo"/>
                         </TextBlock>
                     </ui:SimpleStackPanel>
                 </Grid>
@@ -123,10 +122,10 @@
                                      ui:ControlHelper.PlaceholderText="Ivanov140100"
                                      Name="LoginTB"
                                      IsEnabled="False"/>
-                            <TextBox ui:ControlHelper.Header="Пароль"
+                            <PasswordBox ui:ControlHelper.Header="Пароль"
                                      ui:ControlHelper.PlaceholderText="**********"
                                      Name="PasswordTB"/>
-                            <TextBox ui:ControlHelper.Header="Повторение пароля"
+                            <PasswordBox ui:ControlHelper.Header="Повторение пароля"
                                      ui:ControlHelper.PlaceholderText="**********"
                                      Name="RepeatPasswordTB"/>
                         </ui:SimpleStackPanel>
@@ -135,7 +134,9 @@
 
                 <Grid Grid.Row="2">
                     <Button HorizontalAlignment="Center"
-                            Content="Сохранить изменения"/>
+                            Content="Сохранить изменения"
+                            x:Name="SaveButton"
+                            Click="SaveButton_Click"/>
                 </Grid>
             </Grid>
         </Grid>

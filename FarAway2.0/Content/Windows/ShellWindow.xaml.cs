@@ -1,5 +1,10 @@
-﻿using FarAway2._0.Content.Controls.CustomControls;
+﻿using FarAway2._0.BaseClasses;
+using FarAway2._0.Content.Controls.CustomControls;
 using FarAway2._0.Content.Controls.UserControls;
+using FarAway2._0.Content.Controls.UserControls.JournalTables.Branches;
+using FarAway2._0.Content.Controls.UserControls.JournalTables.ParkingSpots;
+using FarAway2._0.Content.Controls.UserControls.JournalTables.Rentals;
+using FarAway2._0.Content.Controls.UserControls.JournalTables.Users;
 using FarAway2._0.Content.Controls.UserControls.ReferenceTables;
 using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
@@ -59,25 +64,46 @@ namespace FarAway2._0.Content.Windows
                 return;
             }
 
-            // Table display on main content of NavigationView
 
+
+            // Table display on main content of NavigationView
             if (TableTypeAttribute.GetAttribute(Item.DatabaseTable) == TableTypes.ReferenceTables)
             {
-                SwapVisibilitiesContentControls();
-                ReferenceTablesView tablesView = new ReferenceTablesView(Item.DatabaseTable);
-                await tablesView.LoadDataAsync();
-                MainContentControl.Content = tablesView;
-
-                SearchAutoSuggestBox.IsEnabled = true;
-                SearchAutoSuggestBox.Text = string.Empty;
-                _currentMainContent = tablesView;
-                SwapVisibilitiesContentControls();
+                CallTableView(new ReferenceTablesView(Item.DatabaseTable));
                 return;
             }
-
             // Non reference table callback to main content
+            if (Item.DatabaseTable == TableNames.Branches)
+            {
+                CallTableView(new BranchesView());
+                return;
+            }
+            if (Item.DatabaseTable == TableNames.ParkingSpots)
+            {
+                CallTableView(new ParkingSpotsView());
+                return;
+            }
+            if (Item.DatabaseTable == TableNames.ParkingSpaceRental)
+            {
+                CallTableView(new RentalsView());
+                return;
+            }
+            if (Item.DatabaseTable == TableNames.Users)
+            {
+                CallTableView(new UsersView());
+                return;
+            }
+        }
+        private async void CallTableView(SearchableTableView instance)
+        {
+            SwapVisibilitiesContentControls();
+            await instance.UpdateDataAsync();
+            MainContentControl.Content = instance;
 
-
+            SearchAutoSuggestBox.IsEnabled = true;
+            SearchAutoSuggestBox.Text = string.Empty;
+            _currentMainContent = instance;
+            SwapVisibilitiesContentControls();
         }
         private void SwapVisibilitiesContentControls()
         {

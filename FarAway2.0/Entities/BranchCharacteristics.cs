@@ -8,11 +8,11 @@ namespace FarAway2._0.Entities
         public int id { get; set; }
         public int CountOfParkingSpaces { get; set; }
         public decimal TheCostOfAParkingSpacePerDay { get; set; }
-        public double WidthOfTheLiftingAndLoweringMechanismInMillimeters { get; set; }
-        public double TotalWidthOfTheCarInMillimeters { get; set; }
-        public double MaximumCarLengthInMillimeters { get; set; }
-        public double MaximumHeightOfTheVehicleInMillimeters { get; set; }
-        public double MaximumVehicleWeightInKilograms { get; set; }
+        public int WidthOfTheLiftingAndLoweringMechanismInMillimeters { get; set; }
+        public int TotalWidthOfTheCarInMillimeters { get; set; }
+        public int MaximumCarLengthInMillimeters { get; set; }
+        public int MaximumHeightOfTheVehicleInMillimeters { get; set; }
+        public int MaximumVehicleWeightInKilograms { get; set; }
 
         public virtual Branches idNavigation { get; set; } = null!;
     }

@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.JournalTables.Branches.BranchesEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"              
+             mc:Ignorable="d"
+             Style="{StaticResource DataEditUserControl}"
+             Height="460"
+             Width="460">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
+                <TextBox ui:ControlHelper.Header="Адрес"
+                         ui:ControlHelper.PlaceholderText="Город Москва, Большая Семёновская улица, 16"
+                         Name="AddressTB" />
+                <ComboBox ui:ControlHelper.Header="Тип парковки"
+                          ui:ControlHelper.PlaceholderText="Вариант выбора"
+                          HorizontalAlignment="Stretch"
+                          Name="TypeOfParkingCB">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TypeName}"
+                                       FontSize="14" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox ui:ControlHelper.Header="Тип обмена автомобилями"
+                          ui:ControlHelper.PlaceholderText="Вариант выбора"
+                          HorizontalAlignment="Stretch"
+                          Name="TypeOfCarExchangeSystemCB">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TypeName}"
+                                       FontSize="14" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox ui:ControlHelper.Header="Количество п/м"
+                         ui:ControlHelper.PlaceholderText="8"
+                         Name="CountOfParkingSpacesTB" />
+                <TextBox ui:ControlHelper.Header="Стоимость аренды п/м в день (₽)"
+                         ui:ControlHelper.PlaceholderText="299.90"
+                         Name="TheCostOfAParkingSpacePerDayTB" />
+            </ui:SimpleStackPanel>
+            <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}"
+                                 Grid.Column="1">
+                <TextBox ui:ControlHelper.Header="Ширина подъёмно-опускающего механизма (мм)"
+                         ui:ControlHelper.PlaceholderText="2800"
+                         Name="WidthOfTheLiftingAndLoweringMechanismInMillimetersTB" />
+                <TextBox ui:ControlHelper.Header="Макс. ширина авто (мм)"
+                         ui:ControlHelper.PlaceholderText="2200"
+                         Name="TotalWidthOfTheCarInMillimetersTB" />
+                <TextBox ui:ControlHelper.Header="Макс. длина авто (мм)"
+                         ui:ControlHelper.PlaceholderText="5250"
+                         Name="MaximumCarLengthInMillimetersTB" />
+                <TextBox ui:ControlHelper.Header="Макс. высота авто (мм)"
+                         ui:ControlHelper.PlaceholderText="1750"
+                         Name="MaximumHeightOfTheVehicleInMillimetersTB" />
+                <TextBox ui:ControlHelper.Header="Макс. вес авто (кг)"
+                         ui:ControlHelper.PlaceholderText="2350"
+                         Name="MaximumVehicleWeightInKilogramsTB" />
+            </ui:SimpleStackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ui:SimpleStackPanel Orientation="Horizontal"
+                                 HorizontalAlignment="Center"
+                                 Spacing="25">
+                <Button Name="SaveChanges"
+                        Click="SaveChanges_Click"
+                        Content="Сохранить"
+                        HorizontalAlignment="Center" />
+                <Button Name="Exit"
+                        Click="Exit_Click"
+                        Content="Отмена"
+                        HorizontalAlignment="Center"
+                        Background="Transparent" />
+            </ui:SimpleStackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

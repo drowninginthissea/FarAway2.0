@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using ModernWpf.Controls;
+﻿using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls
 {
@@ -9,15 +9,28 @@ namespace FarAway2._0.Content.Controls.UserControls
         public AccountControl(Users user)
         {
             InitializeComponent();
-            DataContext = this;
-            User = user;
-
-            AvatarSelector.Loaded += AvatarSelector_Loaded;
+            InitializeControl(user);
         }
-
-        private void AvatarSelector_Loaded(object sender, RoutedEventArgs e)
+        private void InitializeControl(Users user)
         {
-            AvatarSelector.SetImage(User.Photo);
+            User = user;
+            RoleNameInfo.Text = user.idRoleNavigation.RoleName;
+            RoleFuncsInfo.Text = user.idRole switch
+            {
+                Entities.Enums.Roles.Admin => Properties.Resources.AdminFuncs,
+                Entities.Enums.Roles.Controller => Properties.Resources.ControllerFuncs,
+                Entities.Enums.Roles.Manager => Properties.Resources.ManagerFuncs,
+                Entities.Enums.Roles.Director => Properties.Resources.DirectorFuncs
+            };
+            SurnameTB.Text = user.Surname;
+            NameTB.Text = user.Name;
+            PatronymicTB.Text = user.Patronymic;
+            EmailTB.Text = user.Email;
+            LoginTB.Text = user.Login;
+            PhoneNumberTB.Text = new ReversePhoneNumberParser(user.PhoneNumber).ParsedPhoneNumber;
+            AvatarSelector.OnConfigured += (sender, e) => {
+                AvatarSelector.SetImage(User.Photo);
+            };
         }
         private double GetSpacing()
         {
@@ -30,5 +43,86 @@ namespace FarAway2._0.Content.Controls.UserControls
             LeftStackPanel.Spacing = GetSpacing();
             RightStackPanel.Spacing = GetSpacing();
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ValidateAll())
+                return;
+            User.Name = NameTB.Text;
+            User.Surname = SurnameTB.Text;
+            User.Patronymic = PatronymicTB.Text;
+            User.Email = EmailTB.Text;
+            User.PhoneNumber = new PhoneNumberParser(PhoneNumberTB.Text).ParsedPhoneNumber;
+            User.Password = new HashService(PasswordTB.Password).EncrypredPassword;
+
+            DbUtils.UpdateUser(User, NameTB.Text, SurnameTB.Text, PatronymicTB.Text,
+                EmailTB.Text, PhoneNumberTB.Text, PasswordTB.Password, AvatarSelector.GetImage());
+        }
+        #region Validation
+        private bool ValidateAll()
+        {
+            if (string.IsNullOrWhiteSpace(SurnameTB.Text) || SurnameTB.Text.Length > 40)
+            {
+                MessageBox.Show("Фамилия пользователя не введена, либо лимит символов превышен (40)!", "Ошибка");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(NameTB.Text) || NameTB.Text.Length > 30)
+            {
+                MessageBox.Show("Имя пользователя не введено, либо лимит символов превышен (30)!", "Ошибка");
+                return false;
+            }
+            if (PatronymicTB.Text.Length > 50)
+            {
+                MessageBox.Show("Лимит символов на ввод отчества (50) превышен!", "Ошибка");
+                return false;
+            }
+            if (!ValidateEmail(EmailTB.Text))
+                return false;
+            if (!PhoneNumberTB.IsMaskCompleted)
+            {
+                MessageBox.Show("Номер телефона введён не полностью!", "Ошибка");
+                return false;
+            }
+            if (PasswordTB.Password != RepeatPasswordTB.Password)
+            {
+                MessageBox.Show("Введённые пароли не совпадают друг с другом!", "Ошибка");
+                return false;
+            }
+            if (!(PasswordTB.Password == string.Empty))
+            {
+                if (new HashService(PasswordTB.Password).VerifyWithThis(User.Password))
+                {
+                    MessageBox.Show("Новый пароль для пользователя должен отличаться от текущего!", "Ошибка");
+                    return false;
+                }
+                if (string.IsNullOrWhiteSpace(PasswordTB.Password) || PasswordTB.Password.Length > 40)
+                {
+                    MessageBox.Show("Новый пароль пользователя не введён корректно, либо превышен лимит символов (40)!", "Ошибка");
+                    return false;
+                }
+            }
+            if (!AvatarSelector.IsImageSet())
+            {
+                MessageBox.Show("Необходимо выбрать изображение для аватара пользователя!", "Ошибка");
+                return false;
+            }
+            return true;
+        }
+        private bool ValidateEmail(string email)
+        {
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Электронная почта не введена, либо введены пустые символы!", "Ошибка");
+                return false;
+            }
+            if (!Regex.IsMatch(email, pattern))
+            {
+                MessageBox.Show("Электронная почта введена неверно! Проверьте правильность ввода!", "Ошибка");
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
 }
