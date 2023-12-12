@@ -53,8 +53,6 @@ namespace FarAway2._0.Content.Windows
 
                 MainContentControl.Content = new AccountControl(_user);
                 _currentMainContent = null;
-
-                return;
             }
             if (Item.Action == MainWindowActions.Exit)
             {
@@ -69,32 +67,27 @@ namespace FarAway2._0.Content.Windows
             // Table display on main content of NavigationView
             if (TableTypeAttribute.GetAttribute(Item.DatabaseTable) == TableTypes.ReferenceTables)
             {
-                CallTableView(new ReferenceTablesView(Item.DatabaseTable));
-                return;
+                await CallTableView(new ReferenceTablesView(Item.DatabaseTable));
             }
             // Non reference table callback to main content
             if (Item.DatabaseTable == TableNames.Branches)
             {
-                CallTableView(new BranchesView());
-                return;
+                await CallTableView(new BranchesView());
             }
             if (Item.DatabaseTable == TableNames.ParkingSpots)
             {
-                CallTableView(new ParkingSpotsView());
-                return;
+                await CallTableView(new ParkingSpotsView());
             }
             if (Item.DatabaseTable == TableNames.ParkingSpaceRental)
             {
-                CallTableView(new RentalsView());
-                return;
+                await CallTableView(new RentalsView());
             }
             if (Item.DatabaseTable == TableNames.Users)
             {
-                CallTableView(new UsersView());
-                return;
+                await CallTableView(new UsersView());
             }
         }
-        private async void CallTableView(SearchableTableView instance)
+        private async Task CallTableView(SearchableTableView instance)
         {
             SwapVisibilitiesContentControls();
             await instance.UpdateDataAsync();

@@ -14,6 +14,7 @@ namespace FarAway2._0.BaseClasses
                 UpdateDataAsync();
             }
         }
+
         /// <summary>
         /// It is necessary to override this method in inheritor classes
         /// </summary>
