@@ -90,12 +90,22 @@ namespace FarAway2._0.Content.Windows
         private async Task CallTableView(SearchableTableView instance)
         {
             SwapVisibilitiesContentControls();
+
             await instance.UpdateDataAsync();
             MainContentControl.Content = instance;
+            _currentMainContent = instance;
 
             SearchAutoSuggestBox.IsEnabled = true;
             SearchAutoSuggestBox.Text = string.Empty;
-            _currentMainContent = instance;
+            SwapVisibilitiesContentControls();
+        }
+
+        private async Task CallAsync(Func<Task> method)
+        {
+            SwapVisibilitiesContentControls();
+            await method();
+            SearchAutoSuggestBox.IsEnabled = true;
+            SearchAutoSuggestBox.Text = string.Empty;
             SwapVisibilitiesContentControls();
         }
         private void SwapVisibilitiesContentControls()
