@@ -1,4 +1,5 @@
 ﻿using FarAway2._0.BaseClasses;
+using FarAway2._0.Content.Windows;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
 using System.Windows.Controls;

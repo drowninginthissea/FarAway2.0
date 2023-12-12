@@ -1,5 +1,6 @@
 ﻿using FarAway2._0.BaseClasses;
 using FarAway2._0.Content.Controls.UserControls.JournalTables.Branches;
+using FarAway2._0.Content.Windows;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
 using System.Windows.Controls;
@@ -21,7 +22,7 @@ namespace FarAway2._0.Content.Controls.UserControls.JournalTables.Users
                 $"{u.Surname} {u.Name} {u.Patronymic}".Contains(TextToSearch) ||
                 u.Email.Contains(TextToSearch) ||
                 u.Login.Contains(TextToSearch) ||
-                new PhoneNumberParser(u.PhoneNumber).ParsedPhoneNumber.Contains(TextToSearch) ||
+                new ReversePhoneNumberParser(u.PhoneNumber).ParsedPhoneNumber.Contains(TextToSearch) ||
                 u.idRoleNavigation.RoleName.Contains(TextToSearch));
         }
 

@@ -8,6 +8,7 @@ using FarAway2._0.Content.Controls.UserControls.JournalTables.Users;
 using FarAway2._0.Content.Controls.UserControls.ReferenceTables;
 using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
+using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Windows
 {
@@ -20,7 +21,7 @@ namespace FarAway2._0.Content.Windows
         public ShellWindow()
         {
             InitializeComponent();
-            WindowConfiguration(DbUtils.db.Users.Find(new Random().Next(1, DbUtils.db.Users.Count() + 1)));
+            WindowConfiguration(DbUtils.db.Users.Find(116));
         }
 #endif
         public ShellWindow(Users user)
@@ -89,23 +90,16 @@ namespace FarAway2._0.Content.Windows
         }
         private async Task CallTableView(SearchableTableView instance)
         {
+            MainNavigationView.IsEnabled = false;
             SwapVisibilitiesContentControls();
 
             await instance.UpdateDataAsync();
+
             MainContentControl.Content = instance;
+            SearchAutoSuggestBox.IsEnabled = true;
+            SearchAutoSuggestBox.Text = string.Empty;
             _currentMainContent = instance;
-
-            SearchAutoSuggestBox.IsEnabled = true;
-            SearchAutoSuggestBox.Text = string.Empty;
-            SwapVisibilitiesContentControls();
-        }
-
-        private async Task CallAsync(Func<Task> method)
-        {
-            SwapVisibilitiesContentControls();
-            await method();
-            SearchAutoSuggestBox.IsEnabled = true;
-            SearchAutoSuggestBox.Text = string.Empty;
+            MainNavigationView.IsEnabled = true;
             SwapVisibilitiesContentControls();
         }
         private void SwapVisibilitiesContentControls()
@@ -113,7 +107,7 @@ namespace FarAway2._0.Content.Windows
             if (MainContentControl.Visibility == Visibility.Visible)
             {
                 MainContentControl.Visibility = Visibility.Hidden;
-                LoadingContentControl.Visibility= Visibility.Visible;
+                LoadingContentControl.Visibility = Visibility.Visible;
             }
             else
             {
