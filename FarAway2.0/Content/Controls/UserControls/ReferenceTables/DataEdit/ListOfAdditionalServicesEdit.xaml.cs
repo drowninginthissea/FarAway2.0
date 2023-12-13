@@ -51,7 +51,7 @@ namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
                 ListOfAdditionalServices Instance = new ListOfAdditionalServices()
                 {
                     ServiceName = ServiceName.Text,
-                    ServicePrice = decimal.Parse(ServicePrice.Text),
+                    ServicePrice = ParsedValue,
                     ServiceDescription = ServiceDescription.Text
                 };
                 DbUtils.db.ListOfAdditionalServices.Add(Instance);
@@ -59,7 +59,7 @@ namespace FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit
             else
             {
                 ChangingInstance.ServiceName = ServiceName.Text;
-                ChangingInstance.ServicePrice = decimal.Parse(ServicePrice.Text);
+                ChangingInstance.ServicePrice = ParsedValue;
                 ChangingInstance.ServiceDescription = ServiceDescription.Text;
             }
             DbUtils.db.SaveChanges();

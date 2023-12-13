@@ -1,6 +1,5 @@
 ﻿using FarAway2._0.BaseClasses;
 using FarAway2._0.Content.Controls.UserControls.ReferenceTables.DataEdit;
-using FarAway2._0.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
 using System.Windows.Controls;

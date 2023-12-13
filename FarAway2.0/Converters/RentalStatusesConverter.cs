@@ -12,11 +12,13 @@ namespace FarAway2._0.Converters
             switch (status.id)
             {
                 case Entities.Enums.RentalStatuses.Active:
-                    return new SolidColorBrush(Color.FromArgb(0xFF, 0xEC, 0x1C, 0x24));
+                    return new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0xA8, 0xF3));
                 case Entities.Enums.RentalStatuses.Completed:
                     return new SolidColorBrush(Color.FromArgb(0xFF, 0x0E, 0xD1, 0x45));
+                case Entities.Enums.RentalStatuses.Canceled:
+                    return new SolidColorBrush(Color.FromArgb(0xFF, 0xEC, 0x1C, 0x24));
                 default:
-                    return null;
+                    return new SolidColorBrush(Color.FromArgb(0xff, 0xFF, 0x7F, 0x27));
             }
         }
 

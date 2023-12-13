@@ -1,12 +1,105 @@
 ﻿<UserControl x:Class="FarAway2._0.Content.Controls.UserControls.JournalTables.Rentals.RentalsEdit"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FarAway2._0.Content.Controls.UserControls.JournalTables.Rentals"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:FarAway2._0.Converters"
+             mc:Ignorable="d"
+             Style="{StaticResource DataEditUserControl}"
+             Height="670"
+             Width="310">
+    <UserControl.Resources>
+        <converters:UserConverter x:Key="UserConverter" />
+        <converters:RentalStatusesConverter x:Key="StatusConverter" />
+        <converters:PhoneNumberConverter x:Key="PhoneNumberConverter" />
+    </UserControl.Resources>
     <Grid>
-            
+        <ui:SimpleStackPanel Style="{StaticResource DataEditSimpleStackPanel}">
+            <ComboBox Name="ClientCB"
+                      ui:ControlHelper.Header="Клиент аренды"
+                      ui:ControlHelper.PlaceholderText="Вариант выбора"
+                      HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="14">
+                            <Run Text="{Binding ., Converter={StaticResource UserConverter}}" />
+                            <Run Text="|" />
+                            <Run Text="{Binding Email}" />
+                            <Run Text="|" />
+                            <Run Text="{Binding PhoneNumber, Converter={StaticResource PhoneNumberConverter}}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Name="ParkingSpotCB"
+                      ui:ControlHelper.Header="Парковочное место"
+                      ui:ControlHelper.PlaceholderText="Вариант выбора"
+                      HorizontalAlignment="Stretch"
+                      SelectionChanged="ParkingSpotCB_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="14"
+                                   Text="{Binding Address}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <DatePicker HorizontalAlignment="Stretch"
+                        Name="StartDate"
+                        ui:ControlHelper.Header="Выбор даты начала аренды"
+                        SelectedDateChanged="StartDate_SelectedDateChanged" />
+            <DatePicker HorizontalAlignment="Stretch"
+                        Name="EndDate"
+                        ui:ControlHelper.Header="Выбор даты окончания аренды"
+                        SelectedDateChanged="EndDate_SelectedDateChanged" />
+            <ComboBox Name="TypeOfRentalByDurationCB"
+                      ui:ControlHelper.Header="Тип аренды по длительности"
+                      ui:ControlHelper.PlaceholderText="Здесь будет отображен тип"
+                      HorizontalAlignment="Stretch"
+                      IsEnabled="False">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="14">
+                            <Run Text="{Binding TypeName}" />
+                            <Run Text="{Binding MinDurationOfRentalDays, StringFormat=({0}}" />
+                            <Run Text="-" />
+                            <Run Text="{Binding MaxDurationOfRentalDays, StringFormat={}{0}), TargetNullValue='∞)'}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Name="TotalPriceTB"
+                     ui:ControlHelper.Header="Итоговая стоимость аренды"
+                     ui:ControlHelper.PlaceholderText="Здесь будет итоговая цена"
+                     IsEnabled="False" />
+            <ComboBox Name="StatusCB"
+                      HorizontalAlignment="Stretch"
+                      ui:ControlHelper.Header="Статус аренды"
+                      ui:ControlHelper.PlaceholderText="Вариант выбора">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             Spacing="10">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       RadiusX="50"
+                                       RadiusY="50"
+                                       Fill="{Binding ., Converter={StaticResource StatusConverter}}" />
+                            <TextBlock FontSize="14"
+                                       Text="{Binding StatusName}" />
+                        </ui:SimpleStackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Name="SaveChanges"
+                    Click="SaveChanges_Click"
+                    Content="Сохранить"
+                    HorizontalAlignment="Center" />
+            <Button Name="Exit"
+                    Click="Exit_Click"
+                    Content="Отмена"
+                    HorizontalAlignment="Center"
+                    Background="Transparent" />
+        </ui:SimpleStackPanel>
     </Grid>
 </UserControl>

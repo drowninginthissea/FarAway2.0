@@ -1,6 +1,4 @@
-﻿using FarAway2._0.Entities.Enums;
-using FarAway2._0.Tools.Collections;
-using ModernWpf.Controls;
+﻿using ModernWpf.Controls;
 
 namespace FarAway2._0.Content.Controls.CustomControls
 {

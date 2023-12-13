@@ -7,7 +7,6 @@ namespace FarAway2._0.Content.Controls.UserControls.JournalTables.ParkingSpots
 {
     public partial class ParkingSpotsView : SearchableTableView
     {
-        
         public ParkingSpotsView()
         {
             InitializeComponent();

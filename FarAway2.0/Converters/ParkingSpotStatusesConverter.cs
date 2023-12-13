@@ -20,7 +20,7 @@ namespace FarAway2._0.Converters
                 case Entities.Enums.ParkingSpotStatuses.OnServing:
                     return new SolidColorBrush(Color.FromArgb(0xFF, 0x00, 0xA8, 0xF3));
                 default:
-                    return null;
+                    return new SolidColorBrush(Color.FromArgb(0xff, 0xFF, 0x7F, 0x27));
             }
         }
 

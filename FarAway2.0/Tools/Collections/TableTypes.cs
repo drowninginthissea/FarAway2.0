@@ -1,4 +1,4 @@
-﻿namespace FarAway2._0.Entities.Enums
+﻿namespace FarAway2._0.Tools.Collections
 {
     internal enum TableTypes
     {

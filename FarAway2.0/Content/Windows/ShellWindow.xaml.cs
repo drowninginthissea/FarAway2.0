@@ -1,12 +1,12 @@
 ﻿using FarAway2._0.BaseClasses;
 using FarAway2._0.Content.Controls.CustomControls;
 using FarAway2._0.Content.Controls.UserControls;
+using FarAway2._0.Content.Controls.UserControls.JournalTables.AdditionalServices;
 using FarAway2._0.Content.Controls.UserControls.JournalTables.Branches;
 using FarAway2._0.Content.Controls.UserControls.JournalTables.ParkingSpots;
 using FarAway2._0.Content.Controls.UserControls.JournalTables.Rentals;
 using FarAway2._0.Content.Controls.UserControls.JournalTables.Users;
 using FarAway2._0.Content.Controls.UserControls.ReferenceTables;
-using FarAway2._0.Entities.Enums;
 using ModernWpf.Controls;
 using System.Windows.Controls;
 
@@ -86,6 +86,10 @@ namespace FarAway2._0.Content.Windows
             if (Item.DatabaseTable == TableNames.Users)
             {
                 await CallTableView(new UsersView());
+            }
+            if (Item.DatabaseTable == TableNames.AdditionalServicesForRent)
+            {
+                await CallTableView(new AdditionalServicesView());
             }
         }
         private async Task CallTableView(SearchableTableView instance)
