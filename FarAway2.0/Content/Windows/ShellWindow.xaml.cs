@@ -44,15 +44,16 @@ namespace FarAway2._0.Content.Windows
             LoadingContentControl.Content = new Loading();
 
 
+            //Распределение ролей:
             if (users.idRole != Entities.Enums.Roles.Admin)
                 ReferenceTables.Visibility = Visibility.Collapsed;
-            //Распределение ролей:
             switch (users.idRole) 
             {
                 case Entities.Enums.Roles.Controller:
                     RentalsNavigation.Visibility = Visibility.Collapsed;
                     UserNavigation.Visibility = Visibility.Collapsed;
                     AddedServicesNavigation.Visibility = Visibility.Collapsed;
+                    ReportingNavigation.Visibility = Visibility.Collapsed;
                     break;
                 case Entities.Enums.Roles.Manager:
                     BranchesNavigation.Visibility = Visibility.Collapsed;
