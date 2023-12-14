@@ -18,7 +18,7 @@ namespace FarAway2._0.Entities
         public string Login { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
-        public byte[]? Photo { get; set; }
+        public byte[] Photo { get; set; } = null!;
         public int idRole { get; set; }
 
         public virtual Roles idRoleNavigation { get; set; } = null!;
