@@ -118,15 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdminFuncs" xml:space="preserve">
-    <value>Вы имеете доступ ко манипулированию данными во всех таблицах (все "таблицы-журналы", включая таблицы со справочной информацией). Также Вам доступен весь функционал отчётности и построения графиков.</value>
+    <value>Вы имеете доступ ко манипулированию данными во всех таблицах (все "таблицы-журналы", включая таблицы со справочной информацией). Также Вам доступен весь функционал отчётности.</value>
   </data>
   <data name="ControllerFuncs" xml:space="preserve">
     <value>Вы имеете доступ (просмотр, редактирование, а также добавление новых данных) ко всей информации, связанной непосредственно с парковочными местами, а также с парковками.</value>
   </data>
   <data name="DirectorFuncs" xml:space="preserve">
-    <value>Вы имеете полный доступ ко всем "таблицам-журналам". Вам доступен полный функционал отчётности и построения графиков.</value>
+    <value>Вы имеете полный доступ ко всем "таблицам-журналам". Вам доступен полный функционал отчётности.</value>
   </data>
   <data name="ManagerFuncs" xml:space="preserve">
     <value>Вы имеете доступ (просмотр, редактирование, а также добавление новых данных) ко всей информацией, связанной с пользователями, их арендами, а также дополнительными услугами.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="RentContract" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RentContract.docx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

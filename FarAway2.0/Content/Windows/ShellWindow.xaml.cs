@@ -42,11 +42,36 @@ namespace FarAway2._0.Content.Windows
             _user = users;
             MainContentControl.Content = new Empty();
             LoadingContentControl.Content = new Loading();
+
+
+            if (users.idRole != Entities.Enums.Roles.Admin)
+                ReferenceTables.Visibility = Visibility.Collapsed;
+            //Распределение ролей:
+            switch (users.idRole) 
+            {
+                case Entities.Enums.Roles.Controller:
+                    RentalsNavigation.Visibility = Visibility.Collapsed;
+                    UserNavigation.Visibility = Visibility.Collapsed;
+                    AddedServicesNavigation.Visibility = Visibility.Collapsed;
+                    break;
+                case Entities.Enums.Roles.Manager:
+                    BranchesNavigation.Visibility = Visibility.Collapsed;
+                    SpotsNavigation.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
         #endregion
         private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             MyNavigationViewItem Item = args.SelectedItem as MyNavigationViewItem;
+            if (Item.Action == MainWindowActions.Reporting)
+            {
+                SearchAutoSuggestBox.Text = string.Empty;
+                SearchAutoSuggestBox.IsEnabled = false;
+
+                MainContentControl.Content = new ReportingControl();
+                _currentMainContent = null;
+            }
             if (Item.Action == MainWindowActions.Account)
             {
                 SearchAutoSuggestBox.Text = string.Empty;
@@ -85,7 +110,7 @@ namespace FarAway2._0.Content.Windows
             }
             if (Item.DatabaseTable == TableNames.Users)
             {
-                await CallTableView(new UsersView());
+                await CallTableView(new UsersView(_user.idRole == Entities.Enums.Roles.Manager ? true : false));
             }
             if (Item.DatabaseTable == TableNames.AdditionalServicesForRent)
             {

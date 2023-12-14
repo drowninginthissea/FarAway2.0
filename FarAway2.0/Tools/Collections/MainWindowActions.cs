@@ -3,6 +3,7 @@
     internal enum MainWindowActions
     {
         Tables,
+        Reporting,
         Account,
         Exit,
         Null

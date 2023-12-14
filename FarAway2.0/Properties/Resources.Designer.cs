@@ -61,7 +61,7 @@ namespace FarAway2._0.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы имеете доступ ко манипулированию данными во всех таблицах (все &quot;таблицы-журналы&quot;, включая таблицы со справочной информацией). Также Вам доступен весь функционал отчётности и построения графиков..
+        ///   Looks up a localized string similar to Вы имеете доступ ко манипулированию данными во всех таблицах (все &quot;таблицы-журналы&quot;, включая таблицы со справочной информацией). Также Вам доступен весь функционал отчётности..
         /// </summary>
         internal static string AdminFuncs {
             get {
@@ -79,7 +79,7 @@ namespace FarAway2._0.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы имеете полный доступ ко всем &quot;таблицам-журналам&quot;. Вам доступен полный функционал отчётности и построения графиков..
+        ///   Looks up a localized string similar to Вы имеете полный доступ ко всем &quot;таблицам-журналам&quot;. Вам доступен полный функционал отчётности..
         /// </summary>
         internal static string DirectorFuncs {
             get {
@@ -93,6 +93,16 @@ namespace FarAway2._0.Properties {
         internal static string ManagerFuncs {
             get {
                 return ResourceManager.GetString("ManagerFuncs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RentContract {
+            get {
+                object obj = ResourceManager.GetObject("RentContract", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
