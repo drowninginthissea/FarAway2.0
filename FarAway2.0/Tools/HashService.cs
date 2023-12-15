@@ -56,7 +56,8 @@ namespace FarAway2._0.Tools
             {
                 byte[] HashedInputtedPassword = sha256.ComputeHash(InputtedPlusSalt);
 
-                return Convert.ToBase64String(HashedInputtedPassword) == StoredHash;
+                string HashedString = Convert.ToBase64String(HashedInputtedPassword);
+                return HashedString == StoredHash;
             }
         }
         public bool VerifyWithThis(string PassForComparison) =>

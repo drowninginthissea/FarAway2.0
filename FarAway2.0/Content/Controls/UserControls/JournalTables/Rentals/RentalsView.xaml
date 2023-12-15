@@ -49,9 +49,18 @@
                                        BasedOn="{StaticResource MyElementStyle}" />
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
+
                         <DataGridTextColumn Header="Адрес парковки"
                                             Binding="{Binding idParkingSpotNavigation.idBranchNavigation.Address}"
                                             Width="200">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MyElementStyle}" />
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Номер п/м"
+                                            Binding="{Binding idParkingSpotNavigation.id}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock"
                                        BasedOn="{StaticResource MyElementStyle}" />

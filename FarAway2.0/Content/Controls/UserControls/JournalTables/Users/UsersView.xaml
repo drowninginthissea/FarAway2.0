@@ -68,7 +68,7 @@
                                                 <Run Text="{Binding PhoneNumber, Converter={StaticResource PhoneConverter}}" />
                                             </TextBlock>
                                             <TextBlock TextWrapping="Wrap">
-                                                <Run Text="Отчество:" />
+                                                <Run Text="Роль:" />
                                                 <Run Text="{Binding idRoleNavigation.RoleName}" />
                                             </TextBlock>
                                             <Button Content="Редактировать"

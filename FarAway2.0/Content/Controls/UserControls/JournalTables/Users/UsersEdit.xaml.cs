@@ -75,7 +75,20 @@ namespace FarAway2._0.Content.Controls.UserControls.JournalTables.Users
                 ChangingInstance.Patronymic = PatronymicTB.Text;
                 ChangingInstance.Email = EmailTB.Text;
                 ChangingInstance.PhoneNumber = new PhoneNumberParser(PhoneNumberTB.Text).ParsedPhoneNumber;
-                ChangingInstance.Password = new HashService(PasswordTB.Password).EncrypredPassword;
+                if (!(PasswordTB.Password == string.Empty))
+                {
+                    if (new HashService(PasswordTB.Password).VerifyWithThis(ChangingInstance.Password))
+                    {
+                        MessageBox.Show("Новый пароль для пользователя должен отличаться от текущего!", "Ошибка");
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(PasswordTB.Password) || PasswordTB.Password.Length > 40)
+                    {
+                        MessageBox.Show("Новый пароль пользователя не введён корректно, либо превышен лимит символов (40)!", "Ошибка");
+                        return;
+                    }
+                    ChangingInstance.Password = new HashService(PasswordTB.Password).EncrypredPassword;
+                }
                 ChangingInstance.Photo = AvatarSelector.GetImage();
                 ChangingInstance.idRole = (RolesCB.SelectedItem as Roles).id;
             }

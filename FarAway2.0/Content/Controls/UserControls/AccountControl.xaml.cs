@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using FarAway2._0.Entities;
+using Microsoft.Office.Interop.Word;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
 namespace FarAway2._0.Content.Controls.UserControls
@@ -22,15 +24,19 @@ namespace FarAway2._0.Content.Controls.UserControls
                 Entities.Enums.Roles.Manager => Properties.Resources.ManagerFuncs,
                 Entities.Enums.Roles.Director => Properties.Resources.DirectorFuncs
             };
-            SurnameTB.Text = user.Surname;
-            NameTB.Text = user.Name;
-            PatronymicTB.Text = user.Patronymic;
-            EmailTB.Text = user.Email;
-            LoginTB.Text = user.Login;
-            PhoneNumberTB.Text = new ReversePhoneNumberParser(user.PhoneNumber).ParsedPhoneNumber;
+            SetFields();
             AvatarSelector.OnConfigured += (sender, e) => {
                 AvatarSelector.SetImage(User.Photo);
             };
+        }
+        private void SetFields()
+        {
+            SurnameTB.Text = User.Surname;
+            NameTB.Text = User.Name;
+            PatronymicTB.Text = User.Patronymic;
+            EmailTB.Text = User.Email;
+            LoginTB.Text = User.Login;
+            PhoneNumberTB.Text = new ReversePhoneNumberParser(User.PhoneNumber).ParsedPhoneNumber;
         }
         private double GetSpacing()
         {
@@ -48,15 +54,32 @@ namespace FarAway2._0.Content.Controls.UserControls
         {
             if (!ValidateAll())
                 return;
+
             User.Name = NameTB.Text;
             User.Surname = SurnameTB.Text;
             User.Patronymic = PatronymicTB.Text;
             User.Email = EmailTB.Text;
             User.PhoneNumber = new PhoneNumberParser(PhoneNumberTB.Text).ParsedPhoneNumber;
-            User.Password = new HashService(PasswordTB.Password).EncrypredPassword;
-
-            DbUtils.UpdateUser(User, NameTB.Text, SurnameTB.Text, PatronymicTB.Text,
-                EmailTB.Text, PhoneNumberTB.Text, PasswordTB.Password, AvatarSelector.GetImage());
+            if (!(PasswordTB.Password == string.Empty))
+            {
+                if (new HashService(PasswordTB.Password).VerifyWithThis(User.Password))
+                {
+                    MessageBox.Show("Новый пароль для пользователя должен отличаться от текущего!", "Ошибка");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(PasswordTB.Password) || PasswordTB.Password.Length > 40)
+                {
+                    MessageBox.Show("Новый пароль пользователя не введён корректно, либо превышен лимит символов (40)!", "Ошибка");
+                    return;
+                }
+                User.Password = new HashService(PasswordTB.Password).EncrypredPassword;
+            }
+            User.Photo = AvatarSelector.GetImage();
+            DbUtils.db.SaveChanges();
+            MessageBox.Show("Данные успешно обновлены!", "Успешно");
+            SetFields();
+            PasswordTB.Password = "";
+            RepeatPasswordTB.Password = "";
         }
         #region Validation
         private bool ValidateAll()

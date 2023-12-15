@@ -31,6 +31,13 @@
                           Style="{StaticResource DataGridDbView}"
                           Visibility="Visible">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Номер п/м"
+                                            Binding="{Binding id}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MyElementStyle}" />
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Парковка"
                                             Binding="{Binding idBranchNavigation.Address}"

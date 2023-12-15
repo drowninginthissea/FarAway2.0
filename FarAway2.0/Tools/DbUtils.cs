@@ -32,13 +32,17 @@ namespace FarAway2._0.Tools
         public static (bool, Users?) Authorization(string login, string password)
         {
             HashService LogginPassword = new HashService(password);
-            Users? user = db.Users
-                .FirstOrDefault(x => (x.idRole == Entities.Enums.Roles.Admin ||
-                x.idRole == Entities.Enums.Roles.Controller ||
-                x.idRole == Entities.Enums.Roles.Manager ||
-                x.idRole == Entities.Enums.Roles.Director) && x.Login == login);
+            Users? user = db.Users.FirstOrDefault(x => x.Login == login);
             if (user == null)
                 return (false, null);
+            if (!(user.idRole == Entities.Enums.Roles.Admin ||
+                user.idRole == Entities.Enums.Roles.Controller ||
+                user.idRole == Entities.Enums.Roles.Manager ||
+                user.idRole == Entities.Enums.Roles.Director))
+            {
+                Application.Current.Dispatcher.Invoke(() => MessageBox.Show("У вас недостаточно прав для входа в систему! Обратитесь к администратору или директору!", "Ошибка входа"));
+                return (false, user);
+            }
             bool IsRightPassword = LogginPassword.VerifyWithThis(user.Password);
             if (!IsRightPassword)
                 return (false, user);
