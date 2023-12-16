@@ -43,7 +43,7 @@ namespace FarAway2._0.Content.Windows
             MainContentControl.Content = new Empty();
             LoadingContentControl.Content = new Loading();
 
-
+            Title = "Главное окно Администратора";
             //Распределение ролей:
             if (users.idRole != Entities.Enums.Roles.Admin)
                 ReferenceTables.Visibility = Visibility.Collapsed;
@@ -54,10 +54,15 @@ namespace FarAway2._0.Content.Windows
                     UserNavigation.Visibility = Visibility.Collapsed;
                     AddedServicesNavigation.Visibility = Visibility.Collapsed;
                     ReportingNavigation.Visibility = Visibility.Collapsed;
+                    Title = "Главное окно Контролёра парковок";
                     break;
                 case Entities.Enums.Roles.Manager:
                     BranchesNavigation.Visibility = Visibility.Collapsed;
                     SpotsNavigation.Visibility = Visibility.Collapsed;
+                    Title = "Главное окно Менеджера по работе с клиентами";
+                    break;
+                case Entities.Enums.Roles.Director:
+                    Title = "Главное окно Директора";
                     break;
             }
         }
