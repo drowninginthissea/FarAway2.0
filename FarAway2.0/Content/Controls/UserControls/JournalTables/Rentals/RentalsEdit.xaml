@@ -47,10 +47,12 @@
             <DatePicker HorizontalAlignment="Stretch"
                         Name="StartDate"
                         ui:ControlHelper.Header="Выбор даты начала аренды"
+                        ui:ControlHelper.PlaceholderText="Вариант выбора"
                         SelectedDateChanged="StartDate_SelectedDateChanged" />
             <DatePicker HorizontalAlignment="Stretch"
                         Name="EndDate"
                         ui:ControlHelper.Header="Выбор даты окончания аренды"
+                        ui:ControlHelper.PlaceholderText="Вариант выбора"
                         SelectedDateChanged="EndDate_SelectedDateChanged" />
             <ComboBox Name="TypeOfRentalByDurationCB"
                       ui:ControlHelper.Header="Тип аренды по длительности"
