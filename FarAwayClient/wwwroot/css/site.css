@@ -1,0 +1,40 @@
+.field-validation-error /* текст под input'ом */ {
+    font-size: .875em;
+    color: var(--bs-form-invalid-color);
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error /* класс для input при ошибке валидации */ {
+    border-color: var(--bs-form-invalid-border-color);
+    padding-right: calc(1.5em + .75rem);
+    background-image: url('../assets/icons/exclamation-circle.svg');
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.validation-summary-errors /* ошибки валидации модели */ {
+    font-size: .875em;
+    color: var(--bs-form-invalid-color);
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+input[type="checkbox"].input-validation-error /* класс для input (checkbox) при ошибке валидации */ {
+    border: 0 none;
+}
+
+.validation ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.form-signin input[type="password"] {
+    border-top-right-radius: var(--bs-border-radius) !important;
+}

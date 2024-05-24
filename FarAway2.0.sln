@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarAway2.0", "FarAway2.0\FarAway2.0.csproj", "{37BA65EE-2C91-476A-9CE9-F64607AD4B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarAway2.0", "FarAway2.0\FarAway2.0.csproj", "{37BA65EE-2C91-476A-9CE9-F64607AD4B9E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarAwayClient", "FarAwayClient\FarAwayClient.csproj", "{CBAD7216-ED1B-445D-B5A3-6CFFC1D57766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{37BA65EE-2C91-476A-9CE9-F64607AD4B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37BA65EE-2C91-476A-9CE9-F64607AD4B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37BA65EE-2C91-476A-9CE9-F64607AD4B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBAD7216-ED1B-445D-B5A3-6CFFC1D57766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBAD7216-ED1B-445D-B5A3-6CFFC1D57766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBAD7216-ED1B-445D-B5A3-6CFFC1D57766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBAD7216-ED1B-445D-B5A3-6CFFC1D57766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

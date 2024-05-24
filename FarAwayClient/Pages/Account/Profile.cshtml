@@ -1,0 +1,159 @@
+﻿@page
+@model FarAwayClient.Pages.Account.ProfileModel
+@using FarAwayClient.Models
+@using FarAwayClient.Tools
+@{
+    ViewData["Title"] = "Личный кабинет";
+
+    User CurrentUser = Model.context.Users.Find(HttpContext.Session.GetInt32(Literals.UserSessionKey));
+
+    string ParsedPhoneNumber = $"+{CurrentUser.PhoneNumber.Substring(0, 1)} ({CurrentUser.PhoneNumber.Substring(1, 3)}) {CurrentUser.PhoneNumber.Substring(4, 3)}-{CurrentUser.PhoneNumber.Substring(7, 2)}-{CurrentUser.PhoneNumber.Substring(9)}";
+    string GetImageData()
+    {
+        string imreBase64Data = Convert.ToBase64String(CurrentUser.Photo);
+        return $"data:image/png;base64,{imreBase64Data}";
+    }
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/fullheightstyle.css" asp-append-version="true" />
+}
+<div class="content-wrapper content-start">
+    <div class="container form-paddings">
+        <h2 class="tittle">Личный кабинет</h2>
+        <div class="about-grids">
+            <div class="col-md-12">
+                <div class="row button-container margin-bottom-15">
+                    <a asp-page="/Account/RentalsView" class="my-btn">Просмотр аренд</a>
+                </div>
+                <div class="row button-container margin-bottom-15">
+                    <a asp-page="/Account/RentalCreate" class="my-btn">Арендовать парковочное место</a>
+                </div>
+                <div class="row button-container margin-bottom-50">
+                    <a asp-page="/Account/Profile" asp-page-handler="Out" class="my-btn">Выход</a>
+                </div>
+            </div>
+        </div>
+        <h2 class="tittle">Личные данные</h2>
+
+        <div class="about-grids margin-bottom-50">
+            <div class="flex-row-center">
+                <div class="image-fitter">
+                    <img src="@GetImageData()" />
+                </div>
+                <div class="user-data">
+                    <p>ФИО : @($"{CurrentUser.Surname} {CurrentUser.Name} {CurrentUser.Patronymic}")</p>
+                    <p>Email : @CurrentUser.Email</p>
+                    <p>Login : @CurrentUser.Login</p>
+                    <p>Номер телефона : @ParsedPhoneNumber</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="tittle">Изменение личных данных</h2>
+
+        <div class="about-grids flex-center">
+            <form id="update-data-form" method="post" asp-antiforgery="true" enctype="multipart/form-data" class="auth-reg-form">
+                <div class="form-group">
+                    <h3 class="text-center">Ввод новых данных для изменения существущих</h3>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Surname" class="margin-bottom-5">Фамилия</label><br />
+                    <input class="form-control margin-bottom-5" type="text" asp-for="Input.Surname" placeholder="Введите фамилию..." value="@CurrentUser.Surname" />
+                    <span asp-validation-for="Input.Surname"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Name" class="margin-bottom-5">Имя</label><br />
+                    <input class="form-control margin-bottom-5" type="text" asp-for="Input.Name" placeholder="Введите имя..." value="@CurrentUser.Name" />
+                    <span asp-validation-for="Input.Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Patronymic" class="margin-bottom-5">Отчество</label><br />
+                    <input class="form-control margin-bottom-5" type="text" asp-for="Input.Patronymic" placeholder="Введите отчество..." value="@CurrentUser.Patronymic" />
+                    <span asp-validation-for="Input.Patronymic"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email" class="margin-bottom-5">Электронная почта</label><br />
+                    <input class="form-control margin-bottom-5" type="email" asp-for="Input.Email" placeholder="Введите электронную почту..." value="@CurrentUser.Email" />
+                    <span asp-validation-for="Input.Email"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Login" class="margin-bottom-5">Логин</label><br />
+                    <input class="form-control margin-bottom-5" type="text" asp-for="Input.Login" placeholder="Введите логин..." readonly value="@CurrentUser.Login" />
+                    <span asp-validation-for="Input.Login"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password" class="margin-bottom-5">Пароль</label><br />
+                    <input class="form-control margin-bottom-5" type="password" asp-for="Input.Password" placeholder="Введите пароль..." />
+                    <span asp-validation-for="Input.Password"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword" class="margin-bottom-5">Подтверждение пароля</label><br />
+                    <input class="form-control margin-bottom-5" type="password" asp-for="Input.ConfirmPassword" placeholder="Введите пароль..." />
+                    <span asp-validation-for="Input.ConfirmPassword"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.PhoneNumber" class="margin-bottom-5">Номер телефона</label><br />
+                    <input class="form-control margin-bottom-5" type="text" asp-for="Input.PhoneNumber" data-mask="+7 (000) 000-00-00" placeholder="Введите номер телефона..." value="@CurrentUser.PhoneNumber" />
+                    <span asp-validation-for="Input.PhoneNumber"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Photo" class="margin-bottom-5">Фото профиля</label><br />
+                    <input class="form-control margin-bottom-5 border-none" type="file" asp-for="Input.Photo" />
+                    <span asp-validation-for="Input.Photo"></span>
+                </div>
+                <div class="form-group">
+                    <div class="validation" asp-validation-summary="ModelOnly"></div>
+                </div>
+                <div class="form-group">
+                    <button class="btn black-gray-background btn-block" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrationModalLabel">Обновление данных</h5>
+            </div>
+            <div class="modal-body">
+                Данные пользователя успешно обновлены!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (TempData["ShowModal"] != null && (bool)TempData["ShowModal"])
+            {
+                <text>
+                    $(document).ready(function () {
+                        $('#registrationModal').modal('show');
+                    });
+                </text>
+            }
+            @if (TempData["ScrollToForm"] != null && (bool)TempData["ScrollToForm"])
+            {
+                <text>
+                $(document).ready(function () {
+                    $('html, body').animate({
+                        scrollTop: $('#update-data-form').offset().top
+                    }, 1000);
+                });
+                </text>
+            }
+        });
+    </script>
+}

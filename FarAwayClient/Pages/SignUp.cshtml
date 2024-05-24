@@ -1,0 +1,106 @@
+﻿@page
+@model FarAwayClient.Pages.SignUpModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/fullheightstyle.css" asp-append-version="true" />
+}
+<div class="content-wrapper">
+    <div class="form-paddings">
+        <form method="post" asp-antiforgery="true" enctype="multipart/form-data" class="auth-reg-form">
+            <div class="form-group">
+                <h3 class="text-center">Форма регистрации</h3>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Surname" class="margin-bottom-5">Фамилия</label><br />
+                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Surname" placeholder="Введите фамилию..." />
+                <span asp-validation-for="Input.Surname"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Name" class="margin-bottom-5">Имя</label><br />
+                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Name" placeholder="Введите имя..." />
+                <span asp-validation-for="Input.Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Patronymic" class="margin-bottom-5">Отчество</label><br />
+                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Patronymic" placeholder="Введите отчество..." />
+                <span asp-validation-for="Input.Patronymic"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email" class="margin-bottom-5">Электронная почта</label><br />
+                <input class="form-control margin-bottom-5" type="email" asp-for="Input.Email" placeholder="Введите электронную почту..." />
+                <span asp-validation-for="Input.Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Login" class="margin-bottom-5">Логин</label><br />
+                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Login" placeholder="Введите логин..." />
+                <span asp-validation-for="Input.Login"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password" class="margin-bottom-5">Пароль</label><br />
+                <input class="form-control margin-bottom-5" type="password" asp-for="Input.Password" placeholder="Введите пароль..." />
+                <span asp-validation-for="Input.Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword" class="margin-bottom-5">Подтверждение пароля</label><br />
+                <input class="form-control margin-bottom-5" type="password" asp-for="Input.ConfirmPassword" placeholder="Введите пароль..." />
+                <span asp-validation-for="Input.ConfirmPassword"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber" class="margin-bottom-5">Номер телефона</label><br />
+                <input class="form-control margin-bottom-5" type="text" asp-for="Input.PhoneNumber" data-mask="+7 (000) 000-00-00" placeholder="Введите номер телефона..." />
+                <span asp-validation-for="Input.PhoneNumber"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Photo" class="margin-bottom-5">Фото профиля</label><br />
+                <input class="form-control margin-bottom-5 border-none" type="file" asp-for="Input.Photo" />
+                <span asp-validation-for="Input.Photo"></span>
+            </div>
+            <div class="form-group">
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+            </div>
+            <div class="form-group">
+                <a asp-page="/SignIn">Вход</a>
+            </div>
+            <div class="form-group">
+                <button class="btn black-gray-background btn-block" type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registrationModalLabel">Успешная регистрация</h5>
+            </div>
+            <div class="modal-body">
+                Пользователь успешно зарегистрирован!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if (TempData["ShowModal"] != null && (bool)TempData["ShowModal"])
+            {
+                <text>
+                    $(document).ready(function () {
+                        $('#registrationModal').modal('show');
+                    });
+                </text>
+            }
+        });
+    </script>
+}
