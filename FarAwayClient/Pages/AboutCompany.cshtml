@@ -3,9 +3,74 @@
 @{
     ViewData["Title"] = "О компании";
 }
-<div class="container px-4 pt-5">
-    <h2 class="pb-2 border-bottom">Достоинства автоматизированного паркинга</h2>
-    <div class="row g-4 pt-5 pb-1 row-cols-1 row-cols-lg-3">
-        
+@section Styles {
+
+}
+
+<div class="container px-4 pt-4">
+    <h1 class="pb-2 border-bottom text-center mb-5">О компании</h1>
+
+    <div class="row featurette">
+        <div class="col-md-6">
+            <h2 class="featurette-heading fw-normal lh-1">Автоматизированный паркинг</h2>
+            <p class="lead">— это высокотехнологичная система парковки, которая использует механизированные платформы, лифты и конвейерные системы для автоматической стоянки и выдачи автомобилей без непосредственного участия водителя.</p>
+        </div>
+        <div class="col-md-6">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/automated-parking-1.jpg" />
+        </div>
+    </div>
+
+    <div class="row featurette">
+        <div class="col-md-6 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">Far<span class="text-body-secondary">Away</span></h2>
+            <p class="lead">Компания "FarAway" представляет инновационную систему автоматизированного паркинга, предназначенную для максимального удобства и экономии времени наших клиентов. Наша уникальная технология позволяет автоматически парковать автомобили без участия водителя, что существенно повышает эффективность использования парковочного пространства.</p>
+        </div>
+        <div class="col-md-6 order-md-1">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/automated-parking-2.jpg" />
+        </div>
+    </div>
+
+    <div class="row featurette">
+        <div class="col-md-6">
+            <h2 class="featurette-heading fw-normal lh-1">Безопасность? <span class="text-body-secondary">Безопасность.</span></h2>
+            <p class="lead">Наши автоматизированные паркинги оснащены современными системами видеонаблюдения и датчиками безопасности, что гарантирует сохранность вашего автомобиля во время его пребывания на парковке. Также, безопасность осуществляться тем, что система изолирована от третьих лиц, что гарантирует сохранность автомобиля во время прибывания на паркинге.</p>
+        </div>
+        <div class="col-md-6">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/security.jpg" />
+        </div>
+    </div>
+
+    <hr class="featurette-divider border-top-0 my-5">
+
+    <h2 class="pb-2 border-bottom text-center mb-5">Устройство работы</h2>
+
+    <div class="row featurette">
+        <div class="col-md-6 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">1 этап</h2>
+            <p class="lead">Процесс начинается с того, что водитель подъезжает к приемной зоне, где ему необходимо провалидировать его QR-код из веб приложения, чтобы система предоставила доступ к парковочной станции. Автомобиль оставляется на специализированной платформе, которая будет осуществлять паркинг автомобиля непосредственно внутри системы.</p>
+        </div>
+        <div class="col-md-6 order-md-1">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/work-process/1-stage.jpeg" />
+        </div>
+    </div>
+
+    <div class="row featurette">
+        <div class="col-md-6 ">
+            <h2 class="featurette-heading fw-normal lh-1">2 этап</h2>
+            <p class="lead">Далее автомобиль автоматически поднимается и перемещается при помощи роботизированных механизмов к своему парковочному месту. Эти места могут быть расположены на различных уровнях структуры, что позволяет эффективно использовать вертикальное пространство. Вся система управляется компьютером, который координирует движения всех механических элементов, обеспечивая безопасность и минимизируя риски повреждения автомобилей.</p>
+        </div>
+        <div class="col-md-6 ">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/work-process/2-stage.jpeg" />
+        </div>
+    </div>
+
+    <div class="row featurette">
+        <div class="col-md-6 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">3 этап</h2>
+            <p class="lead">Когда водителю нужно забрать свой автомобиль, он сканирует QR-код в автомате выдачи. Система идентифицирует местоположение автомобиля и автоматически доставляет его к выходу. Весь этот процесс занимает лишь несколько минут, что значительно ускоряет процесс парковки и извлечения автомобиля по сравнению с традиционными парковками.</p>
+        </div>
+        <div class="col-md-6 order-md-1">
+            <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="~/assets/about/work-process/3-stage.jpeg" />
+        </div>
     </div>
 </div>

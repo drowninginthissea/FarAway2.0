@@ -30,6 +30,10 @@ namespace FarAwayClient.Pages
         }
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             if (!context.Users.Any(u => u.Login == Input.Login)) // user not found situation
             {
                 ModelState.AddModelError("", "Неверный логин или пароль!");

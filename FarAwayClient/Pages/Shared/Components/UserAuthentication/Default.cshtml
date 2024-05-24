@@ -6,12 +6,12 @@
             <img src="@Model" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#">Мои аренды</a></li>
-            <li><a class="dropdown-item" href="#">Арендовать место</a></li>
+            <li><a class="dropdown-item" asp-page="/Account/RentalsView">Мои аренды</a></li>
+            <li><a class="dropdown-item" asp-page="/Account/RentalCreate">Арендовать место</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Выйти</a></li>
+            <li><a class="dropdown-item" asp-page="/SignOut">Выйти</a></li>
         </ul>
     </div>
 }
