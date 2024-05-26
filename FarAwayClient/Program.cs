@@ -47,7 +47,12 @@ namespace FarAwayClient
             }
             app.UseSession();
 
-            
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Session.SetInt32(Literals.UserSessionKey, 1);
+            //    await next.Invoke();
+            //});
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

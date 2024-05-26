@@ -7,24 +7,24 @@
       "destination": "wwwroot/lib/bootstrap/"
     },
     {
-      "library": "jquery@3.7.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
-      "library": "jquery-validate@1.20.0",
-      "destination": "wwwroot/lib/jquery-validate/",
-      "files": [
-        "jquery.validate.min.js",
-        "jquery.validate.js",
-        "additional-methods.min.js",
-        "additional-methods.js"
-      ]
-    },
-    {
       "library": "popper.js@2.11.8",
       "destination": "wwwroot/lib/popper.js/",
       "files": [
         "umd/popper.min.js"
+      ]
+    },
+    {
+      "library": "inputmask@4.0.9",
+      "destination": "wwwroot/lib/inputmask/",
+      "files": [
+        "jquery.inputmask.bundle.min.js",
+        "inputmask/dependencyLibs/inputmask.dependencyLib.min.js",
+        "inputmask/bindings/inputmask.binding.min.js",
+        "inputmask/inputmask.date.extensions.min.js",
+        "inputmask/inputmask.extensions.min.js",
+        "inputmask/inputmask.min.js",
+        "inputmask/inputmask.numeric.extensions.min.js",
+        "inputmask/jquery.inputmask.min.js"
       ]
     }
   ]

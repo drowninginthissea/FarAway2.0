@@ -21,9 +21,9 @@
             </a>
 
             <ul class="nav nav-pills text-dark">
-                <li class="nav-item"><a asp-page="/Index" class="nav-link @Html.IsActive("/Index")" aria-current="page">Главная</a></li>
-                <li class="nav-item"><a asp-page="/AboutCompany" class="nav-link @Html.IsActive("/AboutCompany")">О компании</a></li>
-                <li class="nav-item"><a asp-page="/Contacts" class="nav-link @Html.IsActive("/Contacts")">Контакты</a></li>
+                <li class="nav-item"><a asp-page="/Index" class="px-2 nav-link @Html.IsActive("/Index")" aria-current="page">Главная</a></li>
+                <li class="nav-item"><a asp-page="/AboutCompany" class="px-2 nav-link @Html.IsActive("/AboutCompany")">О компании</a></li>
+                <li class="nav-item"><a asp-page="/Contacts" class="px-2 nav-link @Html.IsActive("/Contacts")">Контакты</a></li>
                 @await Component.InvokeAsync("UserAuthentication")
             </ul>
         </header>

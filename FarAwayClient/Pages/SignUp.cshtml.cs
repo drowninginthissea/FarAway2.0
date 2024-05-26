@@ -3,9 +3,7 @@ using FarAwayClient.Services;
 using FarAwayClient.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarAwayClient.Pages
 {
@@ -61,6 +59,11 @@ namespace FarAwayClient.Pages
         public void OnGet() { }
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             if (context.Users.Any(u => u.Login == Input.Login))
             {
 				ModelState.AddModelError("", "ѕользователь с таким логином уже существует!");
@@ -94,7 +97,7 @@ namespace FarAwayClient.Pages
 
             context.Add(newUser);
             context.SaveChanges();
-            
+
             TempData["ShowModal"] = true;
 
             return RedirectToPage("/SignUp");

@@ -4,85 +4,186 @@
     ViewData["Title"] = "Регистрация";
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/fullheightstyle.css" asp-append-version="true" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-signin {
+            max-width: 450px;
+            padding: 1rem;
+        }
+
+            .form-signin .form-floating:focus-within {
+                z-index: 2;
+            }
+
+            .form-signin input[type="email"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+    </style>
 }
-<div class="content-wrapper">
-    <div class="form-paddings">
-        <form method="post" asp-antiforgery="true" enctype="multipart/form-data" class="auth-reg-form">
-            <div class="form-group">
-                <h3 class="text-center">Форма регистрации</h3>
+
+<div class="form-signin m-auto w-100">
+    <form method="post" asp-antiforgery="true" enctype="multipart/form-data">
+        <div class="d-flex flex-column align-items-center">
+            <img class="mb-2" src="~/assets/LogoNoText.png" alt="" height="40">
+            <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+        </div>
+
+        <div class="mb-1">
+            <label asp-for="Input.Surname">Фамилия<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5m0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </span>
+                <input type="text" asp-for="Input.Surname" class="form-control" placeholder="Введите фамилию...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Surname" class="margin-bottom-5">Фамилия</label><br />
-                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Surname" placeholder="Введите фамилию..." />
-                <span asp-validation-for="Input.Surname"></span>
+            <span asp-validation-for="Input.Surname"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Name">Имя<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5m0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </span>
+                <input type="text" asp-for="Input.Name" class="form-control" placeholder="Введите имя...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Name" class="margin-bottom-5">Имя</label><br />
-                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Name" placeholder="Введите имя..." />
-                <span asp-validation-for="Input.Name"></span>
+            <span asp-validation-for="Input.Name"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Patronymic">Отчество</label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5m0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </span>
+                <input type="text" asp-for="Input.Patronymic" class="form-control" placeholder="Введите отчество...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Patronymic" class="margin-bottom-5">Отчество</label><br />
-                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Patronymic" placeholder="Введите отчество..." />
-                <span asp-validation-for="Input.Patronymic"></span>
+            <span asp-validation-for="Input.Patronymic"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Email">Электронная почта<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+                    </svg>
+                </span>
+                <input type="email" asp-for="Input.Email" class="form-control" placeholder="Введите электронную почту...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Email" class="margin-bottom-5">Электронная почта</label><br />
-                <input class="form-control margin-bottom-5" type="email" asp-for="Input.Email" placeholder="Введите электронную почту..." />
-                <span asp-validation-for="Input.Email"></span>
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Login">Логин<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                </span>
+                <input type="text" asp-for="Input.Login" class="form-control" placeholder="Введите логин...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Login" class="margin-bottom-5">Логин</label><br />
-                <input class="form-control margin-bottom-5" type="text" asp-for="Input.Login" placeholder="Введите логин..." />
-                <span asp-validation-for="Input.Login"></span>
+            <span asp-validation-for="Input.Login"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Password">Пароль<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5" />
+                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                    </svg>
+                </span>
+                <input type="password" asp-for="Input.Password" class="form-control mb-0" placeholder="Введите пароль...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password" class="margin-bottom-5">Пароль</label><br />
-                <input class="form-control margin-bottom-5" type="password" asp-for="Input.Password" placeholder="Введите пароль..." />
-                <span asp-validation-for="Input.Password"></span>
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.ConfirmPassword">Подтверждение пароля<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5" />
+                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                    </svg>
+                </span>
+                <input type="password" asp-for="Input.ConfirmPassword" class="form-control mb-0" placeholder="Введите пароль...">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword" class="margin-bottom-5">Подтверждение пароля</label><br />
-                <input class="form-control margin-bottom-5" type="password" asp-for="Input.ConfirmPassword" placeholder="Введите пароль..." />
-                <span asp-validation-for="Input.ConfirmPassword"></span>
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.PhoneNumber">Номер телефона<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                    </svg>
+                </span>
+                <input type="text" asp-for="Input.PhoneNumber" class="form-control" placeholder="Введите номер телефона..." id="phone-number-input">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber" class="margin-bottom-5">Номер телефона</label><br />
-                <input class="form-control margin-bottom-5" type="text" asp-for="Input.PhoneNumber" data-mask="+7 (000) 000-00-00" placeholder="Введите номер телефона..." />
-                <span asp-validation-for="Input.PhoneNumber"></span>
+            <span asp-validation-for="Input.PhoneNumber"></span>
+        </div>
+
+        <div class="my-1">
+            <label asp-for="Input.Photo">Фото профиля<span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z" />
+                    </svg>
+                </span>
+                <input type="file" asp-for="Input.Photo" class="form-control">
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Photo" class="margin-bottom-5">Фото профиля</label><br />
-                <input class="form-control margin-bottom-5 border-none" type="file" asp-for="Input.Photo" />
-                <span asp-validation-for="Input.Photo"></span>
-            </div>
-            <div class="form-group">
-                <div class="validation" asp-validation-summary="ModelOnly"></div>
-            </div>
-            <div class="form-group">
-                <a asp-page="/SignIn">Вход</a>
-            </div>
-            <div class="form-group">
-                <button class="btn black-gray-background btn-block" type="submit">Зарегистрироваться</button>
-            </div>
-        </form>
-    </div>
+            <span asp-validation-for="Input.Photo"></span>
+        </div>
+
+        <div class="validation mt-1" asp-validation-summary="ModelOnly"></div>
+
+        <button class="btn btn-primary w-100 py-2 mt-2" type="submit">Зарегистрироваться</button>
+        <p class="mt-2 mb-3 text-body-secondary">&copy; 2022–2024</p>
+    </form>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="success-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registrationModalLabel">Успешная регистрация</h5>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Успешная регистрация</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Пользователь успешно зарегистрирован!
+                <p>Пользователь успешно зарегистрирован!</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" id="close-modal-button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
@@ -90,17 +191,28 @@
 @section Scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+    <script src="~/js/imask.js"></script>
     <script>
+        const element = document.getElementById('phone-number-input');
+        const maskOptions = {
+            mask: '+{7} (000) 000-00-00'
+        };
+        const mask = IMask(element, maskOptions);
+
         document.addEventListener('DOMContentLoaded', function () {
             @if (TempData["ShowModal"] != null && (bool)TempData["ShowModal"])
             {
                 <text>
-                    $(document).ready(function () {
-                        $('#registrationModal').modal('show');
-                    });
+                        $(document).ready(function () {
+                        $('#success-modal').modal('show');
+                        });
                 </text>
             }
+
+            document.getElementById('success-modal').addEventListener('hidden.bs.modal', event => {
+                window.location.href = '/SignIn';
+            })
         });
     </script>
 }
