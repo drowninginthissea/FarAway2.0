@@ -16,6 +16,15 @@ input.input-validation-error /* класс для input при ошибке валидации */ {
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
+select.input-validation-error /* класс для input при ошибке валидации */ {
+    border-color: var(--bs-form-invalid-border-color);
+    padding-right: calc(1.5em + .75rem);
+    background-image: url('../assets/icons/exclamation-circle.svg');
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
 .validation-summary-errors /* ошибки валидации модели */ {
     font-size: .875em;
     color: var(--bs-form-invalid-color);
@@ -69,3 +78,33 @@ input[type="checkbox"].input-validation-error /* класс для input (checkbox) при 
         margin-top: 7rem;
     }
 }
+
+.map {
+    height:230px;
+}
+
+.custom-marker {
+    position: absolute;
+    top: -48px;
+    left: -24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.marker-icon img {
+    width: 48px; /* Ширина иконки */
+    height: 48px; /* Высота иконки */
+}
+
+.marker-text {
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    padding: 3px 5px;
+    border-radius: 5px;
+}
+
+    .marker-text p {
+        margin: 0;
+        white-space: nowrap;
+    }

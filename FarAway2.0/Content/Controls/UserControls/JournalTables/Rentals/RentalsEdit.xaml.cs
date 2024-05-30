@@ -185,7 +185,9 @@ namespace FarAway2._0.Content.Controls.UserControls.JournalTables.Rentals
                     .Min(s => s.id);
                 ParkingSpaceRental Instance = new ParkingSpaceRental()
                 {
-                    idTypeOfRentByDuration = GetTypeByDurationWhenNull().id,
+                    idTypeOfRentByDuration = (_endDate.HasValue ?
+                    (TypeOfRentalByDurationCB.SelectedItem as TypeOfRentByDuration).id :
+                    GetTypeByDurationWhenNull().id),
                     idUser = (ClientCB.SelectedItem as Entities.Users).id,
                     idParkingSpot = SpotId,
                     RentalStartDate = _startDate.Value,

@@ -27,6 +27,17 @@
                           Visibility="Visible">
                     <DataGrid.Columns>
 
+                        <DataGridTemplateColumn Header="Действие">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="EditButton"
+                                            Click="EditButton_Click"
+                                            Style="{StaticResource EditButtonInDG}"
+                                            Content="{StaticResource PencilIcon}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTextColumn Header="Адрес"
                                             Binding="{Binding Address}"
                                             Width="200">
@@ -116,16 +127,7 @@
                         </DataGridTextColumn>
 
 
-                        <DataGridTemplateColumn Header="Действие">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
-                                            Style="{StaticResource EditButtonInDG}"
-                                            Content="{StaticResource PencilIcon}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

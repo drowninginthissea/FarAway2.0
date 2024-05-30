@@ -3,10 +3,6 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "bootstrap@5.3.3",
-      "destination": "wwwroot/lib/bootstrap/"
-    },
-    {
       "library": "popper.js@2.11.8",
       "destination": "wwwroot/lib/popper.js/",
       "files": [
@@ -14,17 +10,13 @@
       ]
     },
     {
-      "library": "inputmask@4.0.9",
-      "destination": "wwwroot/lib/inputmask/",
+      "provider": "cdnjs",
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/",
       "files": [
-        "jquery.inputmask.bundle.min.js",
-        "inputmask/dependencyLibs/inputmask.dependencyLib.min.js",
-        "inputmask/bindings/inputmask.binding.min.js",
-        "inputmask/inputmask.date.extensions.min.js",
-        "inputmask/inputmask.extensions.min.js",
-        "inputmask/inputmask.min.js",
-        "inputmask/inputmask.numeric.extensions.min.js",
-        "inputmask/jquery.inputmask.min.js"
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.min.js",
+        "js/bootstrap.min.js"
       ]
     }
   ]

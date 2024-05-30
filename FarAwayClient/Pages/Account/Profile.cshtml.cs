@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FarAwayClient.Pages.Account
 {
-    public class InputModel
+    public class ProfileInputModel
     {
         [Required(ErrorMessage = "Фамилия не введена")]
         [StringLength(40, MinimumLength = 3, ErrorMessage = "Длина фамилии должна быть от 3 до 40 символов")]
@@ -57,7 +57,7 @@ namespace FarAwayClient.Pages.Account
             this.context = context;
         }
         [BindProperty]
-        public InputModel Input { get; set; }
+        public ProfileInputModel Input { get; set; }
         public IActionResult OnGetOut()
         {
             HttpContext.Session.Remove(Literals.UserSessionKey);

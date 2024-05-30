@@ -1,0 +1,218 @@
+﻿@page "{id:int}"
+@model FarAwayClient.Pages.Account.CheckOutModel
+@{
+    ViewData["Title"] = "Аренда п/м";
+    SelectList TypesOfRent = new SelectList(Model.Context.TypeOfRentByDurations.ToList(), "Id", "TypeName");
+    decimal PriceOfRentPerDay = (ViewData["CostPerDay"] as decimal?).Value;
+    string Address = ViewData["Address"] as string;
+    int BranchId = (ViewData["id"] as int?).Value;
+}
+@section Styles {
+    <style>
+        html,
+        body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+}
+
+<div class="container px-4 pt-4 m-auto">
+    <h1 class="pb-2 border-bottom text-center mb-5">Аренда парковочного места</></h1>
+    <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+            <h4 class="d-flex align-items-center mb-3">Корзина</h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">Количество дней аренды</h6>
+                    </div>
+                    <span id="rental-days" class="text-body-secondary"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">Коэффициент удорожания цены</h6>
+                    </div>
+                    <span id="price-coefficient" class="text-body-secondary"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">Стоимость 1 дня аренды (₽)</h6>
+                    </div>
+                    <span class="text-body-secondary">@PriceOfRentPerDay</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Итого (₽)</span>
+                    <strong id="total-price"></strong>
+                </li>
+            </ul>
+
+
+        </div>
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Данные аренды</h4>
+            <form method="post" asp-antiforgery="true">
+                <div class="row g-3">
+                    <input type="text" type="hidden" asp-for="Input.Id" class="form-control" id="rental-id" value="@BranchId" />
+                    <input type="number" type="hidden" asp-for="Input.CountOfDays" class="form-control" id="count-of-days-input" />
+                    <input type="text" type="hidden" asp-for="Input.TotalPrice" class="form-control" id="total-price-input" />
+                    
+                    <div class="col-12">
+                        <p class="text-start mb-0">Аренда парковочного места по адресу: @Address</p>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <label asp-for="Input.StartDate" class="form-label">Дата начала аренды</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A13 13 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23" />
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </span>
+                            <input type="date" asp-for="Input.StartDate" class="form-control rounded-end" id="start-date-input" value="@DateTime.Today.ToString("yyyy-MM-dd")" readonly>
+                        </div>
+                        <span asp-validation-for="Input.StartDate"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label asp-for="Input.EndDate" class="form-label">Дата окончания аренды</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                                    <path d="M6.445 11.688V6.354h-.633A13 13 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23" />
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                </svg>
+                            </span>
+                            <input type="date" asp-for="Input.EndDate" class="form-control rounded-end" id="end-date-input" min="@DateTime.Today.ToString("yyyy-MM-dd")">
+                        </div>
+                        <span asp-validation-for="Input.EndDate"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Input.TypeOfRent" class="form-label">Тип аренды по длительности</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                                    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                                    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                                </svg>
+                            </span>
+                            <select asp-for="Input.TypeOfRent" asp-items="TypesOfRent" class="form-control" id="type-of-rent" style="pointer-events:none;">
+                                <option selected="selected" disabled="disabled">Здесь будет отображаться тип</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Input.TypeOfRent"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Расчёт стоимости аренды <span class="text-body-secondary">(типы аренды по длительности)</span></label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Количество дней аренды</th>
+                                    <th scope="col">Название типа</th>
+                                    <th scope="col">Коэффициент удорожания цены</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>1-5</td>
+                                    <td>Кратковременная аренда</td>
+                                    <td>1.5</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>6-30</td>
+                                    <td>Средняя по продолжительности аренда</td>
+                                    <td>1.25</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>31-∞</td>
+                                    <td>Долговременная аренда</td>
+                                    <td>1.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-start">Расчёт итоговой стоимости аренды производиться из расчёта следующей формулы: (количество дней * стоимость 1 дня аренды) * коэффициент удорожания цены</p>
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <h4 class="mb-3">Способ оплаты</h4>
+
+                <div class="my-3">
+                    <div class="form-check">
+                        <input asp-for="Input.PaymentMethod" id="credit" type="radio" class="form-check-input" value="Credit">
+                        <label class="form-check-label" for="credit">Кредитная карта</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Input.PaymentMethod" id="debit" type="radio" class="form-check-input" value="Debit" checked>
+                        <label class="form-check-label" for="debit">Дебитовая карта</label>
+                    </div>
+                    <span asp-validation-for="Input.PaymentMethod"></span>
+                </div>
+
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label asp-for="Input.CardName" class="form-label">Имя держателя карты</label>
+                        <input asp-for="Input.CardName" type="text" class="form-control" placeholder="NAME SURNAME">
+                        <small class="text-body-secondary">Полное имя, указанное на карте</small> <br />
+                        <span asp-validation-for="Input.CardName"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.CardNumber" class="form-label">Номер карты</label>
+                        <input asp-for="Input.CardNumber" type="text" id="card-number-input" class="form-control" placeholder="1234 5678 9012 3456">
+                        <span asp-validation-for="Input.CardNumber"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.CardExpiration" class="form-label">Срок действия карты</label>
+                        <input asp-for="Input.CardExpiration" type="text" class="form-control" id="card-expiration-input" placeholder="06/16 или 06/2016">
+                        <small class="text-body-secondary">Срок действия карты, как указано на карте</small> <br />
+                        <span asp-validation-for="Input.CardExpiration"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Input.CardCVV" class="form-label">CVV</label>
+                        <input asp-for="Input.CardCVV" type="password" class="form-control" id="card-cvv-input" placeholder="789 или 6789">
+                        <span asp-validation-for="Input.CardCVV"></span>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Оплатить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/checkout-logic.js"></script>
+    <script src="~/js/imask.js"></script>
+    <script>
+        IMask(document.getElementById('card-number-input'), {
+            mask: '0000 0000 0000 0000'
+        });
+        IMask(document.getElementById('card-expiration-input'), {
+            mask: '00/0000'
+        });
+        IMask(document.getElementById('card-cvv-input'), {
+            mask: [
+                { mask: '000' },
+                { mask: '0000' },
+            ]
+        });
+    </script>
+}

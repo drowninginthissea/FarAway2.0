@@ -34,6 +34,17 @@
                           Visibility="Visible">
                     <DataGrid.Columns>
 
+                        <DataGridTemplateColumn Header="Действие">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="EditButton"
+                                            Click="EditButton_Click"
+                                            Style="{StaticResource EditButtonInDG}"
+                                            Content="{StaticResource PencilIcon}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTextColumn Header="Дата начала аренды"
                                             Binding="{Binding RentalStartDate, StringFormat={}{0:dd.MM.yyyy}}">
                             <DataGridTextColumn.ElementStyle>
@@ -118,20 +129,9 @@
                                             CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MyElementStyle}"/>
+                                       BasedOn="{StaticResource MyElementStyle}" />
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                            
-                        <DataGridTemplateColumn Header="Действие">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="EditButton"
-                                            Click="EditButton_Click"
-                                            Style="{StaticResource EditButtonInDG}"
-                                            Content="{StaticResource PencilIcon}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
