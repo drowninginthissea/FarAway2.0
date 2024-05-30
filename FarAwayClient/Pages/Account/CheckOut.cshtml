@@ -176,7 +176,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="Input.CardExpiration" class="form-label">Срок действия карты</label>
-                        <input asp-for="Input.CardExpiration" type="text" class="form-control" id="card-expiration-input" placeholder="06/16 или 06/2016">
+                        <input asp-for="Input.CardExpiration" type="text" class="form-control" id="card-expiration-input" placeholder="06/16">
                         <small class="text-body-secondary">Срок действия карты, как указано на карте</small> <br />
                         <span asp-validation-for="Input.CardExpiration"></span>
                     </div>
@@ -206,7 +206,7 @@
             mask: '0000 0000 0000 0000'
         });
         IMask(document.getElementById('card-expiration-input'), {
-            mask: '00/0000'
+            mask: '00/00'
         });
         IMask(document.getElementById('card-cvv-input'), {
             mask: [

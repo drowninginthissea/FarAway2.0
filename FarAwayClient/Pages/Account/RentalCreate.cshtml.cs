@@ -1,6 +1,7 @@
 using FarAwayClient.Models;
 using FarAwayClient.Services;
 using FarAwayClient.Tools;
+using FarAwayClient.Tools.DbEnums;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace FarAwayClient.Pages.Account
         public async Task<string> GetCoordinatesAsync(string address)
         {
             (double longitude, double latitude) = await _geocoder.GetCoordinatesAsync(address);
-            return $"{longitude} {latitude}";
+            return $"{longitude} {latitude}".Replace(',', '.');
         }
     }
 }

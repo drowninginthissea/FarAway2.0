@@ -1,4 +1,4 @@
-﻿namespace FarAwayClient.Tools
+﻿namespace FarAwayClient.Tools.DbEnums
 {
     public static class ParkingSpotsStatuses
     {

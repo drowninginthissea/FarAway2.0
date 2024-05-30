@@ -1,5 +1,6 @@
 using FarAwayClient.Models;
 using FarAwayClient.Tools;
+using FarAwayClient.Tools.DbEnums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,7 @@ namespace FarAwayClient.Pages.Account
         [Range(1, 3, ErrorMessage = "Тип аренды по длительности определен неверно!")]
         public int TypeOfRent { get; set; }
 
-        
+
         [Required(ErrorMessage = "Требуется выбрать способ оплаты!")]
         public string PaymentMethod { get; set; }
 
@@ -36,7 +37,7 @@ namespace FarAwayClient.Pages.Account
         public string CardNumber { get; set; }
 
         [Required(ErrorMessage = "Срок действия карты не введён")]
-        [RegularExpression(@"^(0[1-9]|1[0-2])\/([0-9]{4}|[0-9]{2})$", ErrorMessage = "Некорректный срок действия карты!")]
+        [RegularExpression(@"^\d{2}\/\d{2}$", ErrorMessage = "Некорректный срок действия карты!")]
         public string CardExpiration { get; set; }
 
         [Required(ErrorMessage = "CVV код не введён!")]
@@ -111,7 +112,30 @@ namespace FarAwayClient.Pages.Account
                 ViewData["Address"] = CurrentBranch.Address;
                 return Page();
             }
-            return RedirectToPage("/Account/Profile");
+
+            int ParkingSpotRentingId = CurrentBranch.ParkingSpots.Where(s => s.IdParkingSpotStatus == ParkingSpotsStatuses.Available).First().Id;
+
+            ParkingSpaceRental rent = new ParkingSpaceRental()
+            {
+                IdTypeOfRentByDuration = Input.TypeOfRent,
+                IdUser = HttpContext.Session.GetInt32(Literals.UserSessionKey).Value,
+                IdParkingSpot = ParkingSpotRentingId,
+                RentalStartDate = new DateTime(Input.StartDate.Year, Input.StartDate.Month, Input.StartDate.Day),
+                RentEndDate = new DateTime(Input.EndDate.Value.Year, Input.EndDate.Value.Month, Input.EndDate.Value.Day),
+                TotalPrice = Input.TotalPrice,
+                IdRentalStatus = RentalStatuses.Active
+            };
+
+            Context.ParkingSpots.Find(ParkingSpotRentingId).IdParkingSpotStatus = ParkingSpotsStatuses.Occupied;
+
+            Context.ParkingSpaceRentals.Add(rent);
+            Context.SaveChanges();
+
+            // logic of money transaction
+
+            TempData["SpotNumber"] = ParkingSpotRentingId;
+
+            return RedirectToPage("/Account/SuccessCheckedOut");
         }
     }
 }

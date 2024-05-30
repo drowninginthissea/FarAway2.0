@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -19,8 +20,8 @@ namespace FarAwayClient.Services
             string response = await _httpClient.GetStringAsync($"https://geocode-maps.yandex.ru/1.x/?apikey={_apiKey}&geocode={address}&format=json");
             JObject json = JObject.Parse(response);
             string[] positions = json["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].ToString().Split(' ');
-            double longitude = double.Parse(positions[0]);
-            double latitude = double.Parse(positions[1]);
+            double longitude = double.Parse(positions[0], CultureInfo.InvariantCulture);
+            double latitude = double.Parse(positions[1], CultureInfo.InvariantCulture);
             return (longitude, latitude);
         }
     }

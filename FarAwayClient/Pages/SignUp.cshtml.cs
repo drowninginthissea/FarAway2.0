@@ -1,6 +1,7 @@
 using FarAwayClient.Models;
 using FarAwayClient.Services;
 using FarAwayClient.Tools;
+using FarAwayClient.Tools.DbEnums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;

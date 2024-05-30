@@ -3,6 +3,7 @@ using FarAwayClient.Services;
 using FarAwayClient.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 
 namespace FarAwayClient
 {
@@ -57,6 +58,11 @@ namespace FarAwayClient
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            var cultureInfo = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             app.UseSession();
 
 

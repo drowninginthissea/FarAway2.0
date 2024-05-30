@@ -1,0 +1,20 @@
+﻿@page
+@model FarAwayClient.Pages.Account.SuccessCheckedOutModel
+@{
+    ViewData["Title"] = "Успешная аренда";
+}
+@section Styles {
+    <style>
+        html,
+        body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+}
+<div class="container px-4 pt-4 m-auto text-center">
+    <h1 class="mb-3">Аренда парковочного места №@TempData["SpotNumber"] успешно произведена!</></h1>
+    <h2>Теперь Вы можете просмотреть её в разделе "Мои аренды"</></h2>
+</div>
+
