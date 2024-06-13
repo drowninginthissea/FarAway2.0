@@ -13,13 +13,11 @@ namespace FarAwayClient.Pages.Account
         private readonly Db _context;
         private readonly Geocoder _geocoder;
         private readonly IConfiguration _configuration;
-        public readonly ILogger<RentalCreateModel> Logger;
         public RentalCreateModel(Db context, Geocoder geocoder, IConfiguration configuration, ILogger<RentalCreateModel> logger)
         {
             _context = context;
             _geocoder = geocoder;
             _configuration = configuration;
-            Logger = logger;
         }
         public IList<Branch> Branches { get; set; }
         public string ApiKey { get; private set; }

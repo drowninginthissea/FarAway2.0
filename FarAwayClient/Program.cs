@@ -44,7 +44,7 @@ namespace FarAwayClient
             {
                 option.AddPolicy(name: MyAllowSpecificOrigins, policy =>
                 {
-                    policy.WithOrigins("http://192.168.0.100:7191").AllowAnyMethod().AllowAnyHeader();
+                    policy.WithOrigins("http://192.168.0.104:7191").AllowAnyMethod().AllowAnyHeader();
                 });
             });
 
@@ -66,11 +66,11 @@ namespace FarAwayClient
             app.UseSession();
 
 
-            app.Use(async (context, next) =>
-            {
-                context.Session.SetInt32(Literals.UserSessionKey, 1);
-                await next.Invoke();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Session.SetInt32(Literals.UserSessionKey, 1);
+            //    await next.Invoke();
+            //});
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

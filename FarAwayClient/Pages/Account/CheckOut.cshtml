@@ -18,7 +18,7 @@
     </style>
 }
 
-<div class="container px-4 pt-4 m-auto">
+<div class="container px-4 pt-0 m-auto">
     <h1 class="pb-2 border-bottom text-center mb-5">Аренда парковочного места</></h1>
     <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
@@ -163,7 +163,7 @@
                 <div class="row gy-3">
                     <div class="col-md-6">
                         <label asp-for="Input.CardName" class="form-label">Имя держателя карты</label>
-                        <input asp-for="Input.CardName" type="text" class="form-control" placeholder="NAME SURNAME">
+                        <input asp-for="Input.CardName" type="text" class="form-control" placeholder="NAME SURNAME" style="text-transform: uppercase;">
                         <small class="text-body-secondary">Полное имя, указанное на карте</small> <br />
                         <span asp-validation-for="Input.CardName"></span>
                     </div>

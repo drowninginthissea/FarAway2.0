@@ -1,9 +1,86 @@
 ﻿@page
+@using FarAwayClient.Models
+@using FarAwayClient.Tools.DbEnums
 @model FarAwayClient.Pages.Account.RentalsViewModel
 @{
     ViewData["Title"] = "Аренды п/м";
 }
 @section Styles {
-    <link rel="stylesheet" href="~/css/fullheightstyle.css" asp-append-version="true" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 }
-<h2 class="tittle">Мои аренды</h2>
+
+<div class="container px-4 pt-0 mb-auto">
+    <h1 class="pb-2 border-bottom text-center mb-5">Активные аренды парковочных мест</h1>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach (ParkingSpaceRental rent in Model.Rents.Where(r => r.IdRentalStatus == RentalStatuses.Active))
+        {
+            string coordinates = await Model.GetCoordinatesAsync(rent.IdParkingSpotNavigation.IdBranchNavigation.Address);
+
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div id="map-@rent.IdParkingSpotNavigation.IdBranchNavigation.Id" class="map card-img-top" width="100%" height="225" data-coordinates="@coordinates" data-address="@rent.IdParkingSpotNavigation.IdBranchNavigation.Address"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Аренда парковочного места №@rent.IdParkingSpotNavigation.Id</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Адрес парковки: @rent.IdParkingSpotNavigation.IdBranchNavigation.Address</h6>
+                        <p class="card-text mb-0">@($"{@rent.RentalStartDate:dd.MM.yyyy}")-@($"{@rent.RentEndDate:dd.MM.yyyy}")</p>
+                        <p class="card-text mb-0">Тип аренды: @rent.IdTypeOfRentByDurationNavigation.TypeName</p>
+                        <p class="card-text">Итоговая цена аренды: @rent.TotalPrice ₽</p>
+                        <button type="button" class="btn btn-primary show-qr-code" data-rent-id="@rent.Id">Показать QR-код</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.Rents.Where(r => r.IdRentalStatus == RentalStatuses.Completed).Count() >= 1)
+    {
+        <h1 class="pb-2 border-bottom text-center my-5">Завершённые аренды парковочных мест</h1>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach (ParkingSpaceRental rent in Model.Rents.Where(r => r.IdRentalStatus == RentalStatuses.Completed))
+        {
+            string coordinates = await Model.GetCoordinatesAsync(rent.IdParkingSpotNavigation.IdBranchNavigation.Address);
+
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div id="map-@rent.IdParkingSpotNavigation.IdBranchNavigation.Id" class="map card-img-top" width="100%" height="225" data-coordinates="@coordinates" data-address="@rent.IdParkingSpotNavigation.IdBranchNavigation.Address"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Аренда парковочного места №@rent.IdParkingSpotNavigation.Id</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Адрес парковки: @rent.IdParkingSpotNavigation.IdBranchNavigation.Address</h6>
+                        <p class="card-text mb-0">@($"{@rent.RentalStartDate:dd.MM.yyyy}")-@($"{@rent.RentEndDate:dd.MM.yyyy}")</p>
+                        <p class="card-text mb-0">Тип аренды: @rent.IdTypeOfRentByDurationNavigation.TypeName</p>
+                        <p class="card-text mb-0">Итоговая цена аренды: @rent.TotalPrice ₽</p>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4" id="qrCodeModalLabel">QR-код для валидации</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <img id="qrCodeImage" src="" alt="QR Code" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://api-maps.yandex.ru/v3/?apikey=@Model.ApiKey&lang=ru_RU"></script>
+    <script src="~/js/yandex-maps.js"></script>
+    <script src="~/js/qr-code-displayer.js"></script>
+}
